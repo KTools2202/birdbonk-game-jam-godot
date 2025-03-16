@@ -35,43 +35,56 @@ jobs:
         path: .godot/
         key: game-jam-autobuild-caches-godot-${{ github.repository }}
     
-    - name: Install wine
-      run: sudo apt update && sudo apt install -y wine64
-    
-    - name: Download rcedit
+    - name: Install Wine for Windows EXE logo
+      id: wine_install
       run: |
-        mkdir -p ~/.wine/drive_c/rcedit
-        curl -L -o ~/.wine/drive_c/rcedit/rcedit.exe https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
-    
-    - name: Configure rcedit path
-      run: echo "GODOT_WINDOWS_RCEDIT=wine64 ~/.wine/drive_c/rcedit/rcedit.exe" >> $GITHUB_ENV      
+        sudo apt install wine64
+        echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
 
-    # Download the Linux Godot export binary (for example, version 3.5.1).
-    - name: Setup Godot Action
-      uses: chickensoft-games/setup-godot@v2.1.1
+    - name: Export Godot project
+      id: export-normal
+      uses: firebelley/godot-export@v6.0.0
       with:
-        version: 4.4.0
-        use-dotnet: false
-        include-templates: true
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
+        cache: true
+        relative_project_path: "."
+        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
+        archive_output: true
 
-    # Export the project to a Windows executable using the values from the JSON.
-    - name: Export project to Windows executable
-      run: |
-        # Build the output file name using the environment variables
-        mkdir -p dist
-        godot --no-window --headless --export-debug "Target Windows" "dist/${{ env.GAME_NAME }}_${{ env.GAME_VERSION }}-debug.exe"
-        godot --no-window --headless --export-normal "Target Windows" "dist/${{ env.GAME_NAME }}_${{ env.GAME_VERSION }}-normal.exe"
-      env:
-        GAME_NAME: ${{ env.GAME_NAME }}
-        GAME_VERSION: ${{ env.GAME_VERSION }}
-
-    # Upload the entire dist/ folder as an artifact.
-    - name: Upload build artifact
-      id: upload_artifact
+    - name: Export debug version
+      id: export-debug
+      uses: firebelley/godot-export@v6.0.0
+      with:
+        export_debug: true
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
+        cache: true
+        relative_project_path: "."
+        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
+        archive_output: true
+    
+    - name: Upload archives
       uses: actions/upload-artifact@v4
       with:
-        name: build(windows)-ci-${{ github.sha }}
-        path: dist/
+        name: normal builds
+        path: ${{ steps.export-normal.outputs.build_directory }}/*
+    - name: Upload debug archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug builds
+        path: ${{ steps.export-debug.outputs.build_directory }}/*
+
+    - name: Upload archives
+      uses: actions/upload-artifact@v4
+      with:
+        name: normal build archives
+        path: ${{ steps.export-normal.outputs.archive_directory }}/*
+    - name: Upload debug archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug build archives
+        path: ${{ steps.export-debug.outputs.archive_directory }}/*
 
     # Query the GitHub API for artifact information, extract the artifact download URL, and set it as an output.
     - name: Get artifact download URL
