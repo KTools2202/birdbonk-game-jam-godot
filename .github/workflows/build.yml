@@ -1,0 +1,97 @@
+name: Build Windows Export
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Install required tools for unzipping, Python, and JSON processing
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y unzip jq python3
+    
+      # Set build variables from the JSON config using Python.
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.13
+
+    - name: Set Build Variables
+      run: python3 .github/export_vars.py
+    
+    - name: Restore caches
+      uses: actions/cache@v4
+      with:
+        path: .godot/
+        key: game-jam-autobuild-caches-godot-${{ github.repository }}
+    
+    - name: Install wine
+      run: sudo apt update && sudo apt install -y wine64
+    
+    - name: Download rcedit
+      run: |
+        mkdir -p ~/.wine/drive_c/rcedit
+        curl -L -o ~/.wine/drive_c/rcedit/rcedit.exe https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+    
+    - name: Configure rcedit path
+      run: echo "GODOT_WINDOWS_RCEDIT=wine64 ~/.wine/drive_c/rcedit/rcedit.exe" >> $GITHUB_ENV      
+
+    # Download the Linux Godot export binary (for example, version 3.5.1).
+    - name: Setup Godot Action
+      uses: chickensoft-games/setup-godot@v2.1.1
+      with:
+        version: 4.4.0
+        use-dotnet: false
+        include-templates: true
+
+    # Export the project to a Windows executable using the values from the JSON.
+    - name: Export project to Windows executable
+      run: |
+        # Build the output file name using the environment variables
+        mkdir -p dist
+        godot --no-window --headless --export-debug "Target Windows" "dist/${{ env.GAME_NAME }}_${{ env.GAME_VERSION }}-debug.exe"
+        godot --no-window --headless --export-normal "Target Windows" "dist/${{ env.GAME_NAME }}_${{ env.GAME_VERSION }}-normal.exe"
+      env:
+        GAME_NAME: ${{ env.GAME_NAME }}
+        GAME_VERSION: ${{ env.GAME_VERSION }}
+
+    # Upload the entire dist/ folder as an artifact.
+    - name: Upload build artifact
+      id: upload_artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build(windows)-ci-${{ github.sha }}
+        path: dist/
+
+    # Query the GitHub API for artifact information, extract the artifact download URL, and set it as an output.
+    - name: Get artifact download URL
+      id: get_artifact
+      env:
+        REPO: ${{ github.repository }}
+        RUN_ID: ${{ github.run_id }}
+      run: |
+        echo "Fetching artifact download URL..."
+        ARTIFACT_JSON=$(curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/$REPO/actions/runs/$RUN_ID/artifacts")
+        echo "$ARTIFACT_JSON" > artifacts.json
+        ARTIFACT_URL=$(jq -r '.artifacts[0].archive_download_url' artifacts.json)
+        echo "Artifact URL: $ARTIFACT_URL"
+        echo "artifact_url=$ARTIFACT_URL" >> $GITHUB_OUTPUT
+
+    # Post the artifact download URL to a Discord webhook.
+    - name: Post artifact link to Discord
+      run: |
+        curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Commit ${{ github.sha }} now has a build artifact available: ${{ steps.get_artifact.outputs.artifact_url }}\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
