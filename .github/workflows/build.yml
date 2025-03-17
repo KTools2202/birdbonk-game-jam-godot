@@ -65,6 +65,7 @@ jobs:
         archive_output: true
     
     - name: Upload normal build
+      if: ${{ steps.export-normal.outcome == success() }}
       id: normal-build-upload
       uses: actions/upload-artifact@v4
       with:
@@ -89,10 +90,39 @@ jobs:
       with:
         name: debug build archives
         path: ${{ steps.export-debug.outputs.archive_directory }}/*
+      
+    - name: Warn if an upload or build fails
+      id: warn-on-failures
+      run: |
+        if [ "${{ steps.export-normal.outcome }}" != "success()" ]; then
+          curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to build normally!\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
+        if [ "${{ steps.export-debug.outcome }}" != "success()" ]; then
+          curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to build a debug version!\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+        if [ "${{ steps.normal-build-upload.outcome }}" == "failure()" ]; then
+          curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload normal build!\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
+        if [ "${{ steps.debug-build-upload.outcome }}" == "failure()" ]; then
+          curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload debug build!\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
+        if [ "${{ steps.normal-archive-upload.outcome }}" == "failure()" ]; then
+          curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload normal archive!\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
+        if [ "${{ steps.debug-archive-upload.outcome }}" == "failure()" ]; then
+          curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload debug archive!\"}" \
+             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     # Post the artifact download URL to a Discord webhook.
     - name: Post artifact link to Discord
       run: |
         curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Commit ${{ github.sha }} now has a build artifact available! Download it here:\n\nBinaries\n[Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-build-upload.outputs.artifact-url }})\n\nArchives\n[Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }})\n\n-# Artifacts expire after 90 days of being uploaded.\n-# Running into issues? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
+             -d "{\"content\": \"Commit ${{ github.sha }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}) now has a build artifact available! Download it here:\n\nBinaries\n[Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-build-upload.outputs.artifact-url }})\n\nArchives\n[Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }})\n\n-# Artifacts expire after 90 days of being uploaded.\n-# Running into issues? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
