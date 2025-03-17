@@ -94,5 +94,5 @@ jobs:
     - name: Post artifact link to Discord
       run: |
         curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Commit ${{ github.sha }} now has a build artifact available! Download it here:\n\nBinaries\n[Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-build-upload.outputs.artifact-url }})\n\nArchives\n[Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }})\n\n-#Artifacts expire after 90 days of being uploaded.\n-#Running into issues? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
+             -d "{\"content\": \"Commit ${{ github.sha }} now has a build artifact available! Download it here:\n\nBinaries\n[Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-build-upload.outputs.artifact-url }})\n\nArchives\n[Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }})\n\n-# Artifacts expire after 90 days of being uploaded.\n-# Running into issues? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
