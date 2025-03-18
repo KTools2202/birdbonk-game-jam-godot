@@ -104,24 +104,24 @@ jobs:
              ${{ secrets.DISCORD_WEBHOOK_URL }}
         fi
 
-        if [ "${{ steps.normal-build-upload.outcome }}" == "failure" ]; then
+        if [ "${{ steps.normal-build-upload.outcome }}" != "success" ]; then
           curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload normal build!\"}" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) didn't upload normal build!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
         fi
-        if [ "${{ steps.debug-build-upload.outcome }}" == "failure" ]; then
+        if [ "${{ steps.debug-build-upload.outcome }}" != "success" ]; then
           curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload debug build!\"}" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) didn't upload debug build!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
         fi
-        if [ "${{ steps.normal-archive-upload.outcome }}" == "failure" ]; then
+        if [ "${{ steps.normal-archive-upload.outcome }}" != "success" ]; then
           curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload normal archive!\"}" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) didn't upload normal archive!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
         fi
-        if [ "${{ steps.debug-archive-upload.outcome }}" == "failure" ]; then
+        if [ "${{ steps.debug-archive-upload.outcome }}" != "success" ]; then
           curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload debug archive!\"}" \
+             -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) didn't upload debug archive!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
         fi
 
@@ -129,5 +129,5 @@ jobs:
     - name: Post artifact link to Discord
       run: |
         curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"Commit ${{ github.sha }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}) now has a build artifact available! Download it here:\n\nBinaries\n[Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-build-upload.outputs.artifact-url }})\n\nArchives\n[Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }})\n\n-# Artifacts expire after 90 days of being uploaded.\n-# Running into issues? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
+             -d "{\"content\": \"# New builds available!\n## Run info\nCommit [${{ github.sha }}](<https://github.com/${{ github.repository }}/tree/${{ github.sha }})\nSource: [${{ github.repository }}](<https://github.com/${{ github.repository }}>)@[${{ github.ref_name }}](<https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}>) (Repo ID: ${{ github.repository_id }})\nTriggered by: ${{ github.triggering_actor }}\nRun ID: [${{ github.run_id }}](<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}>)\n\n## Game binaries\n[Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-build-upload.outputs.artifact-url }})\n\n## Archives\n[Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) | [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }})\n\n-# Artifacts auto-expire after 90 days of being uploaded, as per org policy.\n-#Artifact link missing? Check to make sure all artifacts were built correctly.\n-# Running into issues with CI? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
