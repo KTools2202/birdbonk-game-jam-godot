@@ -65,7 +65,6 @@ jobs:
         archive_output: true
     
     - name: Upload normal build
-      if: ${{ steps.export-normal.outcome == success() }}
       id: normal-build-upload
       uses: actions/upload-artifact@v4
       with:
@@ -98,23 +97,28 @@ jobs:
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to build normally!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
+        fi
         if [ "${{ steps.export-debug.outcome }}" != "success" ]; then
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to build a debug version!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
+        fi
 
         if [ "${{ steps.normal-build-upload.outcome }}" == "failure" ]; then
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload normal build!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
+        fi
         if [ "${{ steps.debug-build-upload.outcome }}" == "failure" ]; then
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload debug build!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
+        fi
         if [ "${{ steps.normal-archive-upload.outcome }}" == "failure" ]; then
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload normal archive!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
+        fi
         if [ "${{ steps.debug-archive-upload.outcome }}" == "failure" ]; then
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to upload debug archive!\"}" \
