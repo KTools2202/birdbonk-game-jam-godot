@@ -71,26 +71,26 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: normal builds
-        path: ${{ steps.export-normal.outputs.build_directory }}/*
+        path: ${{ github.workspace }}/dist/normal/*
     - name: Upload debug build
       id: debug-build-upload
       uses: actions/upload-artifact@v4
       with:
         name: debug builds
-        path: ${{ steps.export-debug.outputs.build_directory }}/*
+        path: ${{ github.workspace }}/dist/debug/*
 
     - name: Upload archives
       id: normal-archive-upload
       uses: actions/upload-artifact@v4
       with:
         name: normal build archives
-        path: ${{ steps.export-normal.outputs.archive_directory }}/*
+        path: ${{ github.workspace }}/dist/normal/*.zip
     - name: Upload debug archive
       id: debug-archive-upload
       uses: actions/upload-artifact@v4
       with:
         name: debug build archives
-        path: ${{ steps.export-debug.outputs.archive_directory }}/*
+        path: ${{ github.workspace }}/dist/debug/*.zip
       
     - name: Warn if an upload or build fails
       id: warn-on-failures
@@ -130,7 +130,6 @@ jobs:
 
     # Post the artifact download URL to a Discord webhook.
     - name: Post artifact link to Discord
-      if: ${{ steps.warn-on-failures.outcome == failure() }}
       run: |
         curl -H "Content-Type: application/json" \
              -d "{\"content\": \"# New builds available!\n## Run info\n* Commit [${{ github.sha }}](<https://github.com/${{ github.repository }}/tree/${{ github.sha }})\n* Source: [${{ github.repository }}](<https://github.com/${{ github.repository }}>)@[${{ github.ref_name }}](<https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}>) (Repo ID: ${{ github.repository_id }})\n* Triggered by: ${{ github.triggering_actor }}\n* Run ID: [${{ github.run_id }}](<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}>)\n\n## Uploaded artifacts\n### Game Binaries\n* [Normal](${{ steps.normal-build-upload.outputs.artifact-url }}) (SHA-256 hash for validation: ${{ steps.normal-build-upload.outputs.artifact-digest }})\n* [Debug](${{ steps.debug-build-upload.outputs.artifact-url }}) (SHA-256 hash for validation: ${{ steps.debug-build-upload.outputs.artifact-digest }})\n\n### Archives\n* [Normal](${{ steps.normal-archive-upload.outputs.artifact-url }}) (SHA-256 hash for validation: ${{ steps.normal-archive-upload.outputs.artifact-digest }})\n* [Debug](${{ steps.debug-archive-upload.outputs.artifact-url }}) (SHA-256 hash for validation: ${{ steps.debug-archive-upload.outputs.artifact-digest }})\n\n-# Artifacts auto-expire after 90 days of being uploaded, as per org policy.\n-# Artifact link missing? Check to make sure all artifacts were built correctly.\n-# Running into issues with CI? [Open an issue](<https://github.com/KTools2202/birdbonk-game-jam-godot/issues/new>).\"}" \
