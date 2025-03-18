@@ -82,7 +82,6 @@ jobs:
     - name: Warn if an upload or build fails
       id: warn-on-failures
       run: |
-        ls dist/
         if [ "${{ steps.export-normal.outcome }}" != "success" ]; then
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) failed to build normally!\"}" \
@@ -103,7 +102,6 @@ jobs:
           curl -H "Content-Type: application/json" \
              -d "{\"content\": \"Run ID ${{ github.run_id }} (branch ref: ${{ github.repository }}@${{ github.ref_name }}, commit ${{ github.sha }}) didn't upload debug build!\"}" \
              ${{ secrets.DISCORD_WEBHOOK_URL }}
-        fi
         fi
 
     # Post the artifact download URL to a Discord webhook.
