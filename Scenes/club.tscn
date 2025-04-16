@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://0gx5pbfs83ev"]
+
+[ext_resource type="Texture2D" uid="uid://m07ohgmhjoqv" path="res://Sprites/Club.png" id="1_hv0d8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_it8sh"]
+radius = 9.81858
+
+[node name="Club" type="CharacterBody2D"]
+scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.07064, -117.029)
+rotation = 2.11185
+texture = ExtResource("1_hv0d8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.07063, -287.029)
+scale = Vector2(-4.07391, 13.8257)
+shape = SubResource("CircleShape2D_it8sh")
