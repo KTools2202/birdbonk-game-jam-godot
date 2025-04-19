@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 
 @onready var spear: Node2D = $"."
-@onready var animation_timer: Timer = $"Animation timer"
 @onready var sprite: Sprite2D = $Sprite2D
 
 
@@ -25,7 +24,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	
+	queue_free()
 	
 	if Global.weapon1 == true && Global.stone_age == true:
 		show()
@@ -33,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		hide()
 	
 	#Runs repeatedly when action pressed
-	if Input.is_action_pressed("Aim"):
+	if Input.is_action_pressed("attack"):
 			is_holding = true
 			
 	#Runs if action isn't pressed
@@ -41,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		is_holding = false
 	
 	#Runs when action is released
-	if Input.is_action_just_released("Aim"):
+	if Input.is_action_just_released("attack"):
 		thrown = true
 		is_holding = false
 		
@@ -96,3 +95,6 @@ func _physics_process(delta: float) -> void:
 # Saves y position
 func get_yPos():
 	yPos = global_position.y
+	
+
+	

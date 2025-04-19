@@ -11,6 +11,8 @@ const JUMP_VELOCITY = -400.0
 
 func _physics_process(delta: float) -> void:
 	
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

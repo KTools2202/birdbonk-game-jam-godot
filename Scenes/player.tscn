@@ -8,7 +8,9 @@ size = Vector2(424.837, 25.6178)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-1, -4)
-scale = Vector2(0.451016, 0.792658)
+scale = Vector2(0.684375, 0.576609)
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_hvm8t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
