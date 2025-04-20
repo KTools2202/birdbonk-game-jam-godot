@@ -20,14 +20,26 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	if Input.is_action_pressed("Ability"):
-		Global.use_ability = true
-		#Caveman ability repels people
-		if ray_cast_left.is_colliding() && Global.stone_age == true:
-			position += Vector2.RIGHT * run_speed * delta
+	if Global.stone_age == true:
+		if Input.is_action_pressed("Ability"):
+			Global.use_ability = true
+			#Caveman ability repels people
+			if ray_cast_left.is_colliding():
+				position += Vector2.RIGHT * run_speed * delta
 		
-		if ray_cast_right.is_colliding():
-			position += Vector2.LEFT * run_speed * delta
+			if ray_cast_right.is_colliding():
+				position += Vector2.LEFT * run_speed * delta
+	
+	if Global.medieval_age == true:
+		if Input.is_action_pressed("Ability"):
+			Global.use_ability = true
+			#Caveman ability repels people
+			if ray_cast_left.is_colliding():
+				position += Vector2.LEFT * run_speed * delta
+				
+		
+			if ray_cast_right.is_colliding():
+				position += Vector2.RIGHT * run_speed * delta
 			
 		
 	

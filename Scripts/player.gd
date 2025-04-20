@@ -8,6 +8,8 @@ const JUMP_VELOCITY = -400.0
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var spear: CharacterBody2D = $"."
 
+func _ready() -> void:
+	stone_age()
 
 func _physics_process(delta: float) -> void:
 	
@@ -45,3 +47,19 @@ func _physics_process(delta: float) -> void:
 		else:
 			Global.weapon1 = true
 			Global.weapon2 = false
+			
+	if Input.is_action_just_pressed("Change Age") && Global.stone_age == true:
+		medieval_age()
+
+	elif Input.is_action_just_pressed("Change Age") && Global.medieval_age == true:
+		stone_age()
+
+func stone_age():
+	Global.stone_age = true
+	Global.medieval_age = false
+	print ("Stone Age")
+
+func medieval_age():
+	Global.stone_age = false
+	Global.medieval_age = true
+	print ("Medieval Age")
