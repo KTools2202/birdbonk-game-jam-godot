@@ -12,7 +12,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	
-	queue_free()
+	
 	
 	if Global.weapon2 == true && Global.stone_age == true:
 		show()
@@ -29,3 +29,4 @@ func _process(_delta: float) -> void:
 	
 	if rotation_degrees == 45:
 		Swinging = false
+		rotation_degrees = -45
