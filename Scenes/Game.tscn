@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_00ng1"]
 [ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="3_70dkt"]
 [ext_resource type="Script" path="res://Scripts/club.gd" id="4_s20w7"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemy.tscn" id="6_olkwn"]
+[ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="6_olkwn"]
 [ext_resource type="Texture2D" uid="uid://bf4mdkn4vdtti" path="res://Sprites/Door.png" id="7_imxmo"]
 [ext_resource type="AudioStream" uid="uid://hqu45c2ej1ew" path="res://Music and SFX/Caveman Ability SFX (1).wav" id="8_vu11v"]
 
