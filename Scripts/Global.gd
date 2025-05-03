@@ -5,3 +5,4 @@ var weapon2 = false
 var stone_age = true
 var medieval_age = false
 var use_ability = true
+var lvl_1 = true
