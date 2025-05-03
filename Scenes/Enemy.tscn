@@ -6,29 +6,36 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y14h8"]
 size = Vector2(111, 114)
 
-[node name="Person" type="CharacterBody2D"]
-collision_layer = 9
-collision_mask = 9
+[node name="Enemy" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 8
+lock_rotation = true
 script = ExtResource("1_ith7v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
 position = Vector2(-2.5, 1)
+scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_y14h8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, 2)
-scale = Vector2(1, 1.053)
+scale = Vector2(0.2, 0.211)
 texture = ExtResource("1_gy48g")
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
-position = Vector2(-61, -8.94073e-08)
-scale = Vector2(5.32586, 35.259)
+position = Vector2(-14, 1)
+scale = Vector2(2.02264, 15.9376)
 target_position = Vector2(-200, -0.028)
 collision_mask = 3
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
-position = Vector2(63, 0)
-scale = Vector2(4.85632, 29.0277)
-target_position = Vector2(200, 0.034)
+position = Vector2(9, 2)
+scale = Vector2(2.84417, 17.4879)
+target_position = Vector2(132.903, -0.114365)
 collision_mask = 3
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+position = Vector2(-2, 11)
+scale = Vector2(-6.77384, 0.826557)
+target_position = Vector2(0, 27.8263)

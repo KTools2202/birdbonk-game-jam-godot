@@ -13,17 +13,17 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("move_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
-	if Input.is_action_just_pressed("move_up") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -53,6 +53,9 @@ func _physics_process(delta: float) -> void:
 
 	elif Input.is_action_just_pressed("Change Age") && Global.medieval_age == true:
 		stone_age()
+	
+	if Input.is_action_just_pressed("Reload"):
+		get_tree().reload_current_scene()
 
 func stone_age():
 	Global.stone_age = true
