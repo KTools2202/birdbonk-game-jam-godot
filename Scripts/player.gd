@@ -47,12 +47,20 @@ func _physics_process(delta: float) -> void:
 		else:
 			Global.weapon1 = true
 			Global.weapon2 = false
-			
-	if Input.is_action_just_pressed("Change Age") && Global.stone_age == true:
-		medieval_age()
 
-	elif Input.is_action_just_pressed("Change Age") && Global.medieval_age == true:
-		stone_age()
+	if Global.lvl_1:
+		if Input.is_action_just_pressed("Next Age") && Global.stone_age == true:
+			medieval_age()
+			
+	
+		if Input.is_action_just_pressed("Prev Age") && Global.stone_age == true:
+			medieval_age()
+
+		if Input.is_action_just_pressed("Next Age") && Global.medieval_age == true:
+			stone_age()
+		
+		if Input.is_action_just_pressed("Prev Age") && Global.medieval_age == true:
+			stone_age()
 	
 	if Input.is_action_just_pressed("Reload"):
 		get_tree().reload_current_scene()
