@@ -32,10 +32,10 @@ func _process(delta: float) -> void:
 
 	if Swinging:
 		if flipped:
-			if rotation_degrees > -45:
+			if rotation_degrees > -135:
 				rotate(-0.2)
 		else:
-			if rotation_degrees < 45:
+			if rotation_degrees < 135:
 				rotate(0.2)
 
 		swing_timer -= delta
