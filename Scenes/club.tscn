@@ -1,19 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://0gx5pbfs83ev"]
+[gd_scene load_steps=2 format=3 uid="uid://0gx5pbfs83ev"]
 
 [ext_resource type="Texture2D" uid="uid://m07ohgmhjoqv" path="res://Sprites/Club.png" id="1_hv0d8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_it8sh"]
-radius = 9.81858
-
 [node name="Club" type="CharacterBody2D"]
 scale = Vector2(0.1, 0.1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1.07064, -117.029)
+rotation = 2.11185
+scale = Vector2(1, 1)
+polygon = PackedVector2Array(32.9177, 2.30461, -35.6556, 43.5078, -124.794, 108.734, -162.501, 143.057, -188.216, 158.509, -205.36, 168.809, -227.653, 170.539, -249.947, 172.268, -268.82, 160.275, -270.549, 137.981, -267.128, 124.259, -255.135, 105.386, -229.42, 89.9353, -203.705, 74.4841, -177.99, 59.0329, -112.838, 31.5518, -56.2572, 9.22111, 20.8878, -37.1324, 89.4611, -78.3356, 104.912, -52.6206, 50.0611, -7.99618)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.07064, -117.029)
 rotation = 2.11185
 texture = ExtResource("1_hv0d8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.07063, -287.029)
-scale = Vector2(-4.07391, 13.8257)
-shape = SubResource("CircleShape2D_it8sh")

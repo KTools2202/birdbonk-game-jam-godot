@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="2_idn2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y14h8"]
-size = Vector2(111, 114)
+size = Vector2(113, 117)
 
 [node name="Enemy" type="RigidBody2D"]
 collision_layer = 8
@@ -14,7 +14,7 @@ script = ExtResource("1_ith7v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
-position = Vector2(-2.5, 1)
+position = Vector2(-2.3, 0.7)
 scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_y14h8")
 

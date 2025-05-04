@@ -259,8 +259,8 @@ texture = ExtResource("6_gixgv")
 7:7/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_8wn7a"]
-physics_layer_0/collision_layer = 8
-physics_layer_0/collision_mask = 8
+physics_layer_0/collision_layer = 2056
+physics_layer_0/collision_mask = 2056
 sources/0 = SubResource("TileSetAtlasSource_t1bj7")
 sources/1 = SubResource("TileSetAtlasSource_jy3cq")
 pattern_0 = SubResource("TileMapPattern_0sm12")
@@ -315,6 +315,7 @@ tile_set = SubResource("TileSet_8wn7a")
 
 [node name="Enemy" parent="." instance=ExtResource("6_olkwn")]
 position = Vector2(-221.251, -42)
+collision_layer = 2056
 
 [node name="Door" type="Sprite2D" parent="."]
 position = Vector2(1696.92, -20)
