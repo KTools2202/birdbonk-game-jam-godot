@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var hit_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+@onready var hit_sound_stream: AudioStream = preload("res://Music and SFX/hit-rock-02-266304.mp3")
 
 var is_holding = false
 var speed = 500  # Speed for aiming and flight
@@ -11,12 +13,17 @@ var throw_dir = Vector2.ZERO
 var held_mouse_position = Vector2.ZERO
 var thrown_position = Vector2.ZERO
 
-const COLLISION_LAYER_MASK = 1 << 3  # Layer 4 (zero-based index)
+const COLLISION_LAYER_MASK = 1 << 11  
 
 func _ready() -> void:
 	# Initialize spear under player
 	position = Vector2(0, defaultPos)
 	yPos = position.y
+	hit_sound.stream = hit_sound_stream
+	hit_sound.volume_db = 0  # Base volume, falloff will control perceived loudness
+	hit_sound.attenuation = 1.5
+	hit_sound.max_distance = 800
+	add_child(hit_sound)
 
 func _physics_process(_delta: float) -> void:
 	# Show/hide spear based on global state
@@ -47,6 +54,9 @@ func _physics_process(_delta: float) -> void:
 
 		# Reset immediately if hit terrain
 		if should_reset():
+			if not hit_sound.playing:
+				hit_sound.global_position = global_position
+				hit_sound.play()
 			reset_spear()
 
 	# Start aiming
