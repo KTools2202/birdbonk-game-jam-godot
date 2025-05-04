@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	queue_free()
+	
 	
 	if Global.weapon1 == true && Global.stone_age == true:
 		show()

@@ -1,31 +1,27 @@
 extends CharacterBody2D
 
 var Swinging = false
+var swing_timer = 0.0
+const SWING_DURATION = 0.5
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	
-	queue_free()
-	
+func _process(delta: float) -> void:
 	if Global.weapon2 == true && Global.stone_age == true:
 		show()
 	else:
 		hide()
-	
-	if Input.is_action_just_pressed("attack"):
+
+	if Input.is_action_just_pressed("attack") and not Swinging:
 		rotation_degrees = -45
-		Swinging = true 
-		
-	if Swinging == true && rotation_degrees < 45:
-		rotate(0.2)
-		
-	
-	if rotation_degrees == 45:
-		Swinging = false
+		Swinging = true
+		swing_timer = SWING_DURATION
+
+	if Swinging:
+		if rotation_degrees < 45:
+			rotate(0.2)
+		swing_timer -= delta
+		if swing_timer <= 0.0:
+			Swinging = false
+			rotation_degrees = 0

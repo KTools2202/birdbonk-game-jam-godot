@@ -51,10 +51,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Change Age") && Global.stone_age == true:
 		medieval_age()
 
+
 	elif Input.is_action_just_pressed("Change Age") && Global.medieval_age == true:
 		stone_age()
-	
-	if Input.is_action_just_pressed("Reload"):
+
+
+	if Input.is_action_just_pressed("Restart"):
+
 		get_tree().reload_current_scene()
 
 func stone_age():
