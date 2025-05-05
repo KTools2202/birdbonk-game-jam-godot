@@ -51,7 +51,9 @@ func _physics_process(_delta: float) -> void:
 		thrown_position += throw_dir * speed * _delta
 		global_position = thrown_position
 		rotation = throw_dir.angle()
-
+	
+	# Only runs in weapon 1 is equipped
+	if Global.weapon1 == true:
 		# Reset immediately if hit terrain
 		if should_reset():
 			if not hit_sound.playing:

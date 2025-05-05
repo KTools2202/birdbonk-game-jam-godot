@@ -338,6 +338,7 @@ scale = Vector2(1, 1)
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("6_olkwn")]
 position = Vector2(-221.251, -17)
+rotation = 0.349066
 scale = Vector2(1, 1)
 collision_layer = 2056
 

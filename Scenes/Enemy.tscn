@@ -1,10 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfg8s675drj2"]
+[gd_scene load_steps=7 format=3 uid="uid://dfg8s675drj2"]
 
-[ext_resource type="Script" path="res://Scripts/people.gd" id="1_ith7v"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ith7v"]
 [ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="2_idn2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y14h8"]
-size = Vector2(113, 117)
+size = Vector2(88, 90)
+
+[sub_resource type="Animation" id="Animation_xfg3h"]
+resource_name = "Enemy Shake"
+length = 0.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.349066, -0.349066]
+}
+
+[sub_resource type="Animation" id="Animation_e1crk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4h5r"]
+_data = {
+"Enemy Shake": SubResource("Animation_xfg3h"),
+"RESET": SubResource("Animation_e1crk")
+}
 
 [node name="Enemy" type="RigidBody2D"]
 collision_layer = 8
@@ -14,7 +52,7 @@ script = ExtResource("1_ith7v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
-position = Vector2(-2.3, 0.7)
+position = Vector2(-2, 1)
 scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_y14h8")
 
@@ -26,17 +64,28 @@ texture = ExtResource("2_idn2h")
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(-14, 1)
 scale = Vector2(2.02264, 15.9376)
-target_position = Vector2(-200, -0.028)
+target_position = Vector2(-150, 0)
 collision_mask = 3
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(9, 2)
 scale = Vector2(2.84417, 17.4879)
-target_position = Vector2(132.903, -0.114365)
+target_position = Vector2(100, 0)
 collision_mask = 3
 
 [node name="RayCastDown" type="RayCast2D" parent="."]
-position = Vector2(-3, 8)
+position = Vector2(-2, 8)
 scale = Vector2(-3.13384, 0.826557)
-target_position = Vector2(0, 15.7279)
+target_position = Vector2(-5.96046e-08, 10.8885)
 collision_mask = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_u4h5r")
+}
+
+[node name="Launch Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="Launch Timer" to="." method="_on_launch_timer_timeout"]
