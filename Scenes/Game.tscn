@@ -334,11 +334,9 @@ tile_map_data = PackedByteArray("AAC//93/AAABAAEAAAC//97/AAABAAEAAAC//9//AAABAAE
 tile_set = SubResource("TileSet_8wn7a")
 
 [node name="Enemies" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("6_olkwn")]
 position = Vector2(-221.251, -17)
-scale = Vector2(1, 1)
 collision_layer = 2056
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

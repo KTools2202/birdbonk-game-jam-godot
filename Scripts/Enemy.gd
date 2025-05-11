@@ -14,7 +14,8 @@ var collider
 var run_speed = 10
 var jump_power = -25
 var launch_power = 0
-var in_air = false
+var launched = false
+var time_out = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,8 +26,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if ray_cast_down.is_colliding():
-		in_air = false
 		
 	
 	if Global.stone_age == true:
@@ -34,14 +33,28 @@ func _physics_process(delta: float) -> void:
 		
 		
 		if Input.is_action_just_pressed("Ability"):
-			animation_player.play("Enemy Shake")
+			launch_power = 0
+		
+		
+		# Starts animation 
+		if Input.is_action_just_pressed("Ability"):
+			
+			if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
+				animation_player.play("Enemy Shake")
 			
 		if Input.is_action_pressed("Ability"):
 			launch_power += 1
 		
-		if Input.is_action_just_released("Ability") && in_air == false:
+		
+		
+		#Starts timer when launched to prevent imediate animation stop
+		if Input.is_action_just_released("Ability"):
+			launched = true
 			launch_timer.start()
-			in_air = true
+			
+			
+			
+			#Caps launch power at 30
 			if launch_power > 30:
 				launch_power = 30
 			
@@ -51,16 +64,23 @@ func _physics_process(delta: float) -> void:
 		
 			if ray_cast_right.is_colliding():
 				scared_left()
-	
+		
+		if launched == true && time_out == true && ray_cast_down.is_colliding():
+				animation_player.play("RESET")
+				launched = false
+				time_out = false
 			
 
 	if Global.medieval_age == true:
+		
+		if Input.is_action_just_pressed("Ability"):
+			launch_power = 0
 		
 		if Input.is_action_pressed("Ability"):
 			launch_power += 1
 		
 		if Input.is_action_just_released("Ability"):
-
+			
 			
 			if launch_power > 30:
 				launch_power = 30
@@ -84,6 +104,6 @@ func attract_Right():
 func attract_Left():
 	apply_impulse(Vector2(run_speed, jump_power) * launch_power)
 	
+	
 func _on_launch_timer_timeout() -> void:
-	if ray_cast_down.is_colliding():
-		animation_player.play("RESET")
+	time_out = true
