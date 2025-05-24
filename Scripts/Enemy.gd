@@ -16,6 +16,7 @@ var jump_power = -25
 var launch_power = 0
 var launched = false
 var time_out = false
+var shaking = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -56,7 +57,7 @@ func _physics_process(delta: float) -> void:
 			
 			#Caps launch power at 30
 			if launch_power > 30:
-				launch_power = 30
+				launch_power = 301
 			
 			if ray_cast_left.is_colliding():
 				scared_right()
@@ -70,41 +71,45 @@ func _physics_process(delta: float) -> void:
 				launched = false
 				time_out = false
 			
-
+			
+			
+			
+			
+			
+			
+			
+			
+			
+#MEDIEVAL AGE
 	if Global.medieval_age == true:
 		
-		if Input.is_action_just_pressed("Ability"):
-			launch_power = 0
 		
+		if Input.is_action_just_pressed("Ability"):
+			animation_player.play("Enemy Shake")
+			launch_timer.start()
+			
+		if ray_cast_down.is_colliding() && time_out == true:
+			animation_player.play("RESET")
+			time_out = false
+				
 		if Input.is_action_pressed("Ability"):
-			launch_power += 0.5
+			position.y = -50
+			apply_force(Vector2(-run_speed, 0))
+		
 			
 		
 		if Input.is_action_just_released("Ability"):
 			
-			
 			if launch_power > 30:
 				launch_power = 30
 
-			#Medieval Man ability attracts people
-			if ray_cast_left.is_colliding():
-				attract_Right()
-				
-			if ray_cast_right.is_colliding():
-				attract_Left()
+			
 	
 func scared_right():
 	apply_impulse(Vector2(run_speed, jump_power) * launch_power)
 	
 func scared_left():
 	apply_impulse(Vector2(-run_speed, jump_power) * launch_power)
-	
-func attract_Right():
-	apply_impulse(Vector2(-run_speed, jump_power) * launch_power)
-
-func attract_Left():
-	apply_impulse(Vector2(run_speed, jump_power) * launch_power)
-	
 	
 func _on_launch_timer_timeout() -> void:
 	time_out = true

@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://dg6hvkdu5nkpa"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_hvm8t"]
-[ext_resource type="Texture2D" uid="uid://djxtncncepyh2" path="res://Caveman.jpg" id="2_ox5h6"]
-[ext_resource type="Texture2D" uid="uid://ch7perhvj3m4v" path="res://Medieval man.jpg" id="3_3jkfm"]
+[ext_resource type="Texture2D" uid="uid://djxtncncepyh2" path="res://Sprites/Caveman.jpg" id="2_ox5h6"]
+[ext_resource type="Texture2D" uid="uid://ckypvw2ymwahx" path="res://Sprites/Medieval man1.jpg.png" id="3_x6g27"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqs2w"]
-size = Vector2(424.837, 25.6178)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_psbqv"]
+size = Vector2(13.5373, 26.0266)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-1, -4)
@@ -14,18 +14,17 @@ collision_layer = 9
 collision_mask = 9
 script = ExtResource("1_hvm8t")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.46119, -10.4057)
+scale = Vector2(4.79229, -2.89862)
+shape = SubResource("RectangleShape2D_psbqv")
+
 [node name="Caveman" type="Sprite2D" parent="."]
 position = Vector2(5.72205e-06, -10.4057)
 scale = Vector2(0.235675, 0.300608)
 texture = ExtResource("2_ox5h6")
 
 [node name="Medieval man" type="Sprite2D" parent="."]
-position = Vector2(-4.17233e-07, -10.4057)
-scale = Vector2(0.071347, 0.0880688)
-texture = ExtResource("3_3jkfm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.14577e-06, -9.99998)
-rotation = -3.14159
-scale = Vector2(0.168132, -3.506)
-shape = SubResource("RectangleShape2D_rqs2w")
+position = Vector2(0.0313932, -10.487)
+scale = Vector2(0.299166, 0.376438)
+texture = ExtResource("3_x6g27")

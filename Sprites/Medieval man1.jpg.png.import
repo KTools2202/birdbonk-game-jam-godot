@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djxtncncepyh2"
-path="res://.godot/imported/Caveman.jpg-7520cd34fd5b7fe7b205deb678658423.ctex"
+uid="uid://ckypvw2ymwahx"
+path="res://.godot/imported/Medieval man1.jpg.png-0765ba5c31e00610365dddd78b969c61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Caveman.jpg"
-dest_files=["res://.godot/imported/Caveman.jpg-7520cd34fd5b7fe7b205deb678658423.ctex"]
+source_file="res://Sprites/Medieval man1.jpg.png"
+dest_files=["res://.godot/imported/Medieval man1.jpg.png-0765ba5c31e00610365dddd78b969c61.ctex"]
 
 [params]
 
