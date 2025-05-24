@@ -9,7 +9,8 @@ const MAX_BHOP_SPEED = 400.0
 const SPEED_GAIN = 20.0
 const AIR_CONTROL = 2000.0  # Strong air control factor
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var medieval_man: Sprite2D = $"Medieval man"
+@onready var cave_man: Sprite2D = $Sprite2D
 @onready var audio_player: AudioStreamPlayer = $"../AudioStreamPlayer"
 
 
@@ -18,6 +19,7 @@ var coyote_timer = 0.0
 
 func _ready() -> void:
 	stone_age()
+	medieval_man.hide()
 
 func _physics_process(delta: float) -> void:
 	# Timers
@@ -62,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, direction * MAX_BHOP_SPEED, AIR_CONTROL * delta)
 
 	if Input.is_action_pressed("move_left"):
-		sprite.flip_h = true
+		pass
 
 	move_and_slide()
 
@@ -76,9 +78,12 @@ func _physics_process(delta: float) -> void:
 	# Age switch
 		if Input.is_action_just_pressed("stone_age"):
 			stone_age()
+			medieval_man.hide()
 		
 		if Input.is_action_just_pressed("medieval_age"):
 			medieval_age()
+			medieval_man.show()
+			
 
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().reload_current_scene()

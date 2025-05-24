@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 				animation_player.play("Enemy Shake")
 			
 		if Input.is_action_pressed("Ability"):
-			launch_power += 1
+			launch_power += 0.7
 		
 		
 		
@@ -77,7 +77,8 @@ func _physics_process(delta: float) -> void:
 			launch_power = 0
 		
 		if Input.is_action_pressed("Ability"):
-			launch_power += 1
+			launch_power += 0.5
+			
 		
 		if Input.is_action_just_released("Ability"):
 			

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dg6hvkdu5nkpa"]
 
+[ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="1_43gns"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_hvm8t"]
-[ext_resource type="Texture2D" uid="uid://djxtncncepyh2" path="res://Caveman.jpg" id="2_ox5h6"]
-[ext_resource type="Texture2D" uid="uid://ch7perhvj3m4v" path="res://Medieval man.jpg" id="3_3jkfm"]
+[ext_resource type="Texture2D" uid="uid://cl4h0fmi6qirh" path="res://Oblivion funny1.jpg" id="3_avudv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqs2w"]
 size = Vector2(424.837, 25.6178)
@@ -15,14 +15,14 @@ collision_mask = 9
 script = ExtResource("1_hvm8t")
 
 [node name="Caveman" type="Sprite2D" parent="."]
-position = Vector2(5.72205e-06, -10.4057)
-scale = Vector2(0.235675, 0.300608)
-texture = ExtResource("2_ox5h6")
+position = Vector2(0, -10.5)
+scale = Vector2(0.615678, 0.766666)
+texture = ExtResource("1_43gns")
 
 [node name="Medieval man" type="Sprite2D" parent="."]
-position = Vector2(-4.17233e-07, -10.4057)
-scale = Vector2(0.071347, 0.0880688)
-texture = ExtResource("3_3jkfm")
+position = Vector2(-1.52588e-05, -10.4057)
+scale = Vector2(0.0593607, 0.133857)
+texture = ExtResource("3_avudv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.14577e-06, -9.99998)
