@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ppuaos6hqoq8"]
+
+[ext_resource type="Texture2D" uid="uid://bmkh3dq6qxbgh" path="res://Sprites/bow.png" id="1_2vn0y"]
+
+[node name="Bow" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2vn0y")
+offset = Vector2(0, -9.34)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-12, 44, -4, 42, 2, 30, 4, 19, 5, 12, 6, 1, 8, -14, 4, -24, -1, -35, -5, -44, -10, -57, -11, -63, -7, -63, 7, -34, 12, -20, 13, -11, 14, -1, 12, 13, 11, 25, 6, 38, 0, 47, -6, 52, -11, 51)

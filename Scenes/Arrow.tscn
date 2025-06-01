@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7h1lkxdv0r5t"]
+
+[ext_resource type="Texture2D" uid="uid://dp71p81ns7rrv" path="res://Sprites/arrow.png" id="1_tt83t"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_tt83t")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-24, 0, 18, 0, 18, 6, 21, 6, 21, 4, 22, 4, 22, 2, 24, 2, 24, 0, 27, 0, 27, -4, 24, -4, 24, -5, 22, -6, 22, -8, 21, -8, 21, -9, 19, -9, 18, -9, 18, -5, 18, -4, -24, -4)
