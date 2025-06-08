@@ -10,14 +10,20 @@ config_version=5
 
 [application]
 
-config/name="Learning"
-run/main_scene="res://Scenes/Game.tscn"
+config/name="Gmae"
+run/main_scene="res://Scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.0783438, 0.114812, 0.313874, 1)
 config/icon="res://Sprites/icon.svg"
 
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+Levelmanager="*res://Scripts/Levelmanager.gd"
+
+[display]
+
+window/size/mode=2
 
 [input]
 
