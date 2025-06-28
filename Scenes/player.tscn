@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg6hvkdu5nkpa"]
+[gd_scene load_steps=7 format=3 uid="uid://dg6hvkdu5nkpa"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_hvm8t"]
 [ext_resource type="Texture2D" uid="uid://djxtncncepyh2" path="res://Sprites/Caveman.jpg" id="2_ox5h6"]
 [ext_resource type="Texture2D" uid="uid://ckypvw2ymwahx" path="res://Sprites/Medieval man1.jpg.png" id="3_x6g27"]
+[ext_resource type="Texture2D" uid="uid://rfdadunm1ah4" path="res://Sprites/Industrial man.png" id="4_qx8gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odkyg"]
 size = Vector2(11.2399, 11.4155)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_la5fy"]
+radius = 61.3368
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-1, -4)
-scale = Vector2(0.684375, 0.576609)
+scale = Vector2(0.592, 0.5)
 collision_layer = 9
 collision_mask = 9
 floor_snap_length = 0.0
@@ -25,7 +29,28 @@ position = Vector2(0.0313932, -10.487)
 scale = Vector2(0.299166, 0.376438)
 texture = ExtResource("3_x6g27")
 
+[node name="Industrial man" type="Sprite2D" parent="."]
+position = Vector2(0.435175, -10.5179)
+scale = Vector2(-0.0719655, 0.0597157)
+texture = ExtResource("4_qx8gr")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10.4057)
 scale = Vector2(6.5, 7.9)
 shape = SubResource("RectangleShape2D_odkyg")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(2.92877, 2.80364)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.55928, 1.19013)
+shape = SubResource("CircleShape2D_la5fy")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

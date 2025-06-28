@@ -12,47 +12,52 @@ offset_bottom = 252.0
 script = ExtResource("1_rnkq7")
 
 [node name="TitleLabel2" type="Label" parent="."]
-offset_left = -84.0
-offset_top = -177.333
-offset_right = 99.0
-offset_bottom = -154.333
-scale = Vector2(3, 3)
-text = "a journy through time..."
+layout_mode = 0
+offset_left = 283.0
+offset_top = -56.0
+offset_right = 642.0
+offset_bottom = 3.00001
+scale = Vector2(5, 5)
+text = "Prepare to embark on a Journey Through Time"
 
 [node name="StartButton2" type="Button" parent="."]
-offset_left = 11.0
-offset_top = -87.0
-offset_right = 128.0
-offset_bottom = -56.0
+layout_mode = 0
+offset_left = 970.0
+offset_top = 270.0
+offset_right = 1087.0
+offset_bottom = 301.0
 scale = Vector2(3, 3)
 mouse_default_cursor_shape = 2
 action_mode = 0
 text = "Start!"
 
 [node name="SettingsButton2" type="Button" parent="."]
-offset_left = 27.3333
-offset_top = 34.0
-offset_right = 133.333
-offset_bottom = 69.0
+layout_mode = 0
+offset_left = 986.333
+offset_top = 391.0
+offset_right = 1092.33
+offset_bottom = 426.0
 scale = Vector2(3, 3)
 mouse_default_cursor_shape = 2
-text = "settings"
+text = "Settings"
 
 [node name="QuitButton2" type="Button" parent="."]
-offset_left = 25.3333
-offset_top = 179.333
-offset_right = 131.333
-offset_bottom = 214.333
+layout_mode = 0
+offset_left = 984.333
+offset_top = 536.333
+offset_right = 1090.33
+offset_bottom = 571.333
 scale = Vector2(3, 3)
 mouse_default_cursor_shape = 2
 text = "Quit
 "
 
 [node name="SettingsPanel2" type="Panel" parent="."]
-offset_left = -120.667
-offset_top = -201.333
-offset_right = 491.333
-offset_bottom = 291.667
+layout_mode = 0
+offset_left = 835.0
+offset_top = 688.0
+offset_right = 1447.0
+offset_bottom = 1181.0
 
 [node name="MusicVolumeSlider" type="HSlider" parent="SettingsPanel2"]
 layout_mode = 1
