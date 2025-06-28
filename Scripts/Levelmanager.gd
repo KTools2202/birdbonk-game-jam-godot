@@ -8,8 +8,8 @@ var level_list := [
 
 var current_level_index := 0
 
-func _ready() -> void:
-	go_to_test_level()
+#func _ready() -> void:
+	#go_to_test_level()
 
 func go_to_next_level():
 	current_level_index += 1

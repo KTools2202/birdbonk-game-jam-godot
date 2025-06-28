@@ -1,133 +1,119 @@
-[gd_scene load_steps=2 format=3 uid="uid://csfaj0bi64whd"]
+[gd_scene load_steps=6 format=3 uid="uid://csfaj0bi64whd"]
 
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="1_rnkq7"]
+[ext_resource type="LabelSettings" uid="uid://c4e5ypwhrltnu" path="res://Fonts/new_label_settings.tres" id="2_0j2ul"]
+[ext_resource type="FontFile" uid="uid://cvktugruwkf4d" path="res://Fonts/static/Oswald-Bold.ttf" id="3_jci6h"]
+[ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="3_ylnaj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5fxck"]
+font = ExtResource("3_jci6h")
+font_size = 64
 
 [node name="Control" type="Control"]
+layout_direction = 1
 layout_mode = 3
-anchors_preset = 0
-offset_left = 324.0
-offset_top = 212.0
-offset_right = 364.0
-offset_bottom = 252.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_rnkq7")
 
-[node name="TitleLabel2" type="Label" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
-offset_left = 283.0
-offset_top = -56.0
-offset_right = 642.0
-offset_bottom = 3.00001
-scale = Vector2(5, 5)
-text = "Prepare to embark on a Journey Through Time"
+offset_left = -5.0
+offset_top = 2.0
+offset_right = 986.0
+offset_bottom = 398.0
+scale = Vector2(1.16, 1.6)
 
-[node name="StartButton2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 970.0
-offset_top = 270.0
-offset_right = 1087.0
-offset_bottom = 301.0
-scale = Vector2(3, 3)
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Prepare to embark on
+ a Journey Through Time"
+label_settings = ExtResource("2_0j2ul")
+
+[node name="StartButton2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
 mouse_default_cursor_shape = 2
+theme = ExtResource("3_ylnaj")
 action_mode = 0
 text = "Start!"
 
-[node name="SettingsButton2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 986.333
-offset_top = 391.0
-offset_right = 1092.33
-offset_bottom = 426.0
-scale = Vector2(3, 3)
+[node name="SettingsButton2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
 mouse_default_cursor_shape = 2
+theme = ExtResource("3_ylnaj")
 text = "Settings"
 
-[node name="QuitButton2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 984.333
-offset_top = 536.333
-offset_right = 1090.33
-offset_bottom = 571.333
-scale = Vector2(3, 3)
+[node name="QuitButton2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
 mouse_default_cursor_shape = 2
+theme = ExtResource("3_ylnaj")
 text = "Quit
 "
 
-[node name="SettingsPanel2" type="Panel" parent="."]
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 675.0
+offset_top = 259.0
+offset_right = 1297.0
+offset_bottom = 782.0
+
+[node name="SettingsPanel2" type="ColorRect" parent="Control"]
 layout_mode = 0
-offset_left = 835.0
-offset_top = 688.0
-offset_right = 1447.0
-offset_bottom = 1181.0
+offset_left = -645.0
+offset_top = -244.0
+offset_right = -605.0
+offset_bottom = -204.0
+scale = Vector2(27.5745, 14.9362)
+color = Color(0.0983578, 0.234354, 0.0888034, 0.886275)
 
-[node name="MusicVolumeSlider" type="HSlider" parent="SettingsPanel2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.17
-anchor_top = 0.212
-anchor_right = 0.811
-anchor_bottom = 0.244
-offset_left = 0.293335
-offset_top = -0.182678
-offset_right = 0.00131226
-offset_bottom = 0.0413208
+[node name="CenterContainer" type="CenterContainer" parent="Control/SettingsPanel2"]
+layout_mode = 0
+offset_left = 0.326387
+offset_top = 0.535609
+offset_right = 597.326
+offset_bottom = 456.536
+scale = Vector2(0.0656408, 0.0862887)
 
-[node name="volume" type="Label" parent="SettingsPanel2/MusicVolumeSlider"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.103
-anchor_top = -4.792
-anchor_right = 0.929
-anchor_bottom = -0.479
-offset_left = -0.0426674
-offset_top = 0.00532532
-offset_right = -215.835
-offset_bottom = -46.0027
-scale = Vector2(3, 3)
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/SettingsPanel2/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="volume" type="Label" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+layout_mode = 2
 text = "music volume
 "
+label_settings = SubResource("LabelSettings_5fxck")
 horizontal_alignment = 1
 
-[node name="SFXVolumeSlider" type="HSlider" parent="SettingsPanel2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.17
-anchor_top = 0.212
-anchor_right = 0.811
-anchor_bottom = 0.244
-offset_left = 7.62667
-offset_top = 97.1507
-offset_right = 7.33466
-offset_bottom = 112.415
+[node name="MusicVolumeSlider" type="HSlider" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+min_value = -1.0
 
-[node name="volume2" type="Label" parent="SettingsPanel2/SFXVolumeSlider"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.096
-anchor_top = -2.438
-anchor_right = 0.793
-anchor_bottom = -0.215
-offset_left = 0.0346642
-offset_top = 0.00884247
-offset_right = -182.189
-offset_bottom = -45.9931
-scale = Vector2(3, 3)
+[node name="volume2" type="Label" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+layout_mode = 2
 text = "SFX Volume
 "
+label_settings = ExtResource("2_0j2ul")
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="SettingsPanel2"]
-layout_mode = 0
-offset_left = 269.333
-offset_top = 353.333
-offset_right = 346.333
-offset_bottom = 403.333
+[node name="SFXVolumeSlider" type="HSlider" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+min_value = -1.0
+
+[node name="BackButton" type="Button" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ylnaj")
 text = "Back"
 
-[node name="FullScreenToggle" type="Button" parent="SettingsPanel2"]
-layout_mode = 0
-offset_left = 126.667
-offset_top = 260.333
-offset_right = 474.667
-offset_bottom = 339.333
+[node name="FullScreenToggle" type="Button" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ylnaj")
 text = "Full Screen Toggle
 "

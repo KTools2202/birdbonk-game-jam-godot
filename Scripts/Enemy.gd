@@ -1,8 +1,6 @@
 extends RigidBody2D
 
-@onready var ray_cast_right: RayCast2D = $RayCastRight
-@onready var ray_cast_left: RayCast2D = $RayCastLeft
-@onready var terrain: TileMapLayer = $"../Terrain"
+@onready var terrain: TileMapLayer = $".../Terrains/Terrian2"
 @onready var sfx: AudioStreamPlayer = $"../AudioStreamPlayer"
 @onready var ray_cast_down: RayCast2D = $RayCastDown
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -13,11 +11,11 @@ extends RigidBody2D
 
 
 var collider
-var run_speed = 10
-var float_speed = 50  # Speed of floating towards the player
-var jump_power = -25
-var time_out = false
-var shaking = false
+@export var run_speed = 10
+@export var float_speed = 50  # Speed of floating towards the player
+@export var jump_power = -25
+@export var time_out = false
+@export var shaking = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,7 +32,7 @@ func _physics_process(delta: float) -> void:
 			float_toward_player(delta)  # Pass delta for smooth frame-based movement
 		
 
-func float_toward_player(delta: float) -> void:
+func float_toward_player(_delta: float) -> void:
 	# Calculate direction to the player
 	var direction_to_player = (player.global_position - global_position).normalized()
 	print ("Sliding")
