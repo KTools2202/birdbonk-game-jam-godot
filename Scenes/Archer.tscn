@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://d2nb50p8erswk"]
+[gd_scene load_steps=5 format=3 uid="uid://d2nb50p8erswk"]
 
-[node name="Archer" type="Node2D"]
+[ext_resource type="Script" path="res://Sprites/archer.gd" id="1_12npb"]
+[ext_resource type="PackedScene" uid="uid://b7h1lkxdv0r5t" path="res://Scenes/Arrow.tscn" id="2_vws8p"]
+[ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="3_7fvui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1buo"]
+size = Vector2(88, 90)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_12npb")
+arrow_scene = ExtResource("2_vws8p")
+
+[node name="Shoot timer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(-2, 1)
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_i1buo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.2, 1)
+scale = Vector2(0.175, 0.179688)
+texture = ExtResource("3_7fvui")

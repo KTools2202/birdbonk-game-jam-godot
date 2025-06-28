@@ -259,10 +259,10 @@ position = Vector2(-200.227, -9.00002)
 collision_layer = 2056
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -427.485
-offset_top = -153.0
-offset_right = 1072.52
-offset_bottom = 847.0
+offset_left = -411.467
+offset_top = -154.0
+offset_right = 1088.53
+offset_bottom = 846.0
 scale = Vector2(0.2, 0.2)
 theme = ExtResource("12_ga4yt")
 text = "Press W or Space for Jump. 
