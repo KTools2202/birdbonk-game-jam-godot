@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dg6hvkdu5nkpa"]
+[gd_scene load_steps=11 format=3 uid="uid://dg6hvkdu5nkpa"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_hvm8t"]
 [ext_resource type="Texture2D" uid="uid://djxtncncepyh2" path="res://Sprites/Caveman.jpg" id="2_ox5h6"]
@@ -6,16 +6,68 @@
 [ext_resource type="Texture2D" uid="uid://rfdadunm1ah4" path="res://Sprites/Industrial man.png" id="4_qx8gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odkyg"]
-size = Vector2(11.2399, 11.4155)
+size = Vector2(10.395, 10.6329)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_la5fy"]
 radius = 61.3368
 
+[sub_resource type="Animation" id="Animation_q1r8y"]
+resource_name = "Normal Size"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.296, 0.25), Vector2(0.592, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_n742h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.592, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_dgm6l"]
+resource_name = "Shrink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.592, 0.5), Vector2(0.296, 0.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wjax"]
+_data = {
+"Normal Size": SubResource("Animation_q1r8y"),
+"RESET": SubResource("Animation_n742h"),
+"Shrink": SubResource("Animation_dgm6l")
+}
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-1, -4)
 scale = Vector2(0.592, 0.5)
-collision_layer = 9
-collision_mask = 9
+collision_layer = 24
+collision_mask = 24
 floor_snap_length = 0.0
 script = ExtResource("1_hvm8t")
 
@@ -35,7 +87,7 @@ scale = Vector2(-0.0719655, 0.0597157)
 texture = ExtResource("4_qx8gr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10.4057)
+position = Vector2(0, -10)
 scale = Vector2(6.5, 7.9)
 shape = SubResource("RectangleShape2D_odkyg")
 
@@ -49,7 +101,12 @@ scale = Vector2(1.55928, 1.19013)
 shape = SubResource("CircleShape2D_la5fy")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.05
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Area2D")
+libraries = {
+"": SubResource("AnimationLibrary_8wjax")
+}
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

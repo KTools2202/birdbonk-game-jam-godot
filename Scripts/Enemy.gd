@@ -42,37 +42,41 @@ func float_toward_player(_delta: float) -> void:
 	
 func handle_stone_age():
 	
-	if Input.is_action_just_pressed("Ability"):
-		Global.launch_power = 0
-
-	# Starts animation 
-	if Input.is_action_just_pressed("Ability"):
-		animation_player.play("Enemy Shake")
+	if Global.EnemyinRange == true:
 		
-	if Input.is_action_pressed("Ability"):
-		Global.launch_power += 0.5
+		if Input.is_action_just_pressed("Ability"):
+			Global.launch_power = 0
 
-	# Starts timer when launched to prevent immediate animation stop
-	if Input.is_action_just_released("Ability"):
-		Global.launched = true
-		launch_timer.start()
-		print ("launched: ", Global.launched)
-		print ("time out:", time_out)
-		print ("raycast colliding: ", ray_cast_down.is_colliding())
-		
-		if player.global_position.x < enemy.global_position.x:
-			scared_right()
-		else:
-			scared_left()
+		# Starts animation 
+		if Input.is_action_just_pressed("Ability"):
+			animation_player.play("Enemy Shake")
 			
-		# Caps launch power at 30
-		if Global.launch_power > 30:
-			Global.launch_power = 30
+		if Input.is_action_pressed("Ability"):
+			Global.launch_power += 0.5
+
+		# Starts timer when launched to prevent immediate animation stop
+		if Input.is_action_just_released("Ability"):
+			Global.launched = true
+			launch_timer.start()
+			
+			if player.global_position.x < enemy.global_position.x:
+				scared_right()
+			else:
+				scared_left()
+				
+			# Caps launch power at 30
+			if Global.launch_power > 30:
+				Global.launch_power = 30
+		
+	elif Global.EnemyinRange == false && Global.launched == false:
+		animation_player.play("RESET")
+		
 		
 	if Global.launched == true && time_out == true && ray_cast_down.is_colliding():
 		animation_player.play("RESET")
 		Global.launched = false
 		time_out = false
+	
 		
 func scared_right():
 	apply_impulse(Vector2(run_speed, jump_power) * Global.launch_power)

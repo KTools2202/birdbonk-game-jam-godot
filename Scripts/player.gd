@@ -15,13 +15,13 @@ const AIR_CONTROL = 2000.0  # Strong air control factor
 @onready var area_2d: Area2D = $Area2D
 @onready var player: CharacterBody2D = $"."
 @onready var timer: Timer = $Timer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var jump_buffer_timer = 0.0
 var coyote_timer = 0.0
-var size_stage = 1
-var time_out = false
-var shrinking = false
+var time_out = true
+var normal_size = true
 
 func _ready() -> void:
 	stone_age()
@@ -94,32 +94,21 @@ func _physics_process(delta: float) -> void:
 	if Global.industrial_age == true:
 		
 		if Input.is_action_just_pressed("Ability"):
-			if size_stage == 1:
-				shrink()
+			if normal_size == true && time_out == true:
+				animation_player.play("Shrink")
 				timer.start()
-				
-			if size_stage == 2:
-				grow()
-				timer.start()
-				
-			if size_stage == 3:
-				normal_size()
-				timer.start()
+				normal_size = false
+				time_out = false
 			
-			if time_out == true:
-				if size_stage <= 2:
-					size_stage += 1
-				elif size_stage >= 3:
-					size_stage = 1
+			elif normal_size == false && time_out == true:
+				animation_player.play("Normal Size")
+				timer.start()
+				normal_size = true
+				time_out = false
+		
 			
-			if shrinking == true:
-				scale.x -= 0.1
-				scale.y -= 0.1
-				if scale.x && scale.y == 0.25:
-					shrinking = false
 
 func stone_age():
-	normal_size()
 	Global.stone_age = true
 	Global.medieval_age = false
 	Global.industrial_age = false
@@ -127,9 +116,11 @@ func stone_age():
 	cave_man.show()
 	medieval_man.hide()
 	industrial_man.hide()
+	if normal_size == false:
+		animation_player.play("Normal Size")
+		normal_size = true
 
 func medieval_age():
-	normal_size()
 	Global.stone_age = false
 	Global.medieval_age = true
 	Global.industrial_age = false
@@ -137,10 +128,11 @@ func medieval_age():
 	cave_man.hide()
 	medieval_man.show()
 	industrial_man.hide()
+	if normal_size == false:
+		animation_player.play("Normal Size")
+		normal_size = true
 
 func industrial_age():
-	size_stage = 1
-	normal_size()
 	Global.stone_age = false
 	Global.medieval_age = false
 	Global.industrial_age = true
@@ -148,27 +140,16 @@ func industrial_age():
 	cave_man.hide()
 	medieval_man.hide()
 	industrial_man.show()
+	if normal_size == false:
+		animation_player.play("Normal Size")
+		normal_size = true
 
 func _on_area_2d_body_entered(_body: RigidBody2D) -> void:
-	print ("Body entered")
 	Global.EnemyinRange = true
 
 func _on_area_2d_body_exited(_body: RigidBody2D) -> void:
-	print ("Body exited")
 	Global.EnemyinRange = false
 
-func shrink():
-	print ("Small")
-	shrinking = true
 
-
-func grow():
-	print ("Big")
-	player.scale.x = 0.75
-	player.scale.y = 0.75
-
-
-func normal_size():
-	print ("Normal")
-	player.scale.x = 0.592
-	player.scale.y = 0.5
+func _on_timer_timeout() -> void:
+	time_out = true

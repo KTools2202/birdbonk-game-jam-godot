@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2u7k0pgjwtxv"]
+
+[ext_resource type="Script" path="res://Scripts/pressure_plate.gd" id="1_dnqoh"]
+
+[sub_resource type="Animation" id="Animation_8c2ry"]
+resource_name = "Plate Down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 35)]
+}
+
+[sub_resource type="Animation" id="Animation_1pymw"]
+resource_name = "Plate Up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 35), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vcuva"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7wrdi"]
+_data = {
+"Plate Down": SubResource("Animation_8c2ry"),
+"Plate Up": SubResource("Animation_1pymw"),
+"RESET": SubResource("Animation_vcuva")
+}
+
+[node name="Pressure Plate" type="Node2D"]
+script = ExtResource("1_dnqoh")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_layer = 25
+collision_mask = 25
+
+[node name="Polygon2D" type="Polygon2D" parent="AnimatableBody2D"]
+position = Vector2(1, 70.591)
+scale = Vector2(1, 0.409)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(100, 55, 40, 140, 345, 140, 272, 54)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatableBody2D"]
+position = Vector2(0, 71)
+scale = Vector2(0.998735, 0.409)
+polygon = PackedVector2Array(54, 134.474, 105, 70.9046, 266, 73.3496, 335, 134.474)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_7wrdi")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 25
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(71.1307, -5)
+scale = Vector2(0.603975, 0.727609)
+polygon = PackedVector2Array(30, 134, 92, 43, 283, 41, 357, 137)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://bq3ydvalak51a"]
+[gd_scene load_steps=24 format=4 uid="uid://bq3ydvalak51a"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_kx6qq"]
 [ext_resource type="Material" uid="uid://c7mrkj8rvvw6y" path="res://Sprites/fade_material.tres" id="2_qsufv"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="11_0a6se"]
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="12_5qnge"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="12_ga4yt"]
+[ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="14_4gbfe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6a1bc"]
 size = Vector2(316.989, 442.206)
@@ -191,7 +192,6 @@ scale = Vector2(0.998866, 1)
 z_index = 2
 material = ExtResource("2_qsufv")
 position = Vector2(-299.339, -22)
-scale = Vector2(0.451016, 0.432658)
 collision_layer = 2
 
 [node name="Spear" parent="Player" instance=ExtResource("3_lq2fq")]
@@ -211,7 +211,6 @@ script = ExtResource("5_ds3vv")
 position = Vector2(159.068, 53.1598)
 rotation = 3.14159
 scale = Vector2(-11.447, -160.224)
-zoom = Vector2(2, 2)
 limit_bottom = 900
 position_smoothing_speed = 100.0
 rotation_smoothing_speed = 0.1
@@ -297,5 +296,9 @@ text = "Cave Person Scares people away, Medival Person brings people closer... U
 fit_content = true
 scroll_active = false
 metadata/_edit_use_anchors_ = true
+
+[node name="Pressure Plate" parent="." instance=ExtResource("14_4gbfe")]
+position = Vector2(8.00911, -23)
+scale = Vector2(0.15, 0.15)
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]
