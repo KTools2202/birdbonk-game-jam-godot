@@ -24,6 +24,7 @@ var time_out = false
 var shrinking = false
 
 func _ready() -> void:
+	add_to_group("player")
 	stone_age()
 	medieval_man.hide()
 	industrial_man.hide()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dg6hvkdu5nkpa"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_hvm8t"]
-[ext_resource type="Texture2D" uid="uid://djxtncncepyh2" path="res://Sprites/Caveman.jpg" id="2_ox5h6"]
+[ext_resource type="Texture2D" uid="uid://4a5mykwmtwxa" path="res://Sprites/Caveman_Sprite-1.png" id="2_rxgcm"]
 [ext_resource type="Texture2D" uid="uid://ckypvw2ymwahx" path="res://Sprites/Medieval man1.jpg.png" id="3_x6g27"]
 [ext_resource type="Texture2D" uid="uid://rfdadunm1ah4" path="res://Sprites/Industrial man.png" id="4_qx8gr"]
 
@@ -19,10 +19,10 @@ collision_mask = 9
 floor_snap_length = 0.0
 script = ExtResource("1_hvm8t")
 
-[node name="Caveman" type="Sprite2D" parent="."]
-position = Vector2(5.72205e-06, -10.4057)
-scale = Vector2(0.235675, 0.300608)
-texture = ExtResource("2_ox5h6")
+[node name="Caveman" type="Sprite2D" parent="." groups=["player"]]
+position = Vector2(0, -11)
+scale = Vector2(0.580659, 0.703125)
+texture = ExtResource("2_rxgcm")
 
 [node name="Medieval man" type="Sprite2D" parent="."]
 position = Vector2(0.0313932, -10.487)

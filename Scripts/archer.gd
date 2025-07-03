@@ -1,19 +1,25 @@
 extends RigidBody2D
 
+@export var arrow_scene: PackedScene
+@export var move_speed: float = 60.0
+@export var preferred_distance: float = 300.0
+@export var minimum_distance: float = 150.0
+@export var float_speed = 50
+@export var run_speed = 10
+@export var jump_power = -25
+
 @onready var terrain: TileMapLayer = $".../Terrains/Terrian2"
 @onready var sfx: AudioStreamPlayer = $"../AudioStreamPlayer"
 @onready var ray_cast_down: RayCast2D = $RayCastDown
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var launch_timer: Timer = $"Launch Timer"
-@onready var player: CharacterBody2D = $"../../Player"
+@onready var shoot_timer: Timer = $ShootTimer
+@onready var player: CharacterBody2D = ($"../../Player")
 @onready var enemy: RigidBody2D = $"."
 
 
 var collider
-@export var run_speed = 10
-@export var float_speed = 50  # Speed of floating towards the player
-@export var jump_power = -25
 @export var time_out = false
 @export var shaking = false
 

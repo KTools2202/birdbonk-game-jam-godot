@@ -19,13 +19,17 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
-Levelmanager="*res://Scripts/Levelmanager.gd"
+LevelManager="*res://Scripts/Levelmanager.gd"
 
 [display]
 
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
+
+[global_group]
+
+player=""
 
 [input]
 
