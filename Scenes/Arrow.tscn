@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7h1lkxdv0r5t"]
+[gd_scene load_steps=3 format=3 uid="uid://b7h1lkxdv0r5t"]
 
+[ext_resource type="Script" path="res://Scripts/archerarrow.gd" id="1_kkvdi"]
 [ext_resource type="Texture2D" uid="uid://dp71p81ns7rrv" path="res://Sprites/arrow.png" id="1_tt83t"]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="arrow" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("1_kkvdi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
