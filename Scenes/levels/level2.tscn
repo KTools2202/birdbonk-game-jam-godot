@@ -193,7 +193,6 @@ scale = Vector2(0.998866, 1)
 z_index = 2
 material = ExtResource("2_p2pws")
 position = Vector2(-299.339, -22)
-scale = Vector2(0.451016, 0.432658)
 collision_layer = 2
 
 [node name="Spear" parent="Player" instance=ExtResource("3_i2wl5")]
