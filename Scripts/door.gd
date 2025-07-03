@@ -1,10 +1,11 @@
 extends Area2D
 
-@export_file("*.tscn") var next_level_scene : String  # Drag your next level scene here
-
 func _ready():
-	body_entered.connect(_on_body_entered)
+	self.body_entered.connect(_on_body_entered)
 
-func _on_body_entered(body: Node):
+func _on_body_entered(body: Node2D):
+	print("Body entered:", body.name)
+
 	if body.is_in_group("player"):
-		Levelmanager.go_to_next_level()
+		print("Player entered door. Going to next level...")
+		LevelManager.go_to_next_level()

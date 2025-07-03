@@ -1,13 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2nb50p8erswk"]
+[gd_scene load_steps=8 format=3 uid="uid://d2nb50p8erswk"]
 
-[ext_resource type="Script" path="res://Sprites/archer.gd" id="1_12npb"]
+[ext_resource type="Script" path="res://Scripts/archer.gd" id="1_12npb"]
 [ext_resource type="PackedScene" uid="uid://b7h1lkxdv0r5t" path="res://Scenes/Arrow.tscn" id="2_vws8p"]
 [ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="3_7fvui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i1buo"]
 size = Vector2(88, 90)
 
+[sub_resource type="Animation" id="Animation_xfg3h"]
+resource_name = "Enemy Shake"
+length = 0.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.349066, -0.349066]
+}
+
+[sub_resource type="Animation" id="Animation_e1crk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4h5r"]
+_data = {
+"Enemy Shake": SubResource("Animation_xfg3h"),
+"RESET": SubResource("Animation_e1crk")
+}
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(2, -1)
 script = ExtResource("1_12npb")
 arrow_scene = ExtResource("2_vws8p")
 
@@ -23,3 +62,19 @@ shape = SubResource("RectangleShape2D_i1buo")
 position = Vector2(-2.2, 1)
 scale = Vector2(0.175, 0.179688)
 texture = ExtResource("3_7fvui")
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+position = Vector2(-2, 8)
+scale = Vector2(-7.1469, 0.704335)
+target_position = Vector2(0, 18.1476)
+collision_mask = 24
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_u4h5r")
+}
+
+[node name="Launch Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true

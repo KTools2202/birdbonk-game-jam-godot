@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 func float_toward_player(_delta: float) -> void:
 	# Calculate direction to the player
 	var direction_to_player = (player.global_position - global_position).normalized()
-	print ("Sliding")
+	#print ("Sliding")
 	# Set linear velocity to move toward the player
 	apply_impulse(direction_to_player * float_speed) 
 	

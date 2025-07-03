@@ -24,6 +24,7 @@ var time_out = true
 var normal_size = true
 
 func _ready() -> void:
+	add_to_group("player")
 	stone_age()
 	medieval_man.hide()
 	industrial_man.hide()

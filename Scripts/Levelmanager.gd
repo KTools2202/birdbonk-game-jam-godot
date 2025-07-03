@@ -3,7 +3,7 @@ extends Node
 var level_list := [
 	"res://Scenes/levels/Game.tscn",
 	"res://Scenes/levels/Level2.tscn",
-	#"res://Scenes/levels/Level3.tscn"
+	"res://Scenes/levels/Level 3.tscn"
 ]
 
 var current_level_index := 0
