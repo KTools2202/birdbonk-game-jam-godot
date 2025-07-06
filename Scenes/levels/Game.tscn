@@ -1,20 +1,65 @@
-[gd_scene load_steps=25 format=4 uid="uid://bq3ydvalak51a"]
+[gd_scene load_steps=34 format=4 uid="uid://bq3ydvalak51a"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_kx6qq"]
 [ext_resource type="Material" uid="uid://c7mrkj8rvvw6y" path="res://Sprites/fade_material.tres" id="2_qsufv"]
 [ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_lq2fq"]
 [ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_ugyrf"]
 [ext_resource type="Script" path="res://Scripts/club.gd" id="5_ds3vv"]
+[ext_resource type="Script" path="res://Scripts/player/health.gd" id="6_1nbfk"]
 [ext_resource type="Texture2D" uid="uid://bf4mdkn4vdtti" path="res://Sprites/Door.png" id="6_f4tcf"]
 [ext_resource type="Script" path="res://Scripts/door.gd" id="7_dn55i"]
+[ext_resource type="Script" path="res://Scripts/player/movement.gd" id="7_vv8x0"]
 [ext_resource type="PackedScene" uid="uid://4vgicgg6vr8w" path="res://Scenes/area_2d.tscn" id="8_8j2jb"]
+[ext_resource type="Script" path="res://Scripts/player/age_manager.gd" id="8_y6dqs"]
 [ext_resource type="Texture2D" uid="uid://dijexj73jqdhp" path="res://Sprites/grass.png" id="9_r7neo"]
+[ext_resource type="Script" path="res://Scripts/player/abilities.gd" id="9_s5ejc"]
 [ext_resource type="Texture2D" uid="uid://ccnj1t20ibq7g" path="res://Sprites/dark_grass.png" id="10_js7t4"]
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="11_0a6se"]
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="12_5qnge"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="12_ga4yt"]
 [ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="14_4gbfe"]
 [ext_resource type="PackedScene" uid="uid://d2nb50p8erswk" path="res://Scenes/Archer.tscn" id="15_xebt7"]
+[ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="20_rmow0"]
+
+[sub_resource type="Animation" id="Animation_yb0va"]
+resource_name = "zoom"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1.6245),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
+}
+
+[sub_resource type="Animation" id="Animation_agbjd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yoavc"]
+_data = {
+"RESET": SubResource("Animation_agbjd"),
+"zoom": SubResource("Animation_yb0va")
+}
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7p417"]
+color = Color(1, 0.174173, 0.127215, 1)
+thickness = 37
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6a1bc"]
 size = Vector2(316.989, 442.206)
@@ -217,6 +262,39 @@ limit_bottom = 900
 position_smoothing_speed = 100.0
 rotation_smoothing_speed = 0.1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D"]
+libraries = {
+"": SubResource("AnimationLibrary_yoavc")
+}
+
+[node name="Health" type="Node" parent="Player"]
+script = ExtResource("6_1nbfk")
+
+[node name="Movement" type="Node" parent="Player"]
+script = ExtResource("7_vv8x0")
+
+[node name="AgeManager" type="Node" parent="Player"]
+script = ExtResource("8_y6dqs")
+
+[node name="Abilities" type="Node" parent="Player"]
+script = ExtResource("9_s5ejc")
+
+[node name="HPBar" type="ProgressBar" parent="Player"]
+anchors_preset = -1
+anchor_left = -0.019
+anchor_top = -0.066
+anchor_right = 0.018
+anchor_bottom = -0.056
+offset_left = -38.8963
+offset_top = -104.0
+offset_right = 90.4797
+offset_bottom = -66.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("12_5qnge")
+theme_override_styles/fill = SubResource("StyleBoxLine_7p417")
+value = 100.0
+metadata/_edit_use_anchors_ = true
+
 [node name="Door" type="Sprite2D" parent="."]
 position = Vector2(1665.89, -11)
 scale = Vector2(0.12633, 0.122115)
@@ -262,7 +340,7 @@ position = Vector2(-200.227, -9.00002)
 collision_layer = 2056
 
 [node name="Archer" parent="Enemies" instance=ExtResource("15_xebt7")]
-position = Vector2(-152.173, -9)
+position = Vector2(939.065, -223)
 collision_layer = 2056
 collision_mask = 2072
 
@@ -309,5 +387,11 @@ metadata/_edit_use_anchors_ = true
 [node name="Pressure Plate" parent="." instance=ExtResource("14_4gbfe")]
 position = Vector2(8.00911, -23)
 scale = Vector2(0.15, 0.15)
+lock_on_activate = true
+bridge = NodePath("../Bridge")
+
+[node name="Bridge" parent="." instance=ExtResource("20_rmow0")]
+position = Vector2(1520.72, 10)
+rotation = 1.5708
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

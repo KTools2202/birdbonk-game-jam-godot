@@ -1,11 +1,13 @@
 extends Area2D
 
 @export var speed: float = 800.0
+@export var damage: int = 10  # ✅ Arrow damage amount
+
 var velocity: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var start_position: Vector2
 
-const COLLISION_LAYER_MASK = 1 << 11  # Same as your spear layer
+const COLLISION_LAYER_MASK = 1 << 11  # Same as your terrain layer
 
 func _ready() -> void:
 	start_position = global_position
@@ -13,11 +15,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position += velocity * delta
 
-	# Optional: limit distance
 	if global_position.distance_to(start_position) > 1200:
 		queue_free()
 
-	# Check for terrain collision like the spear
 	if should_reset():
 		queue_free()
 
@@ -41,8 +41,14 @@ func should_reset() -> bool:
 		return true
 	return false
 
-func _on_body_entered(body: Node2D):
+func _on_body_entered(body: Node2D) -> void:
 	print("Body entered:", body.name)
 
 	if body.is_in_group("player"):
-		print("player has been hit")
+		var health_node = body.get_node_or_null("Health")
+		if health_node:
+			print("Player hit! Taking damage.")
+			health_node.take_damage(damage)
+		else:
+			print("Player has no Health node.")
+		queue_free()  # Destroy the arrow

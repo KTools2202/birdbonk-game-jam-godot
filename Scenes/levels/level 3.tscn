@@ -1,18 +1,64 @@
-[gd_scene load_steps=23 format=4 uid="uid://m06ekr2o65c0"]
+[gd_scene load_steps=33 format=4 uid="uid://m06ekr2o65c0"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_n4dmu"]
 [ext_resource type="Material" uid="uid://c7mrkj8rvvw6y" path="res://Sprites/fade_material.tres" id="2_qhks6"]
 [ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_cb764"]
 [ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_ynhht"]
 [ext_resource type="Script" path="res://Scripts/club.gd" id="5_v08sp"]
+[ext_resource type="Script" path="res://Scripts/player/health.gd" id="6_5vn25"]
 [ext_resource type="Texture2D" uid="uid://bf4mdkn4vdtti" path="res://Sprites/Door.png" id="6_ycbv6"]
 [ext_resource type="Script" path="res://Scripts/door.gd" id="7_1l3h2"]
+[ext_resource type="Script" path="res://Scripts/player/movement.gd" id="7_b5ql5"]
 [ext_resource type="PackedScene" uid="uid://4vgicgg6vr8w" path="res://Scenes/area_2d.tscn" id="8_5ayhh"]
+[ext_resource type="Script" path="res://Scripts/player/age_manager.gd" id="8_n6owm"]
+[ext_resource type="Script" path="res://Scripts/player/abilities.gd" id="9_ce2ao"]
 [ext_resource type="Texture2D" uid="uid://dijexj73jqdhp" path="res://Sprites/grass.png" id="9_mk7qh"]
 [ext_resource type="Texture2D" uid="uid://ccnj1t20ibq7g" path="res://Sprites/dark_grass.png" id="10_ehwfp"]
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="11_wgefu"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="12_pk3rd"]
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="13_hb4rf"]
+[ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="18_0pcfj"]
+[ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="19_6vxjb"]
+
+[sub_resource type="Animation" id="Animation_yb0va"]
+resource_name = "zoom"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1.6245),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
+}
+
+[sub_resource type="Animation" id="Animation_agbjd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yoavc"]
+_data = {
+"RESET": SubResource("Animation_agbjd"),
+"zoom": SubResource("Animation_yb0va")
+}
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_2lkn6"]
+color = Color(1, 0.174173, 0.127215, 1)
+thickness = 37
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5syo3"]
 size = Vector2(316.989, 442.206)
@@ -189,7 +235,8 @@ pattern_4 = SubResource("TileMapPattern_rqkq5")
 z_index = 2
 material = ExtResource("2_qhks6")
 position = Vector2(-299.339, -22)
-collision_layer = 2
+collision_layer = 3
+collision_mask = 25
 
 [node name="Spear" parent="Player" instance=ExtResource("3_cb764")]
 z_index = 1
@@ -208,10 +255,42 @@ script = ExtResource("5_v08sp")
 position = Vector2(159.068, 53.1598)
 rotation = 3.14159
 scale = Vector2(-11.447, -160.224)
-zoom = Vector2(2, 2)
 limit_bottom = 900
 position_smoothing_speed = 100.0
 rotation_smoothing_speed = 0.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D"]
+libraries = {
+"": SubResource("AnimationLibrary_yoavc")
+}
+
+[node name="Health" type="Node" parent="Player"]
+script = ExtResource("6_5vn25")
+
+[node name="Movement" type="Node" parent="Player"]
+script = ExtResource("7_b5ql5")
+
+[node name="AgeManager" type="Node" parent="Player"]
+script = ExtResource("8_n6owm")
+
+[node name="Abilities" type="Node" parent="Player"]
+script = ExtResource("9_ce2ao")
+
+[node name="HPBar" type="ProgressBar" parent="Player"]
+anchors_preset = -1
+anchor_left = -0.019
+anchor_top = -0.066
+anchor_right = 0.018
+anchor_bottom = -0.056
+offset_left = -38.8963
+offset_top = -104.0
+offset_right = 90.4797
+offset_bottom = -66.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("13_hb4rf")
+theme_override_styles/fill = SubResource("StyleBoxLine_2lkn6")
+value = 100.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Door" type="Sprite2D" parent="."]
 position = Vector2(1665.89, -11)
@@ -311,5 +390,14 @@ text = "Cave Person Scares people away, Medival Person brings people closer... U
 fit_content = true
 scroll_active = false
 metadata/_edit_use_anchors_ = true
+
+[node name="Pressure Plate" parent="." instance=ExtResource("18_0pcfj")]
+position = Vector2(272, -23)
+scale = Vector2(0.15, 0.15)
+bridge = NodePath("../Bridge")
+
+[node name="Bridge" parent="." instance=ExtResource("19_6vxjb")]
+position = Vector2(632, 5)
+rotation = 1.5708
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]
