@@ -7,17 +7,23 @@ extends RigidBody2D
 @export var float_speed = 50
 @export var run_speed = 10
 @export var jump_power = -25
+@export var bow_rotation_speed: float = 1.0  # radians per second, adjust as needed
+
 const COLLISION_LAYER_MASK = 1 << 11  # or whatever layer your terrain uses
 
 
 @onready var terrain: TileMapLayer = $".../Terrains/Terrian2"
 @onready var sfx: AudioStreamPlayer = $"../AudioStreamPlayer"
-@onready var bubble: Area2D = $Bubble
+@onready var ray_cast_down: RayCast2D = $RayCastDown
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var launch_timer: Timer = $"Launch Timer"
 @onready var shoot_timer: Timer = $"ShootTimer"
 @onready var player: CharacterBody2D = ($"../../Player")
+@onready var bow_pivot: Node2D = $BowPivot
+@onready var bow: Node2D = $BowPivot/Bow
+
+
 
 var collider
 @export var time_out = false
@@ -28,6 +34,7 @@ func _ready() -> void:
 	shoot_timer.wait_time = 2.0
 	shoot_timer.start()
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
+	lock_rotation = true
 func _on_launch_timer_timeout() -> void:
 	time_out = true
 func _physics_process(delta: float) -> void:
@@ -42,34 +49,38 @@ func _physics_process(delta: float) -> void:
 
 	# Archer AI movement (always active)
 	handle_archer_movement(delta)
-
+	var target_angle = (player.global_position - bow_pivot.global_position).angle()
+	
+	# Slowly interpolate bow_pivot rotation toward target_angle + spinning
+	bow_pivot.rotation = lerp_angle(bow_pivot.rotation, target_angle, 0.1) + bow_rotation_speed * delta
 func handle_stone_age():
-	if Input.is_action_just_pressed("Ability"):
-		Global.launch_power = 0
-		animation_player.play("Enemy Shake")
-
-	if Input.is_action_pressed("Ability"):
-		Global.launch_power += 0.5
-		if Global.launch_power > 30:
-			Global.launch_power = 30
-
-	if Input.is_action_just_released("Ability"):
-		Global.launched = true
-		launch_timer.start()
-		if player.global_position.x < global_position.x:
-			scared_right()
-		else:
-			scared_left()
-
-	if Global.launched and time_out and bubble_detected():
+	if Global.EnemyinRange == true:
+		if Input.is_action_just_pressed("Ability"):
+			Global.launch_power = 0
+			animation_player.play("Enemy Shake")
+		
+		if Input.is_action_pressed("Ability"):
+			Global.launch_power += 0.5
+			if Global.launch_power > 30:
+				Global.launch_power = 30
+		
+		if Input.is_action_just_released("Ability"):
+			Global.launched = true
+			launch_timer.start()
+			
+			if player.global_position.x < global_position.x:
+				scared_right()
+			else:
+				scared_left()
+				
+	elif Global.EnemyinRange == false and Global.launched == false:
+		animation_player.play("RESET")
+	
+	if Global.launched == true and time_out == true and ray_cast_down.is_colliding():
 		animation_player.play("RESET")
 		Global.launched = false
 		time_out = false
-func bubble_detected() -> bool:
-	for body in bubble.get_overlapping_bodies():
-		if body.collision_layer & COLLISION_LAYER_MASK != 0:
-			return true
-	return false
+
 
 func float_toward_player(_delta: float) -> void:
 	var direction = (player.global_position - global_position).normalized()
@@ -86,7 +97,6 @@ func scared_left():
 func handle_archer_movement(delta: float) -> void:
 	var to_player = player.global_position - global_position
 	var distance = to_player.length()
-	look_at(player.global_position)
 
 	var movement = Vector2.ZERO
 	if distance < minimum_distance:
@@ -94,7 +104,6 @@ func handle_archer_movement(delta: float) -> void:
 	elif distance > preferred_distance:
 		movement = to_player.normalized() * move_speed
 
-	# Apply movement via force (RigidBody2D)
 	apply_central_force(movement)
 
 func _on_shoot_timer_timeout():
@@ -103,8 +112,17 @@ func _on_shoot_timer_timeout():
 
 	var arrow = arrow_scene.instantiate()
 	get_parent().add_child(arrow)
-	arrow.global_position = global_position
-	arrow.rotation = (player.global_position - global_position).angle()
 
+	# Get the direction from Bow to Player
+	var direction = (player.global_position - bow.global_position).normalized()
+
+	# Rotate Bow node only (not the whole body)
+	bow_pivot.rotation = (player.global_position - bow_pivot.global_position).angle()
+
+	# Spawn arrow at the Bow position
+	arrow.global_position = bow.global_position
+	arrow.rotation = direction.angle()
+
+	# Optional: Set arrow movement direction
 	if arrow.has_method("set_direction"):
-		arrow.set_direction((player.global_position - global_position).normalized())
+		arrow.set_direction(direction)
