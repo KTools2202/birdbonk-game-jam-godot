@@ -32,14 +32,27 @@ func _physics_process(delta: float) -> void:
 			float_toward_player(delta)  # Pass delta for smooth frame-based movement
 		
 
-func float_toward_player(_delta: float) -> void:
-	# Calculate direction to the player
-	var direction_to_player = (player.global_position - global_position).normalized()
-	#print ("Sliding")
-	# Set linear velocity to move toward the player
-	apply_impulse(direction_to_player * float_speed) 
-	
-	
+func float_toward_player(delta: float) -> void:
+	var stop_distance: float = 20.0
+	var direction: Vector2 = player.global_position - global_position
+	var distance: float = direction.length()
+
+	if distance > stop_distance:
+		# Disable gravity for smooth floating
+		gravity_scale = 0.0
+
+		var force_direction: Vector2 = direction.normalized()
+		var desired_velocity: Vector2 = force_direction * float_speed
+
+		# Smooth force application
+		var velocity_difference: Vector2 = desired_velocity - linear_velocity
+		var force_to_apply: Vector2 = velocity_difference * mass / delta
+
+		apply_central_force(force_to_apply)
+	else:
+		# Stop and re-enable gravity
+		gravity_scale = 1.0
+		linear_velocity = Vector2.ZERO
 func handle_stone_age():
 	
 	if Global.EnemyinRange == true:

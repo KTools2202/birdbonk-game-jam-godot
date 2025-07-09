@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkgbbifko8vmg"]
+[gd_scene load_steps=3 format=3 uid="uid://dp70fohgl7nrr"]
 
 [ext_resource type="Texture2D" uid="uid://c7lt8e67afc7v" path="res://Sprites/Black-Bar-PNG-Photo.png" id="1_m5rrn"]
 [ext_resource type="Script" path="res://Scripts/lander.gd" id="1_npkub"]

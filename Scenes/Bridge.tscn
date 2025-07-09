@@ -2,9 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://c7lt8e67afc7v" path="res://Sprites/Black-Bar-PNG-Photo.png" id="1_nw0i0"]
 
-[sub_resource type="Animation" id="Animation_b01nq"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_dvlrf"]
 resource_name = "Fall"
 tracks/0/type = "value"
@@ -19,6 +16,9 @@ tracks/0/keys = {
 "update": 0,
 "values": [1.5708, 0.0]
 }
+
+[sub_resource type="Animation" id="Animation_b01nq"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e1stm"]
 _data = {

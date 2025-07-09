@@ -15,12 +15,12 @@ func _ready() -> void:
 		bridge_node = get_node(bridge)
 
 func _on_area_2d_body_entered(body) -> void:
-	# You can filter which bodies trigger here, e.g. enemies and player
-	# if not body.is_in_group("enemy") and not body.is_in_group("player"):
-	#     return
+	# Only trigger if the body is a player or enemy
+	if not body.is_in_group("player") and not body.is_in_group("enemy"):
+		return
 
-	if plate_down == false:
-		print(body)
+	if not plate_down:
+		print("Activated by:", body)
 		plate_down = true
 		animation_player.play("Plate Down")
 
@@ -31,19 +31,19 @@ func _on_area_2d_body_entered(body) -> void:
 		if lock_on_activate:
 			area_2d.monitoring = false  # Lock: ignore exit
 
+
 func _on_area_2d_body_exited(body) -> void:
 	if lock_on_activate:
-		# If locked, do nothing on exit
 		return
 
-	if plate_down == true:
-		print(body)
+	if not body.is_in_group("player") and not body.is_in_group("enemy"):
+		return
+
+	if plate_down:
+		print("Deactivated by:", body)
 		plate_down = false
 		animation_player.play("Plate Up")
 
 		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
 			var bridge_anim = bridge_node.get_node("AnimationPlayer")
-			bridge_anim.play_backwards("Fall")  # reverse animation
-
-		# OR if you prefer a separate "Reset" animation:
-		# bridge_anim.play("Reset")
+			bridge_anim.play_backwards("Fall")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dfe8pcwtdhfwg"]
+[gd_scene load_steps=33 format=4 uid="uid://dfe8pcwtdhfwg"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_1ttdv"]
 [ext_resource type="Material" uid="uid://c7mrkj8rvvw6y" path="res://Sprites/fade_material.tres" id="2_p2pws"]
@@ -16,23 +16,9 @@
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="10_mwk5j"]
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="10_srsa4"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="11_k22g4"]
-[ext_resource type="Texture2D" uid="uid://djrf0ovg2uba8" path="res://Sprites/photo-1657598339759-fd1432d833f0.jpg" id="12_rv05t"]
 [ext_resource type="Script" path="res://Scripts/door.gd" id="13_3i3g7"]
-
-[sub_resource type="Animation" id="Animation_yb0va"]
-resource_name = "zoom"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:zoom")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1.6245),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
-}
+[ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="17_3vhgr"]
+[ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="20_lgr2j"]
 
 [sub_resource type="Animation" id="Animation_agbjd"]
 length = 0.001
@@ -47,6 +33,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yb0va"]
+resource_name = "zoom"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1.6245),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yoavc"]
@@ -306,7 +307,7 @@ collision_mask = 2
 z_index = 1
 position = Vector2(-3, -84)
 scale = Vector2(0.993918, 1.00565)
-tile_map_data = PackedByteArray("AAACAAUAAQAAAAAAAAADAAUAAQABAAAAAAACAAYAAQABAAMAAAADAAYAAQABAAcAAAAKAAUAAQABAAcAAAAJAAQAAQABAAIAAAAJAAUAAQABAAMAAAAKAAQAAQABAAAAAAASAAQAAQABAAIAAAASAAUAAQAAAAEAAAASAAYAAQAAAAcAAAATAAYAAQABAAcAAAAUAAYAAQABAAcAAAAVAAYAAQABAAcAAAAWAAYAAQABAAcAAAAXAAYAAQABAAcAAAAYAAYAAQABAAcAAAAZAAYAAQABAAcAAAATAAQAAQABAAAAAAATAAUAAQABAAEAAAAQAPn/AQAAAAAAAAARAPn/AQABAAAAAAAQAPr/AQAAAAEAAAAQAPv/AQAAAAcAAAARAPv/AQABAAcAAAAfAAAAAQAAAAAAAAAfAAEAAQABAAMAAAAgAAAAAQABAAAAAAAgAAEAAQABAAcAAAAqAAIAAQABAAcAAAApAAAAAQAAAAAAAAApAAEAAQAAAAEAAAApAAIAAQAAAAcAAAAqAAAAAQABAAAAAAAqAAEAAQABAAEAAABKAAAAAQAAAAAAAABKAAEAAQAAAAEAAABKAAIAAQAAAAcAAABLAAIAAQABAAcAAABLAAAAAQABAAAAAABLAAEAAQABAAEAAABWAAAAAQAAAAAAAABXAAAAAQABAAAAAABWAAEAAQAAAAEAAABWAAIAAQAAAAcAAABXAAIAAQABAAcAAABXAAEAAQABAAEAAABdAAMAAQAAAAAAAABeAAMAAQABAAAAAABdAAQAAQABAAMAAABeAAQAAQABAAcAAAA=")
+tile_map_data = PackedByteArray("AAACAAUAAQAAAAAAAAADAAUAAQABAAAAAAACAAYAAQABAAMAAAADAAYAAQABAAcAAAAKAAUAAQABAAcAAAAJAAQAAQABAAIAAAAJAAUAAQABAAMAAAAKAAQAAQABAAAAAAASAAQAAQABAAIAAAASAAUAAQAAAAEAAAASAAYAAQAAAAcAAAATAAYAAQABAAcAAAAUAAYAAQABAAcAAAAVAAYAAQABAAcAAAAWAAYAAQABAAcAAAAXAAYAAQABAAcAAAAYAAYAAQABAAcAAAAZAAYAAQABAAcAAAATAAQAAQABAAAAAAATAAUAAQABAAEAAAAQAPn/AQAAAAAAAAARAPn/AQABAAAAAAAQAPr/AQAAAAEAAAAQAPv/AQAAAAcAAAARAPv/AQABAAcAAAAfAAAAAQAAAAAAAAAfAAEAAQABAAMAAAAgAAAAAQABAAAAAAAgAAEAAQABAAcAAAAqAAIAAQABAAcAAAApAAAAAQAAAAAAAAApAAEAAQAAAAEAAAApAAIAAQAAAAcAAAAqAAAAAQABAAAAAAAqAAEAAQABAAEAAABKAAAAAQAAAAAAAABKAAEAAQAAAAEAAABKAAIAAQAAAAcAAABLAAIAAQABAAcAAABLAAAAAQABAAAAAABLAAEAAQABAAEAAABWAAAAAQAAAAAAAABXAAAAAQABAAAAAABWAAEAAQAAAAEAAABWAAIAAQAAAAcAAABXAAIAAQABAAcAAABXAAEAAQABAAEAAABdAAMAAQAAAAAAAABeAAMAAQABAAAAAABdAAQAAQABAAMAAABeAAQAAQABAAcAAAARAPr/AQABAAEAAAA=")
 tile_set = SubResource("TileSet_8wn7a")
 
 [node name="Terrain2" type="TileMapLayer" parent="Terrains"]
@@ -333,12 +334,10 @@ theme = ExtResource("11_k22g4")
 text = "Good Luck! I believe in you! Press R to reload your ranged attack and E to swap weapons"
 scroll_active = false
 
-[node name="Photo-1657598339759-fd1432d833f0" type="Sprite2D" parent="."]
-show_behind_parent = true
-z_index = -7
-position = Vector2(690.783, -157)
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("12_rv05t")
+[node name="Bridge" parent="." instance=ExtResource("17_3vhgr")]
+position = Vector2(1194.35, -77)
+rotation = 1.5708
+scale = Vector2(0.75, 0.75)
 
 [node name="Door" type="Sprite2D" parent="."]
 position = Vector2(1744.98, -19)
@@ -356,5 +355,11 @@ script = ExtResource("13_3i3g7")
 position = Vector2(1696.92, -14)
 scale = Vector2(0.12633, 0.122115)
 shape = SubResource("RectangleShape2D_2yqmb")
+
+[node name="Pressure Plate" parent="." instance=ExtResource("20_lgr2j")]
+position = Vector2(1048.19, -102)
+scale = Vector2(0.15, 0.15)
+lock_on_activate = true
+bridge = NodePath("../Bridge")
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]
