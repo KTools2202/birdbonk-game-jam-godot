@@ -77,4 +77,12 @@ libraries = {
 wait_time = 0.1
 one_shot = true
 
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+scale = Vector2(1, 6.76)
+target_position = Vector2(-187, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+scale = Vector2(1, 7.2)
+target_position = Vector2(174, 0)
+
 [connection signal="timeout" from="Launch Timer" to="." method="_on_launch_timer_timeout"]

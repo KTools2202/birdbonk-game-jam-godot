@@ -7,8 +7,9 @@ func _process(_delta: float) -> void:
 	
 
 func _on_body_entered(_body: CharacterBody2D) -> void:
-	death_timer.start()
-	
+	if _body.name == "Player":
+		death_timer.start()
+
 
 func _on_death_timer_timeout() -> void:
 	get_tree().reload_current_scene()

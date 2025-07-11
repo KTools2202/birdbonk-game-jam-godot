@@ -8,6 +8,9 @@ extends RigidBody2D
 @onready var launch_timer: Timer = $"Launch Timer"
 @onready var player: CharacterBody2D = $"../../Player"
 @onready var enemy: RigidBody2D = $"."
+@onready var ray_cast_left: RayCast2D = $RayCastLeft
+@onready var ray_cast_right: RayCast2D = $RayCastRight
+
 
 
 var collider
@@ -20,11 +23,22 @@ var collider
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animation_player.play("RESET")
-
+	
+func _process(delta: float) -> void:
+	if ray_cast_left.is_colliding():
+		print ("LEFT")
+		ChargeLeft()
+	
+	if ray_cast_right.is_colliding():
+		print ("RIGHT")
+		ChargeRight()
+		
 func _physics_process(delta: float) -> void:
 	if Global.stone_age == true:
 		# Implement launch mechanics as before
 		handle_stone_age()
+	
+	
 
 	elif Global.medieval_age == true and Global.EnemyinRange == true:
 		# Make the enemy float toward the player if right-click is held
@@ -32,27 +46,14 @@ func _physics_process(delta: float) -> void:
 			float_toward_player(delta)  # Pass delta for smooth frame-based movement
 		
 
-func float_toward_player(delta: float) -> void:
-	var stop_distance: float = 20.0
-	var direction: Vector2 = player.global_position - global_position
-	var distance: float = direction.length()
-
-	if distance > stop_distance:
-		# Disable gravity for smooth floating
-		gravity_scale = 0.0
-
-		var force_direction: Vector2 = direction.normalized()
-		var desired_velocity: Vector2 = force_direction * float_speed
-
-		# Smooth force application
-		var velocity_difference: Vector2 = desired_velocity - linear_velocity
-		var force_to_apply: Vector2 = velocity_difference * mass / delta
-
-		apply_central_force(force_to_apply)
-	else:
-		# Stop and re-enable gravity
-		gravity_scale = 1.0
-		linear_velocity = Vector2.ZERO
+func float_toward_player(_delta: float) -> void:
+	# Calculate direction to the player
+	var direction_to_player = (player.global_position - global_position).normalized()
+	#print ("Sliding")
+	# Set linear velocity to move toward the player
+	apply_impulse(direction_to_player * float_speed) 
+	
+	
 func handle_stone_age():
 	
 	if Global.EnemyinRange == true:
@@ -85,6 +86,7 @@ func handle_stone_age():
 		animation_player.play("RESET")
 		
 		
+		
 	if Global.launched == true && time_out == true && ray_cast_down.is_colliding():
 		animation_player.play("RESET")
 		Global.launched = false
@@ -96,6 +98,14 @@ func scared_right():
 
 func scared_left():
 	apply_impulse(Vector2(-run_speed, jump_power) * Global.launch_power)
+	
+func ChargeRight():
+	#apply_impulse(Vector2(run_speed, 0))
+	pass
 
+func ChargeLeft():
+	#apply_impulse(Vector2(-run_speed, 0))
+	pass
+	
 func _on_launch_timer_timeout() -> void:
 	time_out = true

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://p722yfyj3ht1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6y5ae"]
+size = Vector2(62, 14)
+
+[node name="Hatch" type="Node2D"]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+sync_to_physics = false
+
+[node name="Polygon2D" type="Polygon2D" parent="AnimatableBody2D"]
+polygon = PackedVector2Array(-31, 7, 31, 7, 31, -7, -31, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+scale = Vector2(1, 1.00353)
+shape = SubResource("RectangleShape2D_6y5ae")

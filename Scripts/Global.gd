@@ -11,3 +11,4 @@ var launch_power = 0
 var launched = false
 var run_speed = 10
 var jump_power = -25
+var platedown1 = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=4 uid="uid://dfe8pcwtdhfwg"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_1ttdv"]
-[ext_resource type="Material" uid="uid://c7mrkj8rvvw6y" path="res://Sprites/fade_material.tres" id="2_p2pws"]
+[ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_p2pws"]
 [ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_i2wl5"]
 [ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_ld2f6"]
 [ext_resource type="Script" path="res://Scripts/club.gd" id="5_04j4d"]
@@ -359,7 +359,5 @@ shape = SubResource("RectangleShape2D_2yqmb")
 [node name="Pressure Plate" parent="." instance=ExtResource("20_lgr2j")]
 position = Vector2(1048.19, -102)
 scale = Vector2(0.15, 0.15)
-lock_on_activate = true
-bridge = NodePath("../Bridge")
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

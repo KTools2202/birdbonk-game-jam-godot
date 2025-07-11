@@ -2,7 +2,7 @@ extends Node
 
 @export var parent_body: RigidBody2D
 
-@onready var terrain: TileMapLayer = parent_body.get_node_or_null(".../Terrains/Terrian2")
+#@onready var terrain: TileMapLayer = parent_body.get_node_or_null(".../Terrains/Terrian2")
 @onready var sfx: AudioStreamPlayer = parent_body.get_node_or_null("../AudioStreamPlayer")
 @onready var ray_cast_down: RayCast2D = parent_body.get_node_or_null("RayCastDown")
 @onready var animation_player: AnimationPlayer = parent_body.get_node_or_null("AnimationPlayer")

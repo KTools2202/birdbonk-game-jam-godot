@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2nb50p8erswk"]
+[gd_scene load_steps=9 format=3 uid="uid://dgbmrbwb36bic"]
 
 [ext_resource type="Script" path="res://Scripts/archer.gd" id="1_12npb"]
-[ext_resource type="PackedScene" uid="uid://b7h1lkxdv0r5t" path="res://Scenes/Arrow.tscn" id="2_vws8p"]
 [ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="3_7fvui"]
 [ext_resource type="Texture2D" uid="uid://bmkh3dq6qxbgh" path="res://Sprites/bow.png" id="4_b0qar"]
 [ext_resource type="Script" path="res://Scripts/EnemyLogic.gd" id="5_jijh0"]
@@ -47,11 +46,8 @@ _data = {
 "RESET": SubResource("Animation_e1crk")
 }
 
-[node name="Archer" type="RigidBody2D"]
-position = Vector2(2, -1)
-lock_rotation = true
+[node name="Archer" type="CharacterBody2D"]
 script = ExtResource("1_12npb")
-arrow_scene = ExtResource("2_vws8p")
 
 [node name="ShootTimer" type="Timer" parent="."]
 
@@ -96,4 +92,4 @@ offset = Vector2(0, -9.34)
 
 [node name="EnemyLogic" type="Node" parent="." node_paths=PackedStringArray("parent_body")]
 script = ExtResource("5_jijh0")
-parent_body = NodePath("..")
+parent_body = NodePath("")

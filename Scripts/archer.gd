@@ -1,73 +1,49 @@
-extends RigidBody2D
+extends CharacterBody2D
 
+@export var player_path: NodePath
 @export var arrow_scene: PackedScene
 @export var move_speed: float = 60.0
 @export var preferred_distance: float = 300.0
 @export var minimum_distance: float = 150.0
-@export var bow_rotation_speed: float = 1.0
-@export var player_path: NodePath  # ← Player path exposed
 
-@onready var shoot_timer: Timer = $ShootTimer
-@onready var bow_pivot: Node2D = $BowPivot
-@onready var bow: Node2D = $BowPivot/Bow
-@onready var enemy_logic: Node = $EnemyLogic
+@onready var shoot_timer = $ShootTimer
+@onready var player = get_node(player_path)
 
-var player: CharacterBody2D
-
-func _ready() -> void:
-	if player_path != null and player_path != NodePath(""):
-		player = get_node(player_path) as CharacterBody2D
-		enemy_logic.player_path = player_path  # pass path down!
-	else:
-		push_error("Parent node: player_path not assigned!")
-
-	shoot_timer.wait_time = 2.0
-	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
+func _ready():
+	shoot_timer.wait_time = 2.0  # seconds between shots
 	shoot_timer.start()
+	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
 
-func _physics_process(delta: float) -> void:
-	if not player:
-		return
+func _physics_process(delta):
+	if not player: return
 
-	# Base logic from EnemyLogic
-	if Global.stone_age:
-		enemy_logic.handle_stone_age()
-	elif Global.medieval_age and Global.EnemyinRange:
-		if Input.is_action_pressed("Ability"):
-			enemy_logic.float_toward_player()
-
-	# Archer-specific behavior
-	handle_archer_movement()
-	aim_bow(delta)
-
-func handle_archer_movement() -> void:
 	var to_player = player.global_position - global_position
 	var distance = to_player.length()
-	var movement = Vector2.ZERO
 
+	# Face player
+	look_at(player.global_position)
+
+	# Move away if too close
 	if distance < minimum_distance:
-		movement = -to_player.normalized() * move_speed
+		velocity = -to_player.normalized() * move_speed
 	elif distance > preferred_distance:
-		movement = to_player.normalized() * move_speed
+		# Move closer if too far (optional)
+		velocity = to_player.normalized() * move_speed
+	else:
+		# Stay in place if within range
+		velocity = Vector2.ZERO
 
-	apply_central_force(movement)
+	move_and_slide()
 
-func aim_bow(delta: float) -> void:
-	var target_angle = (player.global_position - bow_pivot.global_position).angle()
-	bow_pivot.rotation = lerp_angle(bow_pivot.rotation, target_angle, 0.1) + bow_rotation_speed * delta
-
-func _on_shoot_timer_timeout() -> void:
-	if not is_instance_valid(player):
+func _on_shoot_timer_timeout():
+	if not player or not is_instance_valid(player):
 		return
 
 	var arrow = arrow_scene.instantiate()
 	get_parent().add_child(arrow)
-
-	var direction = (player.global_position - bow.global_position).normalized()
-
-	bow_pivot.rotation = direction.angle()
-	arrow.global_position = bow.global_position
-	arrow.rotation = direction.angle()
-
+	arrow.global_position = global_position
+	arrow.rotation = (player.global_position - global_position).angle()
+	
+	# You can also pass velocity/direction to the arrow
 	if arrow.has_method("set_direction"):
-		arrow.set_direction(direction)
+		arrow.set_direction((player.global_position - global_position).normalized())

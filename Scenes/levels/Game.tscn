@@ -1,7 +1,7 @@
-[gd_scene load_steps=34 format=4 uid="uid://bq3ydvalak51a"]
+[gd_scene load_steps=33 format=4 uid="uid://bq3ydvalak51a"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_kx6qq"]
-[ext_resource type="Material" uid="uid://c7mrkj8rvvw6y" path="res://Sprites/fade_material.tres" id="2_qsufv"]
+[ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_qsufv"]
 [ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_lq2fq"]
 [ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_ugyrf"]
 [ext_resource type="Script" path="res://Scripts/club.gd" id="5_ds3vv"]
@@ -18,7 +18,6 @@
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="12_5qnge"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="12_ga4yt"]
 [ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="14_4gbfe"]
-[ext_resource type="PackedScene" uid="uid://d2nb50p8erswk" path="res://Scenes/Archer.tscn" id="15_xebt7"]
 [ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="20_rmow0"]
 
 [sub_resource type="Animation" id="Animation_agbjd"]
@@ -339,12 +338,6 @@ tile_set = SubResource("TileSet_8wn7a")
 position = Vector2(-200.227, -9.00002)
 collision_layer = 2056
 
-[node name="Archer" parent="Enemies" instance=ExtResource("15_xebt7")]
-position = Vector2(939.065, -223)
-collision_layer = 2056
-collision_mask = 2072
-player_path = NodePath("../../Player")
-
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = -454.515
 offset_top = -147.0
@@ -388,8 +381,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Pressure Plate" parent="." instance=ExtResource("14_4gbfe")]
 position = Vector2(8.00911, -23)
 scale = Vector2(0.15, 0.15)
-lock_on_activate = true
-bridge = NodePath("../Bridge")
 
 [node name="Bridge" parent="." instance=ExtResource("20_rmow0")]
 position = Vector2(1520.72, 10)
