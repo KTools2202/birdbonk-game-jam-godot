@@ -1,25 +1,113 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg6hvkdu5nkpa"]
+[gd_scene load_steps=11 format=3 uid="uid://dg6hvkdu5nkpa"]
 
-[ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="1_43gns"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_hvm8t"]
+[ext_resource type="Texture2D" path="res://Sprites/Caveman_Sprite-1.png" id="2_rxgcm"]
+[ext_resource type="Texture2D" path="res://Sprites/Medieval man1.jpg.png" id="3_x6g27"]
+[ext_resource type="Texture2D" path="res://Sprites/Industrial man.png" id="4_qx8gr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqs2w"]
-size = Vector2(424.837, 25.6178)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odkyg"]
+size = Vector2(10.395, 10.6329)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_la5fy"]
+radius = 61.3368
+
+[sub_resource type="Animation" id="Animation_q1r8y"]
+resource_name = "Normal Size"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.296, 0.25), Vector2(0.592, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_n742h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.592, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_dgm6l"]
+resource_name = "Shrink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.592, 0.5), Vector2(0.296, 0.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wjax"]
+_data = {
+"Normal Size": SubResource("Animation_q1r8y"),
+"RESET": SubResource("Animation_n742h"),
+"Shrink": SubResource("Animation_dgm6l")
+}
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-1, -4)
-scale = Vector2(0.684375, 0.576609)
-collision_layer = 9
-collision_mask = 9
+scale = Vector2(0.592, 0.5)
+collision_layer = 25
+collision_mask = 25
+floor_snap_length = 0.0
 script = ExtResource("1_hvm8t")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -10.5)
-scale = Vector2(0.615678, 0.766666)
-texture = ExtResource("1_43gns")
+[node name="Caveman" type="Sprite2D" parent="." groups=["player"]]
+position = Vector2(0, -11)
+scale = Vector2(0.580659, 0.703125)
+texture = ExtResource("2_rxgcm")
+
+[node name="Medieval man" type="Sprite2D" parent="."]
+position = Vector2(0.0313932, -10.487)
+scale = Vector2(0.299166, 0.376438)
+texture = ExtResource("3_x6g27")
+
+[node name="Industrial man" type="Sprite2D" parent="."]
+position = Vector2(0.435175, -10.5179)
+scale = Vector2(-0.0719655, 0.0597157)
+texture = ExtResource("4_qx8gr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.14577e-06, -9.99998)
-rotation = -3.14159
-scale = Vector2(0.168132, -3.506)
-shape = SubResource("RectangleShape2D_rqs2w")
+position = Vector2(0, -10)
+scale = Vector2(4.60811, 7.9)
+shape = SubResource("RectangleShape2D_odkyg")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(2.92877, 2.80364)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.55928, 1.19013)
+shape = SubResource("CircleShape2D_la5fy")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Area2D")
+libraries = {
+"": SubResource("AnimationLibrary_8wjax")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

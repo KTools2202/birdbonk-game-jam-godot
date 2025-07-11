@@ -1,100 +1,105 @@
 extends CharacterBody2D
 
-
-@onready var spear: Node2D = $"."
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var hit_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+@onready var hit_sound_stream: AudioStream = preload("res://Music and SFX/hit-rock-02-266304.mp3")
 
-
-
-var is_holding = false  # To track whether the button is being held down
-var speed = 1000
+var is_holding = false
+var speed = 500  # Speed for aiming and flight
 var flying = false
-var flipped = false
-var thrown = false
-var flyingRight = false
-var flyingLeft = false
-var leftLimit = -50
-var rightLimit = 50
-var yPos
+var yPos: float
 var defaultPos = -50
+var throw_dir = Vector2.ZERO
+var held_mouse_position = Vector2.ZERO
+var thrown_position = Vector2.ZERO
 
+const COLLISION_LAYER_MASK = 1 << 11  
 
 func _ready() -> void:
-	position.y = defaultPos
+	# Initialize spear under player
+	position = Vector2(0, defaultPos)
+	yPos = position.y
+	hit_sound.stream = hit_sound_stream
+	hit_sound.volume_db = 0  # Base volume, falloff will control perceived loudness
+	hit_sound.attenuation = 1.5
+	hit_sound.max_distance = 800
+	add_child(hit_sound)
 
-func _physics_process(delta: float) -> void:
-	
-	queue_free()
-	
-	if Global.weapon1 == true && Global.stone_age == true:
-		show()
-	else:
-		hide()
-	
-	#Runs repeatedly when action pressed
-	if Input.is_action_pressed("attack"):
-			is_holding = true
-			
-	#Runs if action isn't pressed
-	else:
-		is_holding = false
-	
-	#Runs when action is released
-	if Input.is_action_just_released("attack"):
-		thrown = true
-		is_holding = false
-		
-		
-	# Aiming
-	if is_holding == true && flipped == true:
-		if position.x < rightLimit:
-			position += Vector2.RIGHT * 3
+func _physics_process(_delta: float) -> void:
+	# Show/hide spear based on global state
+	visible = Global.weapon1 and Global.stone_age
 
-	if is_holding == true && flipped == false:
-		if position.x > leftLimit:
-			position += Vector2.LEFT * 3
-			
-	if thrown:
-		get_yPos()
-		if flipped == false:
-			flyingRight = true
-			thrown = false
-		else:
-			flyingLeft = true
-			thrown = false
-			
-	if flyingRight == true:
+	# While aiming: attach spear to player and rotate toward cursor
+	if is_holding and not flying:
+		var target_global = get_global_mouse_position()
+		look_at(target_global)
+		rotation = (target_global - global_position).angle()
+		position = Vector2(0, defaultPos)
+		queue_redraw()
+
+	# When attack released and not flying, throw spear
+	if Input.is_action_just_released("attack") and is_holding and not flying:
+		held_mouse_position = get_global_mouse_position()
+		throw_dir = (held_mouse_position - global_position).normalized()
+		thrown_position = global_position
 		flying = true
-		position += Vector2.RIGHT * speed * delta
+		is_holding = false
+		queue_redraw()
+
+	# While flying: move spear independently
+	if flying:
+		thrown_position += throw_dir * speed * _delta
+		global_position = thrown_position
+		rotation = throw_dir.angle()
 	
-	if flyingLeft == true:
-		flying = true
-		position += Vector2.LEFT * speed * delta
-		
-	if flying == true:
-		global_position.y = yPos
-	
-	#Flips the player when moving left or right
-	if Input.is_action_pressed("move_left") && not flying:
-		sprite.flip_h = true
-		sprite.flip_v = true
-		flipped = true
-		
-	if Input.is_action_pressed("move_right") && not flying:
-		sprite.flip_h = false
-		sprite.flip_v = false
-		flipped = false
-		
+	# Only runs in weapon 1 is equipped
+	if Global.weapon1 == true:
+		# Reset immediately if hit terrain
+		if should_reset():
+			if not hit_sound.playing:
+				hit_sound.global_position = global_position
+				hit_sound.play()
+			reset_spear()
+
+	# Start aiming
+	if Input.is_action_just_pressed("attack") and not flying:
+		is_holding = true
+		queue_redraw()
+
+	# Manual reset
 	if Input.is_action_just_pressed("Reload"):
-		position.x = 0
-		position.y = defaultPos
-		flyingLeft = false
-		flyingRight = false
-		flying = false
+		reset_spear()
+		queue_redraw()
 
-# Saves y position
-func get_yPos():
-	yPos = global_position.y
-	
+func get_global_y_lock() -> float:
+	return get_parent().global_position.y + yPos
 
-	
+func reset_spear():
+	position = Vector2(0, defaultPos)
+	rotation = 0
+	flying = false
+	is_holding = false
+	thrown_position = global_position
+	queue_redraw()
+
+func should_reset() -> bool:
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.new()
+	query.from = global_position
+	query.to = global_position + throw_dir * 20  # Increased ray length
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	query.collision_mask = COLLISION_LAYER_MASK
+	query.exclude = [self, get_parent()]
+	var result = space_state.intersect_ray(query)
+	if result:
+		print("Hit: ", result.collider)
+		return true
+	return false
+
+func _draw():
+	if is_holding and not flying:
+		var end_pos = to_local(get_global_mouse_position())
+		draw_line(Vector2.ZERO, end_pos.normalized() * 20, Color.RED, 1.5)
+	elif flying:
+		draw_line(Vector2.ZERO, to_local(global_position + throw_dir * 20), Color.RED, 2)
