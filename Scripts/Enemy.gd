@@ -10,7 +10,7 @@ extends RigidBody2D
 @onready var enemy: RigidBody2D = $"."
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var ray_cast_right: RayCast2D = $RayCastRight
-
+var last_direction = ""  # "left", "right", or ""
 
 
 var collider
@@ -25,13 +25,16 @@ func _ready() -> void:
 	animation_player.play("RESET")
 	
 func _process(delta: float) -> void:
-	if ray_cast_left.is_colliding():
-		print ("LEFT")
+	if ray_cast_left.is_colliding() and last_direction != "left":
+		last_direction = "left"
+		print("LEFT")
 		ChargeLeft()
-	
-	if ray_cast_right.is_colliding():
-		print ("RIGHT")
+	elif ray_cast_right.is_colliding() and last_direction != "right":
+		last_direction = "right"
+		print("RIGHT")
 		ChargeRight()
+	elif not ray_cast_left.is_colliding() and not ray_cast_right.is_colliding():
+		last_direction = ""  # Reset when nothing is hit
 		
 func _physics_process(delta: float) -> void:
 	if Global.stone_age == true:

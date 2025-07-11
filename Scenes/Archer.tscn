@@ -90,6 +90,5 @@ scale = Vector2(0.399998, 0.4)
 texture = ExtResource("4_b0qar")
 offset = Vector2(0, -9.34)
 
-[node name="EnemyLogic" type="Node" parent="." node_paths=PackedStringArray("parent_body")]
+[node name="EnemyLogic" type="Node" parent="."]
 script = ExtResource("5_jijh0")
-parent_body = NodePath("")

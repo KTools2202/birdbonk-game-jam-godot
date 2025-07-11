@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dexm1ik2tul75"]
+[gd_scene load_steps=7 format=3 uid="uid://dexm1ik2tul75"]
 
 [ext_resource type="Texture2D" uid="uid://c7lt8e67afc7v" path="res://Sprites/Black-Bar-PNG-Photo.png" id="1_nw0i0"]
 
@@ -19,10 +19,39 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_b01nq"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_bi56s"]
+resource_name = "Fall45"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.785398]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e1stm"]
 _data = {
 "Fall": SubResource("Animation_dvlrf"),
+"Fall45": SubResource("Animation_bi56s"),
 "RESET": SubResource("Animation_b01nq")
 }
 
@@ -30,6 +59,7 @@ _data = {
 size = Vector2(157, 10)
 
 [node name="Bridge" type="AnimatableBody2D"]
+rotation = 1.5708
 collision_layer = 15
 collision_mask = 15
 
