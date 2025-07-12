@@ -34,7 +34,9 @@ func _on_area_2d_body_entered(body) -> void:
 
 		if lock_on_activate:
 			area_2d.monitoring = false  # Lock: ignore exit
-
+			
+		if Global.lvl == 1:
+			Global.HatchOpen1 = true
 
 func _on_area_2d_body_exited(body) -> void:
 	if lock_on_activate:

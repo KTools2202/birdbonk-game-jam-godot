@@ -407,6 +407,5 @@ bridge = NodePath("../Bridge")
 
 [node name="Bridge" parent="." instance=ExtResource("19_6vxjb")]
 position = Vector2(632, 5)
-rotation = 1.5708
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

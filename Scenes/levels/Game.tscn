@@ -384,6 +384,5 @@ scale = Vector2(0.15, 0.15)
 
 [node name="Bridge" parent="." instance=ExtResource("20_rmow0")]
 position = Vector2(1520.72, 10)
-rotation = 1.5708
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

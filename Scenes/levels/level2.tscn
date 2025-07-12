@@ -343,7 +343,6 @@ scroll_active = false
 
 [node name="Bridge" parent="." instance=ExtResource("17_3vhgr")]
 position = Vector2(617.7, -182)
-rotation = 1.5708
 scale = Vector2(1.5, 1.5)
 
 [node name="Door" type="Sprite2D" parent="."]
