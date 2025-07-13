@@ -6,6 +6,10 @@ extends CharacterBody2D
 @onready var timer = $Timer
 @onready var area_2d = $Area2D
 @onready var hp_bar = $HPBar  # Optional if you added a health bar
+@onready var launch_power_bar: ProgressBar = $LaunchPowerBar
+
+
+
 
 func _ready() -> void:
 	add_to_group("player")
@@ -15,6 +19,7 @@ func _ready() -> void:
 	health.died.connect(_on_player_died)
 	hp_bar.max_value = health.max_health
 	hp_bar.value = health.current_health
+	launch_power_bar.value = 0
 
 func _physics_process(delta: float) -> void:
 	movement.physics_move(self, delta)

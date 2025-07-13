@@ -5,6 +5,7 @@ extends Node
 @onready var industrial_man = $"../Industrial man"
 @onready var animation_player = $"../AnimationPlayer"
 
+
 var normal_size := true
 
 func handle_input():
@@ -13,9 +14,9 @@ func handle_input():
 
 	if Input.is_action_just_pressed("stone_age"):
 		set_stone_age()
-	elif Input.is_action_just_pressed("medieval_age"):
+	elif Input.is_action_just_pressed("medieval_age") && Global.lvl <= 2:
 		set_medieval_age()
-	elif Input.is_action_just_pressed("industrial_age"):
+	elif Input.is_action_just_pressed("industrial_age") && Global.lvl <= 3:
 		set_industrial_age()
 
 func set_stone_age():
