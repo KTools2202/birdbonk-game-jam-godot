@@ -1,15 +1,16 @@
 extends Node
 
 var level_list := [
-	"res://Scenes/levels/Game.tscn",
+	"res://Scenes/menu.tscn",
+	"res://Scenes/levels/Level1.tscn",
 	"res://Scenes/levels/Level2.tscn",
 	"res://Scenes/levels/Level 3.tscn"
 ]
 
 var current_level_index := 0
 
-func _ready() -> void:
-	go_to_first_level()
+#func _ready() -> void:
+	#go_to_next_level()
 
 func go_to_next_level():
 	current_level_index += 1
@@ -20,5 +21,5 @@ func go_to_next_level():
 		# Optionally go to end screen
 		# get_tree().change_scene_to_file("res://scenes/YouWin.tscn")
 
-func go_to_first_level():
-	get_tree().change_scene_to_file("res://Scenes/levels/Level1.tscn")
+#func go_to_first_level():
+	#get_tree().change_scene_to_file("res://Scenes/levels/Level1.tscn")

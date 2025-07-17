@@ -2,7 +2,7 @@ extends Node
 
 @onready var animation_player = $"../AnimationPlayer"
 @onready var timer = $"../Timer"
-@onready var launch_power_bar: ProgressBar = $"../LaunchPowerBar"
+@export var launch_power_bar: ProgressBar
 @onready var camera_anim_player: AnimationPlayer = $"../Camera2D/AnimationPlayer"
 
 var normal_size := true

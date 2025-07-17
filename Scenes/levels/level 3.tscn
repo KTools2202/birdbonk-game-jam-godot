@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://m06ekr2o65c0"]
+[gd_scene load_steps=34 format=4 uid="uid://m06ekr2o65c0"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_n4dmu"]
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_qhks6"]
@@ -59,6 +59,9 @@ _data = {
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_2lkn6"]
 color = Color(1, 0.174173, 0.127215, 1)
 thickness = 37
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njxc0"]
+bg_color = Color(1, 1, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5syo3"]
 size = Vector2(316.989, 442.206)
@@ -240,12 +243,13 @@ pattern_4 = SubResource("TileMapPattern_rqkq5")
 
 [node name="Level3" type="Node2D"]
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource("1_n4dmu")]
+[node name="Player" parent="." node_paths=PackedStringArray("launch_power_bar") groups=["player"] instance=ExtResource("1_n4dmu")]
 z_index = 2
 material = ExtResource("2_qhks6")
 position = Vector2(-299.339, -22)
 collision_layer = 3
 collision_mask = 25
+launch_power_bar = NodePath("LaunchPowerBar1")
 
 [node name="Spear" parent="Player" instance=ExtResource("3_cb764")]
 z_index = 1
@@ -282,8 +286,9 @@ script = ExtResource("7_b5ql5")
 [node name="AgeManager" type="Node" parent="Player"]
 script = ExtResource("8_n6owm")
 
-[node name="Abilities" type="Node" parent="Player"]
+[node name="Abilities" type="Node" parent="Player" node_paths=PackedStringArray("launch_power_bar")]
 script = ExtResource("9_ce2ao")
+launch_power_bar = NodePath("../LaunchPowerBar1")
 
 [node name="HPBar" type="ProgressBar" parent="Player"]
 anchors_preset = -1
@@ -299,6 +304,23 @@ scale = Vector2(0.5, 0.5)
 theme = ExtResource("13_hb4rf")
 theme_override_styles/fill = SubResource("StyleBoxLine_2lkn6")
 value = 100.0
+metadata/_edit_use_anchors_ = true
+
+[node name="LaunchPowerBar1" type="ProgressBar" parent="Player"]
+anchors_preset = -1
+anchor_left = -0.019
+anchor_top = -0.066
+anchor_right = 0.018
+anchor_bottom = -0.056
+offset_left = -32.0946
+offset_top = -134.0
+offset_right = 97.2814
+offset_bottom = -96.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("13_hb4rf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_njxc0")
+value = 100.0
+show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Door" type="Sprite2D" parent="."]

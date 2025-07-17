@@ -327,12 +327,13 @@ _data = {
 
 [node name="Level 1" type="Node2D"]
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource("1_4sxdb")]
+[node name="Player" parent="." node_paths=PackedStringArray("launch_power_bar") groups=["player"] instance=ExtResource("1_4sxdb")]
 z_index = 2
 material = ExtResource("2_8rppd")
 position = Vector2(-717, -22)
 collision_layer = 3
 collision_mask = 25
+launch_power_bar = NodePath("LaunchPowerBar1")
 
 [node name="Spear" parent="Player" instance=ExtResource("3_w1u4g")]
 z_index = 1
@@ -369,8 +370,9 @@ script = ExtResource("7_flvo7")
 [node name="AgeManager" type="Node" parent="Player"]
 script = ExtResource("8_ujml1")
 
-[node name="Abilities" type="Node" parent="Player"]
+[node name="Abilities" type="Node" parent="Player" node_paths=PackedStringArray("launch_power_bar")]
 script = ExtResource("9_y0rlg")
+launch_power_bar = NodePath("../LaunchPowerBar1")
 
 [node name="HPBar" type="ProgressBar" parent="Player"]
 anchors_preset = -1
@@ -388,7 +390,7 @@ theme_override_styles/fill = SubResource("StyleBoxLine_asa3x")
 value = 100.0
 metadata/_edit_use_anchors_ = true
 
-[node name="LaunchPowerBar" type="ProgressBar" parent="Player"]
+[node name="LaunchPowerBar1" type="ProgressBar" parent="Player"]
 anchors_preset = -1
 anchor_left = -0.019
 anchor_top = -0.066
