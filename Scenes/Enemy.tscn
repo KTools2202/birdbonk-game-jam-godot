@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dfg8s675drj2"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ith7v"]
-[ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="2_idn2h"]
+[ext_resource type="Texture2D" uid="uid://roa0td2agsan" path="res://Sprites/crate.png" id="2_t70kf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y14h8"]
 size = Vector2(88, 90)
@@ -57,9 +57,9 @@ scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_y14h8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.2, 1)
-scale = Vector2(0.175, 0.179688)
-texture = ExtResource("2_idn2h")
+position = Vector2(-2, 1)
+scale = Vector2(0.0351563, 0.0351562)
+texture = ExtResource("2_t70kf")
 
 [node name="RayCastDown" type="RayCast2D" parent="."]
 position = Vector2(-2, 8)

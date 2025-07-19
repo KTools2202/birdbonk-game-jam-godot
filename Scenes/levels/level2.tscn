@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://dfe8pcwtdhfwg"]
+[gd_scene load_steps=35 format=4 uid="uid://dfe8pcwtdhfwg"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_1ttdv"]
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_p2pws"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="10_srsa4"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="11_k22g4"]
 [ext_resource type="Script" path="res://Scripts/door.gd" id="13_3i3g7"]
+[ext_resource type="PackedScene" uid="uid://dgbmrbwb36bic" path="res://Scenes/Archer.tscn" id="15_8x4se"]
 [ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="17_3vhgr"]
 [ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="20_lgr2j"]
 
@@ -249,6 +250,8 @@ material = ExtResource("2_p2pws")
 position = Vector2(-299.339, -22)
 collision_layer = 3
 collision_mask = 25
+floor_max_angle = 1.22173
+platform_on_leave = 1
 launch_power_bar = NodePath("LaunchPowerBar1")
 
 [node name="Spear" parent="Player" instance=ExtResource("3_i2wl5")]
@@ -359,7 +362,14 @@ lifetime = 0.4
 direction = Vector2(0, 0)
 gravity = Vector2(0, 0)
 initial_velocity_max = 80.0
-color = Color(0.268419, 0.231063, 0.000685406, 1)
+color = Color(0.490196, 0.32549, 0.231373, 1)
+
+[node name="Archer" parent="Enemies" instance=ExtResource("15_8x4se")]
+position = Vector2(366.415, -326)
+scale = Vector2(1, 1)
+collision_layer = 3
+collision_mask = 9
+player_path = NodePath("../../Player")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = -504.572

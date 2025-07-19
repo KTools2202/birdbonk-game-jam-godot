@@ -49,16 +49,16 @@ func float_toward_player(delta: float) -> void:
 		parent_body.linear_velocity = Vector2.ZERO
 
 func handle_stone_age():
-	if Global.EnemyinRange:
+	if parent_body.is_in_zone: 
 		if Input.is_action_just_pressed("Ability"):
 			Global.launch_power = 0
 			animation_player.play("Enemy Shake")
 
-		if Input.is_action_pressed("Ability"):
+		elif Input.is_action_pressed("Ability"):
 			Global.launch_power += 0.5
-			Global.launch_power = min(Global.launch_power, 30)
 
-		if Input.is_action_just_released("Ability"):
+		elif Input.is_action_just_released("Ability"):
+			Global.launch_power = clamp(Global.launch_power, 0, 30)
 			Global.launched = true
 			launch_timer.start()
 
@@ -66,10 +66,11 @@ func handle_stone_age():
 				scared_right()
 			else:
 				scared_left()
+	else:
+		if not Global.launched:
+			animation_player.play("RESET")
 
-	elif not Global.EnemyinRange and not Global.launched:
-		animation_player.play("RESET")
-
+	# Reset after landing
 	if Global.launched and time_out and ray_cast_down.is_colliding():
 		animation_player.play("RESET")
 		Global.launched = false

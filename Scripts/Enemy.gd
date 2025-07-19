@@ -55,7 +55,7 @@ func float_toward_player(_delta: float) -> void:
 	
 	
 func handle_stone_age():
-	if Global.EnemyinRange:
+	if player.area_2d.get_overlapping_bodies().has(self):
 		if Input.is_action_just_pressed("Ability"):
 			Global.launch_power = 0
 			animation_player.play("Enemy Shake")

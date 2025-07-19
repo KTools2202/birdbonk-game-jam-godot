@@ -24,23 +24,26 @@ func _process(delta: float) -> void:
 		_reset_plate()
 
 func _on_area_2d_body_entered(body) -> void:
+	if plate_down:
+		# Already pressed down, ignore new bodies
+		return
+
 	if not body.is_in_group("player") and not body.is_in_group("enemy"):
 		return
 
-	if not plate_down:
-		print("Activated by:", body)
-		plate_down = true
-		animation_player.play(plate_down_anim)
+	print("Activated by:", body)
+	plate_down = true
+	animation_player.play(plate_down_anim)
 
-		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
-			var bridge_anim = bridge_node.get_node("AnimationPlayer")
-			bridge_anim.play(bridge_activate_anim)
+	if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
+		var bridge_anim = bridge_node.get_node("AnimationPlayer")
+		bridge_anim.play(bridge_activate_anim)
 
-		if lock_on_activate:
-			area_2d.monitoring = false  # Lock: ignore exit
-			
-		if Global.lvl == 1:
-			Global.HatchOpen1 = true
+	if lock_on_activate:
+		area_2d.monitoring = false  # Lock: ignore exit
+		
+	if Global.lvl == 1:
+		Global.HatchOpen1 = true
 
 func _on_area_2d_body_exited(body) -> void:
 	if lock_on_activate:

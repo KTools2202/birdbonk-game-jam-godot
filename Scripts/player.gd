@@ -33,15 +33,12 @@ func _physics_process(delta: float) -> void:
 	age_manager.handle_input()
 	abilities.handle_input()
 
-func _on_area_2d_body_entered(_body: RigidBody2D) -> void:
-	Global.EnemyinRange = true
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Restart"):
 		LevelManager.restart_current_level()
 
-func _on_area_2d_body_exited(_body: RigidBody2D) -> void:
-	Global.EnemyinRange = false
+
 
 func _on_health_changed(current: int, max: int) -> void:
 	if hp_bar:

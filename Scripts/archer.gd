@@ -1,39 +1,50 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 @export var player_path: NodePath
 @export var arrow_scene: PackedScene
 @export var move_speed: float = 60.0
 @export var preferred_distance: float = 300.0
 @export var minimum_distance: float = 150.0
+@export var gravity: float = 500.0
 
 @onready var shoot_timer = $ShootTimer
 @onready var player = get_node(player_path)
+var is_in_zone = false
 
 func _ready():
-	shoot_timer.wait_time = 2.0  # seconds between shots
+	shoot_timer.wait_time = 2.0
 	shoot_timer.start()
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
 
-func _physics_process(delta):
-	if not player: return
+	# Use full control of movement
+	custom_integrator = true
 
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if not player:
+		return
+
+	# Get current velocity
+	var lv = state.linear_velocity
+
+	# Apply gravity manually (Y axis)
+	lv.y += gravity * state.step
+
+	# Distance & direction
 	var to_player = player.global_position - global_position
 	var distance = to_player.length()
 
-	# Face player
+	# Face the player
 	look_at(player.global_position)
 
-	# Move away if too close
+	# Only move horizontally
 	if distance < minimum_distance:
-		velocity = -to_player.normalized() * move_speed
+		lv.x = -sign(to_player.x) * move_speed
 	elif distance > preferred_distance:
-		# Move closer if too far (optional)
-		velocity = to_player.normalized() * move_speed
+		lv.x = sign(to_player.x) * move_speed
 	else:
-		# Stay in place if within range
-		velocity = Vector2.ZERO
+		lv.x = 0
 
-	move_and_slide()
+	state.linear_velocity = lv
 
 func _on_shoot_timer_timeout():
 	if not player or not is_instance_valid(player):
@@ -43,7 +54,15 @@ func _on_shoot_timer_timeout():
 	get_parent().add_child(arrow)
 	arrow.global_position = global_position
 	arrow.rotation = (player.global_position - global_position).angle()
-	
-	# You can also pass velocity/direction to the arrow
+
 	if arrow.has_method("set_direction"):
 		arrow.set_direction((player.global_position - global_position).normalized())
+
+
+func _on_area_2d_body_entered(body):
+	if body == self:
+		is_in_zone = true
+
+func _on_area_2d_body_exited(body):
+	if body == self:
+		is_in_zone = false
