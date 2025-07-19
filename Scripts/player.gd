@@ -38,7 +38,7 @@ func _on_area_2d_body_entered(_body: RigidBody2D) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Restart"):
-		get_tree().reload_current_scene()
+		LevelManager.restart_current_level()
 
 func _on_area_2d_body_exited(_body: RigidBody2D) -> void:
 	Global.EnemyinRange = false

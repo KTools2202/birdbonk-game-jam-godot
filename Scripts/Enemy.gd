@@ -11,7 +11,7 @@ extends RigidBody2D
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 var last_direction = ""  # "left", "right", or ""
-
+@onready var trail_particles: CPUParticles2D = $CPUParticles2D
 
 var collider
 @export var run_speed = 10
@@ -40,15 +40,12 @@ func _physics_process(delta: float) -> void:
 	if Global.stone_age == true:
 		# Implement launch mechanics as before
 		handle_stone_age()
-	
-	
-
 	elif Global.medieval_age == true and Global.EnemyinRange == true:
 		# Make the enemy float toward the player if right-click is held
 		if Input.is_action_pressed("Ability"):
 			float_toward_player(delta)  # Pass delta for smooth frame-based movement
 		
-
+	trail_particles.emitting = not ray_cast_down.is_colliding()
 func float_toward_player(_delta: float) -> void:
 	# Calculate direction to the player
 	var direction_to_player = (player.global_position - global_position).normalized()
@@ -58,32 +55,35 @@ func float_toward_player(_delta: float) -> void:
 	
 	
 func handle_stone_age():
-	
-	if Global.EnemyinRange == true:
-		
+	if Global.EnemyinRange:
 		if Input.is_action_just_pressed("Ability"):
 			Global.launch_power = 0
-
-		# Starts animation 
-		if Input.is_action_just_pressed("Ability"):
 			animation_player.play("Enemy Shake")
-			
-		if Input.is_action_pressed("Ability"):
+
+		elif Input.is_action_pressed("Ability"):
 			Global.launch_power += 0.5
 
-		# Starts timer when launched to prevent immediate animation stop
-		if Input.is_action_just_released("Ability"):
+		elif Input.is_action_just_released("Ability"):
+			# Clamp launch power before launching
+			Global.launch_power = clamp(Global.launch_power, 0, 30)
+
 			Global.launched = true
 			launch_timer.start()
-			
+
 			if player.global_position.x < enemy.global_position.x:
 				scared_right()
 			else:
 				scared_left()
-				
-			# Caps launch power at 30
-			if Global.launch_power > 30:
-				Global.launch_power = 30
+	else:
+		if not Global.launched:
+			animation_player.play("RESET")
+
+	# Reset state once landed
+	if Global.launched and time_out and ray_cast_down.is_colliding():
+		animation_player.play("RESET")
+		Global.launched = false
+		time_out = false
+
 		
 	elif Global.EnemyinRange == false && Global.launched == false:
 		animation_player.play("RESET")

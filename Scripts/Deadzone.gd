@@ -12,4 +12,4 @@ func _on_body_entered(_body: CharacterBody2D) -> void:
 
 
 func _on_death_timer_timeout() -> void:
-	get_tree().reload_current_scene()
+	LevelManager.restart_current_level()

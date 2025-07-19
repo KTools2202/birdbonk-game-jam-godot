@@ -319,7 +319,8 @@ offset_bottom = -96.0
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("13_hb4rf")
 theme_override_styles/fill = SubResource("StyleBoxFlat_njxc0")
-value = 100.0
+max_value = 30.0
+value = 30.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
@@ -365,6 +366,14 @@ tile_set = SubResource("TileSet_5cwvo")
 [node name="Enemy" parent="Enemies" instance=ExtResource("11_wgefu")]
 position = Vector2(-200.227, -9.00002)
 collision_layer = 2056
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Enemies/Enemy"]
+amount = 64
+lifetime = 0.4
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+initial_velocity_max = 80.0
+color = Color(0.268419, 0.231063, 0.000685406, 1)
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="."]
 anchors_preset = -1

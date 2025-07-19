@@ -20,12 +20,17 @@ config/icon="res://Sprites/icon.svg"
 
 Global="*res://Scripts/Global.gd"
 LevelManager="*res://Scripts/Levelmanager.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Scene-Manager-85f93fea90f4bf2e8e019c8532a0c7ee05b3183c/Scene-Manager-85f93fea90f4bf2e8e019c8532a0c7ee05b3183c/addons/scene_manager/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 
@@ -92,5 +97,10 @@ medieval_age={
 industrial_age={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":51,"key_label":0,"unicode":51,"location":0,"echo":false,"script":null)
+]
+}
+Quit={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }

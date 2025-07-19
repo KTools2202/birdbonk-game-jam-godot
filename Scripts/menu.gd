@@ -25,7 +25,7 @@ func _ready():
 
 func _on_start_pressed():
 	print("Start Game")
-	get_tree().change_scene_to_file("res://Scenes/levels/Level1.tscn") 
+	LevelManager.go_to_next_level()
 
 func _on_settings_pressed():
 	settings_panel.visible = true

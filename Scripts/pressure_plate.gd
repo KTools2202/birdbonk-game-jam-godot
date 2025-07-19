@@ -19,6 +19,10 @@ func _ready() -> void:
 	if bridge != null:
 		bridge_node = get_node(bridge)
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("Restart"):
+		_reset_plate()
+
 func _on_area_2d_body_entered(body) -> void:
 	if not body.is_in_group("player") and not body.is_in_group("enemy"):
 		return
@@ -53,3 +57,19 @@ func _on_area_2d_body_exited(body) -> void:
 		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
 			var bridge_anim = bridge_node.get_node("AnimationPlayer")
 			bridge_anim.play_backwards(bridge_deactivate_anim)
+
+func _reset_plate() -> void:
+	if plate_down:
+		print("Resetting plate and hatch")
+		plate_down = false
+		animation_player.play(plate_up_anim)
+
+		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
+			var bridge_anim = bridge_node.get_node("AnimationPlayer")
+			bridge_anim.play_backwards(bridge_deactivate_anim)
+
+		Global.HatchOpen1 = false
+
+		# If plate was locked, re-enable it
+		if lock_on_activate:
+			area_2d.monitoring = true
