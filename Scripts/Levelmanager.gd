@@ -41,3 +41,4 @@ func restart_current_level():
 			"duration": 1.0
 		}
 	)
+	

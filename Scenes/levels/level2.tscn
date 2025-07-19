@@ -366,7 +366,6 @@ color = Color(0.490196, 0.32549, 0.231373, 1)
 
 [node name="Archer" parent="Enemies" instance=ExtResource("15_8x4se")]
 position = Vector2(366.415, -326)
-scale = Vector2(1, 1)
 collision_layer = 3
 collision_mask = 9
 player_path = NodePath("../../Player")
@@ -412,7 +411,7 @@ bridge_activate_anim = "Fall45"
 bridge_deactivate_anim = "Fall45"
 
 [node name="Pressure Plate2" parent="." instance=ExtResource("20_lgr2j")]
-position = Vector2(370.42, -20)
+position = Vector2(370.42, -23)
 scale = Vector2(0.15, 0.15)
 bridge = NodePath("../Bridge2")
 

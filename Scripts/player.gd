@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var timer = $Timer
 @onready var area_2d = $Area2D
 @onready var hp_bar = $HPBar  # Optional if you added a health bar
+@onready var enemy: RigidBody2D = $"../Enemies/Enemy"
 
 # Export the launch power bar so you can assign it in the editor
 @export var launch_power_bar: ProgressBar
@@ -29,6 +30,8 @@ func _ready() -> void:
 		print("LaunchPowerBar not assigned")
 
 func _physics_process(delta: float) -> void:
+	
+	
 	movement.physics_move(self, delta)
 	age_manager.handle_input()
 	abilities.handle_input()
@@ -37,6 +40,9 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Restart"):
 		LevelManager.restart_current_level()
+		
+	if area_2d.get_overlapping_bodies().has(enemy):
+		Global.EnemyinRange = true
 
 
 

@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://ckypvw2ymwahx" path="res://Sprites/Medieval man1.jpg.png" id="3_x6g27"]
 [ext_resource type="Texture2D" uid="uid://rfdadunm1ah4" path="res://Sprites/Industrial man.png" id="4_qx8gr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_odkyg"]
-size = Vector2(10.395, 10.6329)
+[sub_resource type="CircleShape2D" id="CircleShape2D_qidjt"]
+radius = 4.93763
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_la5fy"]
 radius = 61.3368
@@ -88,8 +88,8 @@ texture = ExtResource("4_qx8gr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
-scale = Vector2(6.5, 7.9)
-shape = SubResource("RectangleShape2D_odkyg")
+scale = Vector2(5.55405, 9.1)
+shape = SubResource("CircleShape2D_qidjt")
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(2.92877, 2.80364)

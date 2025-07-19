@@ -28,22 +28,19 @@ func _process(delta: float) -> void:
 	if ray_cast_left.is_colliding() and last_direction != "left":
 		last_direction = "left"
 		print("LEFT")
-		ChargeLeft()
+	
 	elif ray_cast_right.is_colliding() and last_direction != "right":
 		last_direction = "right"
 		print("RIGHT")
-		ChargeRight()
+		
 	elif not ray_cast_left.is_colliding() and not ray_cast_right.is_colliding():
 		last_direction = ""  # Reset when nothing is hit
 		
 func _physics_process(delta: float) -> void:
-	if Global.stone_age == true:
+	if Global.stone_age == true or Global.medieval_age == true:
 		# Implement launch mechanics as before
-		handle_stone_age()
-	elif Global.medieval_age == true and Global.EnemyinRange == true:
-		# Make the enemy float toward the player if right-click is held
-		if Input.is_action_pressed("Ability"):
-			float_toward_player(delta)  # Pass delta for smooth frame-based movement
+		push_and_pull()
+	
 		
 	trail_particles.emitting = not ray_cast_down.is_colliding()
 func float_toward_player(_delta: float) -> void:
@@ -54,8 +51,8 @@ func float_toward_player(_delta: float) -> void:
 	apply_impulse(direction_to_player * float_speed) 
 	
 	
-func handle_stone_age():
-	if player.area_2d.get_overlapping_bodies().has(self):
+func push_and_pull():
+	if Global.EnemyinRange == true:
 		if Input.is_action_just_pressed("Ability"):
 			Global.launch_power = 0
 			animation_player.play("Enemy Shake")
@@ -71,9 +68,16 @@ func handle_stone_age():
 			launch_timer.start()
 
 			if player.global_position.x < enemy.global_position.x:
-				scared_right()
+				if Global.stone_age == true:
+					launch_right()
+				if Global.medieval_age == true:
+					launch_left()
 			else:
-				scared_left()
+				if Global.stone_age == true:
+					launch_left()
+				if Global.medieval_age == true:
+					launch_right()
+				
 	else:
 		if not Global.launched:
 			animation_player.play("RESET")
@@ -96,19 +100,13 @@ func handle_stone_age():
 		time_out = false
 	
 		
-func scared_right():
+func launch_right():
 	apply_impulse(Vector2(run_speed, jump_power) * Global.launch_power)
 
-func scared_left():
+func launch_left():
 	apply_impulse(Vector2(-run_speed, jump_power) * Global.launch_power)
 	
-func ChargeRight():
-	#apply_impulse(Vector2(run_speed, 0))
-	pass
 
-func ChargeLeft():
-	#apply_impulse(Vector2(-run_speed, 0))
-	pass
 	
 func _on_launch_timer_timeout() -> void:
 	time_out = true
