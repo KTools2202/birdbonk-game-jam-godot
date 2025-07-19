@@ -30,7 +30,7 @@ window/stretch/aspect="keep_width"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Scene-Manager-85f93fea90f4bf2e8e019c8532a0c7ee05b3183c/Scene-Manager-85f93fea90f4bf2e8e019c8532a0c7ee05b3183c/addons/scene_manager/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 
