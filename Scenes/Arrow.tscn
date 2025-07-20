@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7h1lkxdv0r5t"]
 
-[ext_resource type="Script" path="res://Scripts/archerarrow.gd" id="1_kkvdi"]
+[ext_resource type="Script" path="res://Scripts/enemies/archerarrow.gd" id="1_kkvdi"]
 [ext_resource type="Texture2D" uid="uid://dp71p81ns7rrv" path="res://Sprites/arrow.png" id="1_tt83t"]
 
 [node name="arrow" type="Area2D"]

@@ -16,11 +16,16 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0783438, 0.114812, 0.313874, 1)
 config/icon="res://Sprites/icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://new_audio_bus_layout.tres"
+
 [autoload]
 
 Global="*res://Scripts/Global.gd"
 LevelManager="*res://Scripts/Levelmanager.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
+SettingsManager="*res://Scripts/SettingsManager.gd"
 
 [display]
 

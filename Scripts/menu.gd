@@ -1,6 +1,4 @@
 extends Control
-var config := ConfigFile.new()
-var config_path := "res://PlayerConfigs"
 
 @onready var settings_panel = $Control/SettingsPanel2
 @onready var music_slider = $Control/SettingsPanel2/CenterContainer/VBoxContainer/MusicVolumeSlider
@@ -13,13 +11,18 @@ var config_path := "res://PlayerConfigs"
 
 func _ready():
 	settings_panel.visible = false
-	load_settings()
+
+	# Initialize UI from settings
+	music_slider.value = SettingsManager.music_volume
+	sfx_slider.value = SettingsManager.sfx_volume
+	fullscreen_button.text = "Mode: %s" % ("Fullscreen" if SettingsManager.fullscreen else "Windowed")
+
+	# Connect signals
 	fullscreen_button.pressed.connect(_on_fullscreen_toggled)
 	start_button.pressed.connect(_on_start_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 	back_button.pressed.connect(_on_back_pressed)
-
 	music_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_slider.value_changed.connect(_on_sfx_volume_changed)
 
@@ -32,40 +35,16 @@ func _on_settings_pressed():
 
 func _on_quit_pressed():
 	get_tree().quit()
-func load_settings():
-	var err = config.load(config_path)
-	if err != OK:
-		print("No settings file found, using defaults.")
-	
-	else:
-		var is_fullscreen = config.get_value("display", "fullscreen", false)
 
-		DisplayServer.window_set_mode(
-		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN if is_fullscreen
-		else DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
-		)
-
-		fullscreen_button.text = "Mode: %s" % ("Fullscreen" if is_fullscreen else "Windowed")
-
-func _on_fullscreen_toggled():
-	var is_fullscreen := DisplayServer.window_get_mode() != DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
-	DisplayServer.window_set_mode(
-		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN if DisplayServer.window_get_mode() != DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
-		else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
-	)
-	var current_mode = DisplayServer.window_get_mode()
-	var mode_name = "Fullscreen" if current_mode == DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN else "Windowed"
-		# Save to config
-	config.set_value("display", "fullscreen", is_fullscreen)
-	config.save(config_path)
-	fullscreen_button.text = "Mode: %s" % mode_name
 func _on_back_pressed():
 	settings_panel.visible = false
 
 func _on_music_volume_changed(value: float):
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(value))
-	print("Music volume set to:", value)
+	SettingsManager.set_music_volume(value)
 
 func _on_sfx_volume_changed(value: float):
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(value))
-	print("SFX volume set to:", value)
+	SettingsManager.set_sfx_volume(value)
+
+func _on_fullscreen_toggled():
+	SettingsManager.toggle_fullscreen()
+	fullscreen_button.text = "Mode: %s" % ("Fullscreen" if SettingsManager.fullscreen else "Windowed")

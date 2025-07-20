@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://csfaj0bi64whd"]
+[gd_scene load_steps=7 format=3 uid="uid://csfaj0bi64whd"]
 
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="1_rnkq7"]
 [ext_resource type="LabelSettings" uid="uid://c4e5ypwhrltnu" path="res://Fonts/new_label_settings.tres" id="2_0j2ul"]
 [ext_resource type="FontFile" uid="uid://cvktugruwkf4d" path="res://Fonts/static/Oswald-Bold.ttf" id="3_jci6h"]
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="3_ylnaj"]
+[ext_resource type="AudioStream" uid="uid://1eo75bombsft" path="res://Music and SFX/Journey thru time - IntroScrn Music.wav" id="5_5xxgg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5fxck"]
 font = ExtResource("3_jci6h")
@@ -59,17 +60,17 @@ text = "Quit
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 675.0
-offset_top = 259.0
-offset_right = 1297.0
-offset_bottom = 782.0
+offset_left = 993.0
+offset_top = 467.0
+offset_right = 1615.0
+offset_bottom = 990.0
 
 [node name="SettingsPanel2" type="ColorRect" parent="Control"]
 layout_mode = 0
-offset_left = -645.0
-offset_top = -244.0
-offset_right = -605.0
-offset_bottom = -204.0
+offset_left = -980.0
+offset_top = -443.0
+offset_right = -940.0
+offset_bottom = -403.0
 scale = Vector2(27.5745, 14.9362)
 color = Color(0.0983578, 0.234354, 0.0888034, 0.886275)
 
@@ -87,14 +88,16 @@ alignment = 1
 
 [node name="volume" type="Label" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "music volume
+text = "Music Volume
 "
 label_settings = SubResource("LabelSettings_5fxck")
 horizontal_alignment = 1
 
 [node name="MusicVolumeSlider" type="HSlider" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
 layout_mode = 2
-min_value = -1.0
+max_value = 2.0
+step = 0.01
+page = 1.0
 
 [node name="volume2" type="Label" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -105,7 +108,9 @@ horizontal_alignment = 1
 
 [node name="SFXVolumeSlider" type="HSlider" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
 layout_mode = 2
-min_value = -1.0
+max_value = 2.0
+step = 0.01
+value = 1.0
 
 [node name="BackButton" type="Button" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -117,3 +122,10 @@ layout_mode = 2
 theme = ExtResource("3_ylnaj")
 text = "Full Screen Toggle
 "
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
+position = Vector2(-131.155, -88.8288)
+scale = Vector2(0.552482, 0.7759)
+stream = ExtResource("5_5xxgg")
+autoplay = true
+bus = &"Music"

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://1eo75bombsft"
+path="res://.godot/imported/Journey thru time - IntroScrn Music.wav-acee49b56cfc2f6111a432031927482a.sample"
+
+[deps]
+
+source_file="res://Music and SFX/Journey thru time - IntroScrn Music.wav"
+dest_files=["res://.godot/imported/Journey thru time - IntroScrn Music.wav-acee49b56cfc2f6111a432031927482a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

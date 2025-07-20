@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_p2pws"]
 [ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_i2wl5"]
 [ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_ld2f6"]
-[ext_resource type="Script" path="res://Scripts/club.gd" id="5_04j4d"]
+[ext_resource type="Script" path="res://Scripts/player/club.gd" id="5_04j4d"]
 [ext_resource type="Script" path="res://Scripts/player/health.gd" id="6_0sngg"]
 [ext_resource type="Texture2D" uid="uid://bf4mdkn4vdtti" path="res://Sprites/Door.png" id="6_361yh"]
 [ext_resource type="PackedScene" uid="uid://4vgicgg6vr8w" path="res://Scenes/area_2d.tscn" id="7_h1tlu"]
@@ -16,7 +16,7 @@
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="10_mwk5j"]
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="10_srsa4"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="11_k22g4"]
-[ext_resource type="Script" path="res://Scripts/door.gd" id="13_3i3g7"]
+[ext_resource type="Script" path="res://Scripts/Puzzle stuff/door.gd" id="13_3i3g7"]
 [ext_resource type="PackedScene" uid="uid://dgbmrbwb36bic" path="res://Scenes/Archer.tscn" id="15_8x4se"]
 [ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="17_3vhgr"]
 [ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="20_lgr2j"]
@@ -250,8 +250,8 @@ material = ExtResource("2_p2pws")
 position = Vector2(-299.339, -22)
 collision_layer = 3
 collision_mask = 25
-floor_max_angle = 1.22173
 platform_on_leave = 1
+safe_margin = 0.5
 launch_power_bar = NodePath("LaunchPowerBar1")
 
 [node name="Spear" parent="Player" instance=ExtResource("3_i2wl5")]

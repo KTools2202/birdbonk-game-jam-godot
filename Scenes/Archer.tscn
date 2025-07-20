@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://dgbmrbwb36bic"]
 
-[ext_resource type="Script" path="res://Scripts/archer.gd" id="1_12npb"]
+[ext_resource type="Script" path="res://Scripts/enemies/archer.gd" id="1_12npb"]
 [ext_resource type="PackedScene" uid="uid://b7h1lkxdv0r5t" path="res://Scenes/Arrow.tscn" id="2_h8j34"]
 [ext_resource type="Texture2D" uid="uid://b0rxd6xo358ss" path="res://Sprites/icon.svg" id="3_7fvui"]
 [ext_resource type="Texture2D" uid="uid://bmkh3dq6qxbgh" path="res://Sprites/bow.png" id="4_b0qar"]
-[ext_resource type="Script" path="res://Scripts/EnemyLogic.gd" id="5_jijh0"]
+[ext_resource type="Script" path="res://Scripts/enemies/EnemyLogic.gd" id="5_jijh0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i1buo"]
 size = Vector2(88, 90)
