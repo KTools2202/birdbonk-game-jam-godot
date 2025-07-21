@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ix1d2e62f233"
-path="res://.godot/imported/icons-filled-colored-vector.svg-1ef5d6c8df05e319d6d14568369b0495.ctex"
+path="res://.godot/imported/icons-filled-colored-vector.svg-3c7c5ee49d54aabd5c30e935ad28f77b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/maaacks_menus_template/assets/input-icons/icons-filled-colored-vector.svg"
-dest_files=["res://.godot/imported/icons-filled-colored-vector.svg-1ef5d6c8df05e319d6d14568369b0495.ctex"]
+source_file="res://Addons/maaacks_menus_template/assets/input-icons/icons-filled-colored-vector.svg"
+dest_files=["res://.godot/imported/icons-filled-colored-vector.svg-3c7c5ee49d54aabd5c30e935ad28f77b.ctex"]
 
 [params]
 

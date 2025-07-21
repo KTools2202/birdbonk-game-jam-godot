@@ -5,15 +5,16 @@ extends Node2D
 @onready var animatable_body_2d: AnimatableBody2D = $AnimatableBody2D
 
 @export var plate_down: bool = false
-@export var lock_on_activate: bool = false  # Lock plate when activated?
+@export var lock_on_activate: bool = false
 
-@export var bridge: NodePath  # Assign your bridge node here
+@export var bridge: NodePath
 @export var bridge_activate_anim: String = "Fall"
-@export var bridge_deactivate_anim: String = "Fall"  # You can set to "Fall45" if needed
+@export var bridge_deactivate_anim: String = "Fall"
 @export var plate_down_anim: String = "Plate Down"
 @export var plate_up_anim: String = "Plate Up"
 
 var bridge_node: Node = null
+var body_count: int = 0  # Track how many valid bodies are on the plate
 
 func _ready() -> void:
 	if bridge != null:
@@ -24,26 +25,25 @@ func _process(delta: float) -> void:
 		_reset_plate()
 
 func _on_area_2d_body_entered(body) -> void:
-	if plate_down:
-		# Already pressed down, ignore new bodies
-		return
-
 	if not body.is_in_group("player") and not body.is_in_group("enemy"):
 		return
 
-	print("Activated by:", body)
-	plate_down = true
-	animation_player.play(plate_down_anim)
+	body_count += 1
+	print("Body entered:", body, "Total bodies:", body_count)
 
-	if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
-		var bridge_anim = bridge_node.get_node("AnimationPlayer")
-		bridge_anim.play(bridge_activate_anim)
+	if not plate_down:
+		plate_down = true
+		animation_player.play(plate_down_anim)
 
-	if lock_on_activate:
-		area_2d.monitoring = false  # Lock: ignore exit
-		
-	if Global.lvl == 1:
-		Global.HatchOpen1 = true
+		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
+			var bridge_anim = bridge_node.get_node("AnimationPlayer")
+			bridge_anim.play(bridge_activate_anim)
+
+		if lock_on_activate:
+			area_2d.monitoring = false
+
+		if Global.lvl == 1:
+			Global.HatchOpen1 = true
 
 func _on_area_2d_body_exited(body) -> void:
 	if lock_on_activate:
@@ -52,8 +52,10 @@ func _on_area_2d_body_exited(body) -> void:
 	if not body.is_in_group("player") and not body.is_in_group("enemy"):
 		return
 
-	if plate_down:
-		print("Deactivated by:", body)
+	body_count = max(body_count - 1, 0)
+	print("Body exited:", body, "Remaining bodies:", body_count)
+
+	if body_count == 0 and plate_down:
 		plate_down = false
 		animation_player.play(plate_up_anim)
 
@@ -65,6 +67,7 @@ func _reset_plate() -> void:
 	if plate_down:
 		print("Resetting plate and hatch")
 		plate_down = false
+		body_count = 0
 		animation_player.play(plate_up_anim)
 
 		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
@@ -73,6 +76,5 @@ func _reset_plate() -> void:
 
 		Global.HatchOpen1 = false
 
-		# If plate was locked, re-enable it
 		if lock_on_activate:
 			area_2d.monitoring = true

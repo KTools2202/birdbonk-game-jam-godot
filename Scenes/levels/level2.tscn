@@ -1,10 +1,7 @@
-[gd_scene load_steps=35 format=4 uid="uid://dfe8pcwtdhfwg"]
+[gd_scene load_steps=32 format=4 uid="uid://dfe8pcwtdhfwg"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_1ttdv"]
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_p2pws"]
-[ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_i2wl5"]
-[ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_ld2f6"]
-[ext_resource type="Script" path="res://Scripts/player/club.gd" id="5_04j4d"]
 [ext_resource type="Script" path="res://Scripts/player/health.gd" id="6_0sngg"]
 [ext_resource type="Texture2D" uid="uid://bf4mdkn4vdtti" path="res://Sprites/Door.png" id="6_361yh"]
 [ext_resource type="PackedScene" uid="uid://4vgicgg6vr8w" path="res://Scenes/area_2d.tscn" id="7_h1tlu"]
@@ -254,19 +251,6 @@ platform_on_leave = 1
 safe_margin = 0.5
 launch_power_bar = NodePath("LaunchPowerBar1")
 
-[node name="Spear" parent="Player" instance=ExtResource("3_i2wl5")]
-z_index = 1
-position = Vector2(-0.752625, -76.2727)
-scale = Vector2(1.3106, 1.48882)
-disable_mode = 2
-
-[node name="Club" parent="Player" instance=ExtResource("4_ld2f6")]
-position = Vector2(56.9604, -27.7355)
-scale = Vector2(0.2, 0.2)
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("5_04j4d")
-
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(159.068, 53.1598)
 rotation = 3.14159
@@ -378,7 +362,7 @@ offset_bottom = 386.0
 scale = Vector2(0.25, 0.25)
 mouse_filter = 2
 theme = ExtResource("11_k22g4")
-text = "Good Luck! I believe in you! 
+text = "Good Luck!  
 Press 2 to swap to medivial age so you can pull the box"
 scroll_active = false
 

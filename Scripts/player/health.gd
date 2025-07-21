@@ -1,4 +1,5 @@
 extends Node
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @export var max_health: int = 100
 var current_health: int
@@ -9,6 +10,7 @@ signal hit(damage_amount: int)
 
 func _ready() -> void:
 	current_health = max_health
+	
 
 func take_damage(amount: int) -> void:
 	if current_health <= 0:
@@ -28,7 +30,7 @@ func take_damage(amount: int) -> void:
 		die()
 
 func heal(amount: int) -> void:
-	if current_health <= 0:
+	if current_health >= 0:
 		return
 
 	current_health = min(current_health + amount, max_health)
@@ -37,4 +39,5 @@ func heal(amount: int) -> void:
 func die() -> void:
 	emit_signal("died")
 	print("Player died.")
+	LevelManager.restart_current_level()
 	# You can add death animation, disable input, etc. here

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwci7g18k0mgh"
-path.s3tc="res://.godot/imported/vertical.png-5d237b9ea3cdd66e653ef032da0bd507.s3tc.ctex"
+path.s3tc="res://.godot/imported/vertical.png-336b1b17688766a6a0bf56d4a922253b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/scene_manager/shader_patterns/vertical.png"
-dest_files=["res://.godot/imported/vertical.png-5d237b9ea3cdd66e653ef032da0bd507.s3tc.ctex"]
+source_file="res://Addons/scene_manager/shader_patterns/vertical.png"
+dest_files=["res://.godot/imported/vertical.png-336b1b17688766a6a0bf56d4a922253b.s3tc.ctex"]
 
 [params]
 

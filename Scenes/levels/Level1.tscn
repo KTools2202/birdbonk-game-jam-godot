@@ -1,10 +1,7 @@
-[gd_scene load_steps=44 format=4 uid="uid://d3d8ln3emqlf5"]
+[gd_scene load_steps=41 format=4 uid="uid://d3d8ln3emqlf5"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_4sxdb"]
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_8rppd"]
-[ext_resource type="PackedScene" uid="uid://dgulynq2qpnhh" path="res://Scenes/spear.tscn" id="3_w1u4g"]
-[ext_resource type="PackedScene" uid="uid://0gx5pbfs83ev" path="res://Scenes/club.tscn" id="4_p5m7x"]
-[ext_resource type="Script" path="res://Scripts/player/club.gd" id="5_kkns1"]
 [ext_resource type="Script" path="res://Scripts/player/health.gd" id="6_3as13"]
 [ext_resource type="Script" path="res://Scripts/player/movement.gd" id="7_flvo7"]
 [ext_resource type="Script" path="res://Scripts/player/age_manager.gd" id="8_ujml1"]
@@ -301,7 +298,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-97, 11), Vector2(177, 11)]
+"values": [Vector2(-97, 11), Vector2(1, 11)]
 }
 
 [sub_resource type="Animation" id="Animation_75cr6"]
@@ -334,19 +331,6 @@ position = Vector2(-717, -22)
 collision_layer = 3
 collision_mask = 25
 launch_power_bar = NodePath("LaunchPowerBar1")
-
-[node name="Spear" parent="Player" instance=ExtResource("3_w1u4g")]
-z_index = 1
-position = Vector2(-0.752625, -76.2727)
-scale = Vector2(1.3106, 1.48882)
-disable_mode = 2
-
-[node name="Club" parent="Player" instance=ExtResource("4_p5m7x")]
-position = Vector2(56.9604, -27.7355)
-scale = Vector2(0.2, 0.2)
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("5_kkns1")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(159.068, 53.1598)
@@ -462,13 +446,13 @@ initial_velocity_max = 80.0
 color = Color(0.490196, 0.32549, 0.231373, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -379.0
-offset_top = -151.0
-offset_right = 1120.99
-offset_bottom = 849.0
+offset_left = -393.0
+offset_top = -154.0
+offset_right = 1106.99
+offset_bottom = 846.0
 scale = Vector2(0.1, 0.1)
 theme = ExtResource("17_j84tn")
-text = "Use Right Mouse button to launch the box"
+text = "Use Right Mouse button to launch the box on to the pressure plate"
 fit_content = true
 scroll_active = false
 metadata/_edit_use_anchors_ = true
