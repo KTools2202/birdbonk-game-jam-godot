@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://lq7ga8qb71s8"]
+
+[ext_resource type="Script" path="res://Scripts/music_manager.gd" id="1_s8rb8"]
+[ext_resource type="AudioStream" uid="uid://drad8owewemnk" path="res://Music and SFX/Journey thru time - IntroScrn Music.ogg" id="2_1n67t"]
+[ext_resource type="AudioStream" uid="uid://85if6s74hwss" path="res://Music and SFX/Levelsongs100bpm.ogg" id="3_agelx"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_s8rb8")
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1n67t")
+bus = &"Music"
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_agelx")
+bus = &"Music"

@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Gmae"
+config/name="Journey Through the Past"
 run/main_scene="res://Scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0783438, 0.114812, 0.313874, 1)
-config/icon="res://Sprites/icon.svg"
+config/icon="res://Sprites/LogoFinal.png"
 
 [audio]
 
@@ -27,6 +27,7 @@ LevelManager="*res://Scripts/Levelmanager.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SettingsManager="*res://Scripts/SettingsManager.gd"
 Pausemenu="*res://Scenes/pause_menu.tscn"
+MusicManager="*res://Scripts/MusicManager.tscn"
 
 [display]
 

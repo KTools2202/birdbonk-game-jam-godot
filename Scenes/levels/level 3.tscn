@@ -55,7 +55,7 @@ _data = {
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_2lkn6"]
 color = Color(1, 0.174173, 0.127215, 1)
-thickness = 37
+thickness = 51
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njxc0"]
 bg_color = Color(1, 1, 0, 1)

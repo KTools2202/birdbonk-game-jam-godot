@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://csfaj0bi64whd"]
+[gd_scene load_steps=6 format=3 uid="uid://csfaj0bi64whd"]
 
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="1_rnkq7"]
 [ext_resource type="LabelSettings" uid="uid://c4e5ypwhrltnu" path="res://Fonts/new_label_settings.tres" id="2_0j2ul"]
 [ext_resource type="FontFile" uid="uid://cvktugruwkf4d" path="res://Fonts/static/Oswald-Bold.ttf" id="3_jci6h"]
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="3_ylnaj"]
-[ext_resource type="AudioStream" uid="uid://1eo75bombsft" path="res://Music and SFX/Journey thru time - IntroScrn Music.wav" id="5_5xxgg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5fxck"]
 font = ExtResource("3_jci6h")
@@ -74,6 +73,7 @@ text = "Quit
 "
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 offset_left = 1434.0
@@ -139,14 +139,8 @@ theme = ExtResource("3_ylnaj")
 text = "Full Screen Toggle
 "
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Control/SettingsPanel2/CenterContainer/VBoxContainer"]
-position = Vector2(-131.155, -88.8288)
-scale = Vector2(0.552482, 0.7759)
-stream = ExtResource("5_5xxgg")
-autoplay = true
-bus = &"Music"
-
 [node name="Credits" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_left = 1126.0
 offset_top = 605.0
