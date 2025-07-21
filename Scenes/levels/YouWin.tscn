@@ -51,7 +51,6 @@ color = Color(0.0889307, 0.34141, 0, 1)
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(154, 482)
 rotation = 3.13731
-scale = Vector2(1, 1)
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_1eji2")
 lifetime = 1.55
@@ -60,7 +59,6 @@ trail_enabled = true
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
 position = Vector2(1009, 476)
 rotation = 3.10667
-scale = Vector2(1, 1)
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_1eji2")
 lifetime = 1.55

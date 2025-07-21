@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bq211jkfnm7k7"
-path="res://.godot/imported/icons-outlined-white.png-d053e330dafc9b37927683be28dbfe34.ctex"
+path="res://.godot/imported/icons-outlined-white.png-9333f76640a28e5b1d74db82ecd1d491.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Addons/maaacks_menus_template/assets/input-icons/icons-outlined-white.png"
-dest_files=["res://.godot/imported/icons-outlined-white.png-d053e330dafc9b37927683be28dbfe34.ctex"]
+source_file="res://addons/maaacks_menus_template/assets/input-icons/icons-outlined-white.png"
+dest_files=["res://.godot/imported/icons-outlined-white.png-9333f76640a28e5b1d74db82ecd1d491.ctex"]
 
 [params]
 

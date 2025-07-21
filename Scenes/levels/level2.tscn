@@ -355,15 +355,16 @@ collision_mask = 9
 player_path = NodePath("../../Player")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -504.572
-offset_top = -224.0
-offset_right = 1071.43
-offset_bottom = 386.0
+offset_left = -486.552
+offset_top = -277.0
+offset_right = 1579.45
+offset_bottom = 467.0
 scale = Vector2(0.25, 0.25)
 mouse_filter = 2
 theme = ExtResource("11_k22g4")
 text = "Good Luck!  
-Press 2 to swap to medivial age so you can pull the box"
+Press 2 to swap to medivial age so you can pull the box
+Watch out for the Archer!"
 scroll_active = false
 
 [node name="Bridge" parent="." instance=ExtResource("17_3vhgr")]
