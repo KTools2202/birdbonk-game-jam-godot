@@ -16,7 +16,7 @@ func go_to_next_level():
 		_change_to_scene(level_list[current_level_index])
 	else:
 		print("You finished the game!")
-		_change_to_scene("res://Scenes/YouWin.tscn", "dots")
+		_change_to_scene("res://Scenes/Levels/YouWin.tscn", "dots")
 
 func restart_current_level():
 	_change_to_scene(level_list[current_level_index])

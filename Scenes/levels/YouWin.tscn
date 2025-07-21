@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq1f6aukn2lab"]
+
+[ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="1_a1kh5"]
+
+[sub_resource type="Gradient" id="Gradient_ngy7l"]
+offsets = PackedFloat32Array(0, 0.298701, 0.532468, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.263304, 0.263304, 0.263304, 1, 0.863636, 0.863636, 0.863636, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pqovp"]
+gradient = SubResource("Gradient_ngy7l")
+
+[sub_resource type="Curve" id="Curve_libd4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.42105, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ogplb"]
+curve = SubResource("Curve_libd4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1eji2"]
+lifetime_randomness = 0.15
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 74.0
+initial_velocity_min = 33.65
+initial_velocity_max = 324.62
+gravity = Vector3(0, 49, 0)
+scale_over_velocity_min = 0.6
+scale_over_velocity_max = 52.7
+color_ramp = SubResource("GradientTexture1D_pqovp")
+emission_curve = SubResource("CurveTexture_ogplb")
+hue_variation_min = -0.74
+hue_variation_max = 1.0
+
+[node name="YouWin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0889307, 0.34141, 0, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(154, 482)
+rotation = 3.13731
+scale = Vector2(1, 1)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_1eji2")
+lifetime = 1.55
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(1009, 476)
+rotation = 3.10667
+scale = Vector2(1, 1)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_1eji2")
+lifetime = 1.55
+trail_enabled = true
+
+[node name="Label" type="Label" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.0
+offset_top = 135.0
+offset_right = 136.0
+offset_bottom = 180.0
+grow_horizontal = 2
+scale = Vector2(1.72, 1.72)
+pivot_offset = Vector2(127, 0)
+theme = ExtResource("1_a1kh5")
+text = "Thank you for playing!"
+horizontal_alignment = 1
+vertical_alignment = 1

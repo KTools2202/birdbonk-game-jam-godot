@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://cturcsts1i5w8"]
+
+[ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_xsfj4"]
+[ext_resource type="LabelSettings" uid="uid://c4e5ypwhrltnu" path="res://Fonts/new_label_settings.tres" id="2_5jk6s"]
+[ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="3_vg4hs"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_xsfj4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+label_settings = ExtResource("2_5jk6s")
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_vg4hs")
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_vg4hs")
+text = "Main Menu
+"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_vg4hs")
+text = "Quit"

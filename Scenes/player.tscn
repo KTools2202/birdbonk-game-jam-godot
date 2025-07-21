@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://rfdadunm1ah4" path="res://Sprites/Industrial man.png" id="4_qx8gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awkco"]
-size = Vector2(13.382, 10.1099)
+size = Vector2(12.7737, 9.67033)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_la5fy"]
 radius = 61.3368
@@ -88,7 +88,7 @@ scale = Vector2(-0.0719655, 0.0597157)
 texture = ExtResource("4_qx8gr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.38419e-07, -10)
+position = Vector2(1.19209e-07, -10)
 scale = Vector2(5.55405, 9.1)
 shape = SubResource("RectangleShape2D_awkco")
 

@@ -13,9 +13,12 @@ func handle_input():
 		Global.weapon1 = !Global.weapon1
 		Global.weapon2 = !Global.weapon2
 	
-	if Global.stone_age and Input.is_action_pressed("Ability"):
-		launch_power_bar.visible = true
-		launch_power_bar.value = Global.launch_power
+	if Input.is_action_pressed("Ability"):
+		if Global.stone_age or Global.medieval_age == true: 
+			launch_power_bar.visible = true
+			launch_power_bar.value = Global.launch_power
+		else:
+			launch_power_bar.visible = false
 	else:
 		launch_power_bar.visible = false
 		

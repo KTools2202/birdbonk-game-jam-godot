@@ -8,7 +8,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_5fxck"]
 font = ExtResource("3_jci6h")
-font_size = 64
+font_size = 45
 
 [node name="Control" type="Control"]
 layout_direction = 1
@@ -20,13 +20,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rnkq7")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 0
-offset_left = -5.0
-offset_top = 2.0
-offset_right = 986.0
-offset_bottom = 398.0
-scale = Vector2(1.16, 1.6)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.044
+offset_right = -157.0
+offset_bottom = -253.512
+scale = Vector2(1.15478, 1.52337)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
@@ -35,7 +45,7 @@ alignment = 1
 [node name="TitleLabel2" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Prepare to embark on
- a Journey Through Time"
+ a Journey Through Time!"
 label_settings = ExtResource("2_0j2ul")
 
 [node name="StartButton2" type="Button" parent="CenterContainer/VBoxContainer"]
@@ -51,6 +61,11 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("3_ylnaj")
 text = "Settings"
 
+[node name="CreditsButton2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ylnaj")
+text = "Credits"
+
 [node name="QuitButton2" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -59,19 +74,20 @@ text = "Quit
 "
 
 [node name="Control" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 0
-offset_left = 993.0
-offset_top = 467.0
+offset_left = 1434.0
+offset_top = 875.0
 offset_right = 1615.0
 offset_bottom = 990.0
 
 [node name="SettingsPanel2" type="ColorRect" parent="Control"]
 layout_mode = 0
-offset_left = -980.0
-offset_top = -443.0
-offset_right = -940.0
-offset_bottom = -403.0
-scale = Vector2(27.5745, 14.9362)
+offset_left = -1430.0
+offset_top = -869.0
+offset_right = -1390.0
+offset_bottom = -829.0
+scale = Vector2(28.5498, 15.948)
 color = Color(0.0983578, 0.234354, 0.0888034, 0.886275)
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/SettingsPanel2"]
@@ -129,3 +145,98 @@ scale = Vector2(0.552482, 0.7759)
 stream = ExtResource("5_5xxgg")
 autoplay = true
 bus = &"Music"
+
+[node name="Credits" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1126.0
+offset_top = 605.0
+offset_right = 1166.0
+offset_bottom = 645.0
+
+[node name="SettingsPanel2" type="ColorRect" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1123.0
+offset_top = -601.0
+offset_right = -1123.0
+offset_bottom = -601.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(28.6055, 15.9643)
+color = Color(0.399185, 0.0172962, 0.105127, 0.886275)
+
+[node name="CenterContainer" type="CenterContainer" parent="Credits/SettingsPanel2"]
+layout_mode = 0
+offset_left = 0.326387
+offset_top = 0.535609
+offset_right = 597.326
+offset_bottom = 456.536
+scale = Vector2(0.0656408, 0.0862887)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/SettingsPanel2"]
+layout_mode = 1
+offset_right = 235.0
+offset_bottom = 138.0
+scale = Vector2(0.05, 0.049)
+alignment = 1
+
+[node name="volume" type="Label" parent="Credits/SettingsPanel2/VBoxContainer"]
+layout_mode = 2
+text = "Game Devs:
+"
+label_settings = SubResource("LabelSettings_5fxck")
+horizontal_alignment = 1
+
+[node name="volume2" type="Label" parent="Credits/SettingsPanel2/VBoxContainer"]
+layout_mode = 2
+text = "Zakai & Cale!
+"
+label_settings = SubResource("LabelSettings_5fxck")
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Credits/SettingsPanel2"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -5.601
+offset_right = 104.399
+offset_bottom = 137.0
+grow_horizontal = 0
+scale = Vector2(0.05, 0.05)
+alignment = 1
+
+[node name="volume4" type="Label" parent="Credits/SettingsPanel2/VBoxContainer2"]
+layout_mode = 2
+text = "Ideas:
+Zakai!
+"
+label_settings = SubResource("LabelSettings_5fxck")
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="Credits/SettingsPanel2"]
+layout_mode = 2
+offset_left = 13.9484
+offset_top = 34.1388
+offset_right = 248.948
+offset_bottom = 76.1388
+scale = Vector2(0.05, 0.05)
+theme = ExtResource("3_ylnaj")
+text = "Back"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Credits/SettingsPanel2"]
+layout_mode = 0
+offset_left = 15.3817
+offset_right = 240.382
+offset_bottom = 137.0
+scale = Vector2(0.05, 0.05)
+
+[node name="volume3" type="Label" parent="Credits/SettingsPanel2/VBoxContainer3"]
+layout_mode = 2
+text = "Music & Art:
+Cale & Rory!
+"
+label_settings = SubResource("LabelSettings_5fxck")
+horizontal_alignment = 1
