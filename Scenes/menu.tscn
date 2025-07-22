@@ -73,7 +73,6 @@ text = "Quit
 "
 
 [node name="Control" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 0
 offset_left = 1434.0
@@ -140,7 +139,6 @@ text = "Full Screen Toggle
 "
 
 [node name="Credits" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_left = 1126.0
 offset_top = 605.0

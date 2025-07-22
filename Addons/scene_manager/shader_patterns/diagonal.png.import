@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgmfhc32g6va6"
-path.s3tc="res://.godot/imported/diagonal.png-fda70de082e7ad6bc449e3580ab09c7f.s3tc.ctex"
+path.s3tc="res://.godot/imported/diagonal.png-943b04805c6023ce05a515638f9ec40c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/scene_manager/shader_patterns/diagonal.png"
-dest_files=["res://.godot/imported/diagonal.png-fda70de082e7ad6bc449e3580ab09c7f.s3tc.ctex"]
+source_file="res://Addons/scene_manager/shader_patterns/diagonal.png"
+dest_files=["res://.godot/imported/diagonal.png-943b04805c6023ce05a515638f9ec40c.s3tc.ctex"]
 
 [params]
 

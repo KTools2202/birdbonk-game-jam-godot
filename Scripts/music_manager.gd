@@ -3,30 +3,40 @@ extends Node
 @onready var menu_music: AudioStreamPlayer = $MenuMusic
 @onready var game_music: AudioStreamPlayer = $GameMusic
 
-# Fading settings
 var fade_speed := 5.0  # dB per second
 var fading_in: AudioStreamPlayer = null
 var fading_out: AudioStreamPlayer = null
 var current_track: String = ""  # "menu" or "game"
 
 func _ready():
+	# Set both volumes low at the start
 	menu_music.volume_db = -80
 	game_music.volume_db = -80
 
-	menu_music.stream_paused = false
-	game_music.stream_paused = false
+	# Set audio bus
 	menu_music.bus = "Music"
 	game_music.bus = "Music"
 
-	menu_music.loop = true
-	game_music.loop = true
+	# Pause both initially
+	menu_music.stream_paused = true
+	game_music.stream_paused = true
+
+	# Enable looping on the streams directly
+	if menu_music.stream is AudioStream:
+		var s = menu_music.stream
+		s.loop = true
+
+	if game_music.stream is AudioStream:
+		var s = game_music.stream
+		s.loop = true
 
 	set_process(false)
+
 
 func play_music_for_level(level: int):
 	var target := "menu" if level == 1 else "game"
 	if target == current_track:
-		return
+		return  # Already playing this track
 
 	if target == "menu":
 		_start_fade(menu_music, game_music)
@@ -41,6 +51,7 @@ func _start_fade(fade_in: AudioStreamPlayer, fade_out: AudioStreamPlayer):
 
 	if not fading_in.playing:
 		fading_in.volume_db = -80
+		fading_in.stream_paused = false
 		fading_in.play()
 
 	set_process(true)
@@ -54,6 +65,7 @@ func _process(delta):
 
 	if fading_out and fading_out.volume_db <= -79.9:
 		fading_out.stop()
+		fading_out.stream_paused = true
 		fading_out = null
 
 	if fading_in and fading_in.volume_db >= -0.1 and not fading_out:
