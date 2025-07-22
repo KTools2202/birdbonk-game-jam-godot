@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://m06ekr2o65c0"]
+[gd_scene load_steps=32 format=4 uid="uid://m06ekr2o65c0"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_n4dmu"]
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_qhks6"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dfg8s675drj2" path="res://Scenes/Enemy.tscn" id="11_wgefu"]
 [ext_resource type="Theme" uid="uid://dyusitc22v040" path="res://Fonts/Textfont Larger.tres" id="12_pk3rd"]
 [ext_resource type="Theme" uid="uid://u37w88ega0yh" path="res://Fonts/button font.tres" id="13_hb4rf"]
+[ext_resource type="Texture2D" uid="uid://djrf0ovg2uba8" path="res://Sprites/photo-1657598339759-fd1432d833f0.jpg" id="17_5gkmx"]
 [ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="18_0pcfj"]
 [ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="19_6vxjb"]
 
@@ -409,5 +410,10 @@ bridge = NodePath("../Bridge")
 
 [node name="Bridge" parent="." instance=ExtResource("19_6vxjb")]
 position = Vector2(632, 5)
+
+[node name="Photo-1657598339759-fd1432d833f0" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(873, -132)
+texture = ExtResource("17_5gkmx")
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

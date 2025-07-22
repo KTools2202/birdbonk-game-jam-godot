@@ -4,7 +4,7 @@ extends Node
 const CONFIG_PATH := "user://player_settings.cfg"
 
 # Settings state
-var music_volume: float = 0.5
+var music_volume: float = 1
 var sfx_volume: float = 0.5
 var fullscreen: bool = false
 

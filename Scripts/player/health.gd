@@ -1,6 +1,5 @@
 extends Node
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-
+@onready var collision_shape_2d: CollisionShape2D = %GettinghitAREA
 @export var max_health: int = 100
 var current_health: int
 

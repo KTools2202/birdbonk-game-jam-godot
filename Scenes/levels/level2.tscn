@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dfe8pcwtdhfwg"]
+[gd_scene load_steps=33 format=4 uid="uid://dfe8pcwtdhfwg"]
 
 [ext_resource type="PackedScene" uid="uid://dg6hvkdu5nkpa" path="res://Scenes/player.tscn" id="1_1ttdv"]
 [ext_resource type="Material" uid="uid://dw07lb4pr8wct" path="res://Sprites/fade_material.tres" id="2_p2pws"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Scripts/Puzzle stuff/door.gd" id="13_3i3g7"]
 [ext_resource type="PackedScene" uid="uid://dgbmrbwb36bic" path="res://Scenes/Archer.tscn" id="15_8x4se"]
 [ext_resource type="PackedScene" uid="uid://dexm1ik2tul75" path="res://Scenes/Bridge.tscn" id="17_3vhgr"]
+[ext_resource type="Texture2D" uid="uid://djrf0ovg2uba8" path="res://Sprites/photo-1657598339759-fd1432d833f0.jpg" id="18_85nux"]
 [ext_resource type="PackedScene" uid="uid://b2u7k0pgjwtxv" path="res://Scenes/pressure_plate.tscn" id="20_lgr2j"]
 
 [sub_resource type="Animation" id="Animation_agbjd"]
@@ -402,5 +403,10 @@ bridge = NodePath("../Bridge2")
 [node name="Bridge2" parent="." instance=ExtResource("17_3vhgr")]
 position = Vector2(1180.34, 23)
 scale = Vector2(1.5, 1.5)
+
+[node name="Photo-1657598339759-fd1432d833f0" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(255.289, -269)
+texture = ExtResource("18_85nux")
 
 [connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

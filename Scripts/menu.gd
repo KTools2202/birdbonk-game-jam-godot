@@ -10,18 +10,18 @@ extends Control
 @onready var main_buttons_container = $CenterContainer
 
 # --- Panels ---
-@onready var settings_panel = $Control/SettingsPanel2
+@onready var settings_panel = $SettingsPanel
 # NEW: Reference to the Credits panel, following your path structure
-@onready var credits_panel = $Credits
+@onready var credits_panel = $SettingsPanel2
 
 # --- Panel Buttons and Controls ---
-@onready var back_button = $Control/SettingsPanel2/CenterContainer/VBoxContainer/BackButton
+@onready var back_button = $SettingsPanel/CenterContainer/VBoxContainer/BackButton
 # NEW: Assuming the back button inside Credits has this path
-@onready var credits_back_button = $Credits/SettingsPanel2/BackButton
+@onready var credits_back_button = $SettingsPanel2/BackButton
 
-@onready var music_slider = $Control/SettingsPanel2/CenterContainer/VBoxContainer/MusicVolumeSlider
-@onready var sfx_slider = $Control/SettingsPanel2/CenterContainer/VBoxContainer/SFXVolumeSlider
-@onready var fullscreen_button = $Control/SettingsPanel2/CenterContainer/VBoxContainer/FullScreenToggle
+@onready var music_slider = $SettingsPanel/CenterContainer/VBoxContainer/MusicVolumeSlider
+@onready var sfx_slider = $SettingsPanel/CenterContainer/VBoxContainer/SFXVolumeSlider
+@onready var fullscreen_button = $SettingsPanel/CenterContainer/VBoxContainer/FullScreenToggle
 
 
 func _ready():

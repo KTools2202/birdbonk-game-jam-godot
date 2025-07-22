@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dehkv2skt7mkd"
+path="res://.godot/imported/Journey thru time - IntroScrn MusicFixed.ogg-340a5d869d0553c4e82bab3d7023448c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music and SFX/Journey thru time - IntroScrn MusicFixed.ogg"
+dest_files=["res://.godot/imported/Journey thru time - IntroScrn MusicFixed.ogg-340a5d869d0553c4e82bab3d7023448c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
