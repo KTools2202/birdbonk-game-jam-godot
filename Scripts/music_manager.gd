@@ -11,7 +11,7 @@ var fading_out: AudioStreamPlayer = null
 var is_menu := true
 
 var switch_timer := 0.0
-var switch_interval := 54.0  # seconds per track
+var switch_interval := 40.0  # seconds per track
 
 func _ready() -> void:
 	menu_music.volume_db = 0

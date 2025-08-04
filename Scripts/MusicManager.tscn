@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/music_manager.gd" id="1_s8rb8"]
 [ext_resource type="AudioStream" uid="uid://dehkv2skt7mkd" path="res://Music and SFX/Journey thru time - IntroScrn MusicFixed.ogg" id="2_33wda"]
-[ext_resource type="AudioStream" uid="uid://85if6s74hwss" path="res://Music and SFX/Levelsongs100bpm.ogg" id="3_agelx"]
+[ext_resource type="AudioStream" uid="uid://bd82e3gwl8qcc" path="res://Music and SFX/level001.ogg" id="3_tc074"]
 
 [node name="MusicManager" type="Node"]
 script = ExtResource("1_s8rb8")
@@ -15,5 +15,5 @@ max_polyphony = 2
 bus = &"Music"
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_agelx")
+stream = ExtResource("3_tc074")
 bus = &"Music"
