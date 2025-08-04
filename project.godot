@@ -24,10 +24,11 @@ buses/default_bus_layout="res://new_audio_bus_layout.tres"
 
 Global="*res://Scripts/Global.gd"
 LevelManager="*res://Scripts/Levelmanager.gd"
-SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SettingsManager="*res://Scripts/SettingsManager.gd"
 Pausemenu="*res://Scenes/pause_menu.tscn"
 MusicManager="*res://Scripts/MusicManager.tscn"
+SceneManagerCode="*res://addons/scene_manager/SceneManager.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
