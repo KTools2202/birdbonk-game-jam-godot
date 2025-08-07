@@ -13,6 +13,7 @@ var is_menu := true
 var switch_timer := 0.0
 var switch_interval := 40.0  # seconds per track
 
+
 func _ready() -> void:
 	menu_music.volume_db = 0
 	menu_music.play()
@@ -25,6 +26,7 @@ func _ready() -> void:
 	switch_timer = 0.0
 
 	set_process(true)
+
 
 func _process(delta: float) -> void:
 	# Update timer
@@ -51,6 +53,7 @@ func _process(delta: float) -> void:
 		else:
 			_start_fade(game_music, menu_music)
 			print("Switching to GAME")
+
 
 func _start_fade(fade_in: AudioStreamPlayer, fade_out: AudioStreamPlayer) -> void:
 	fading_in = fade_in

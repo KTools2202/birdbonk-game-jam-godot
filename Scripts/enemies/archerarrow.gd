@@ -9,8 +9,10 @@ var start_position: Vector2
 
 const COLLISION_LAYER_MASK = 1 << 11  # Same as your terrain layer
 
+
 func _ready() -> void:
 	start_position = global_position
+
 
 func _process(delta: float) -> void:
 	position += velocity * delta
@@ -21,10 +23,12 @@ func _process(delta: float) -> void:
 	if should_reset():
 		queue_free()
 
+
 func set_direction(dir: Vector2) -> void:
 	direction = dir.normalized()
 	velocity = direction * speed
 	rotation = dir.angle()
+
 
 func should_reset() -> bool:
 	var space_state = get_world_2d().direct_space_state
@@ -40,6 +44,7 @@ func should_reset() -> bool:
 		print("Arrow hit wall: ", result.collider)
 		return true
 	return false
+
 
 func _on_body_entered(body: Node2D) -> void:
 	print("Body entered:", body.name)

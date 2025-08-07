@@ -20,37 +20,41 @@ var collider
 @export var time_out = false
 @export var shaking = false
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animation_player.play("RESET")
-	
+
+
 func _process(delta: float) -> void:
 	if ray_cast_left.is_colliding() and last_direction != "left":
 		last_direction = "left"
 		print("LEFT")
-	
+
 	elif ray_cast_right.is_colliding() and last_direction != "right":
 		last_direction = "right"
 		print("RIGHT")
-		
+
 	elif not ray_cast_left.is_colliding() and not ray_cast_right.is_colliding():
 		last_direction = ""  # Reset when nothing is hit
-		
+
+
 func _physics_process(delta: float) -> void:
 	if Global.stone_age == true or Global.medieval_age == true:
 		# Implement launch mechanics as before
 		push_and_pull()
-	
-		
+
 	trail_particles.emitting = not ray_cast_down.is_colliding()
+
+
 func float_toward_player(_delta: float) -> void:
 	# Calculate direction to the player
 	var direction_to_player = (player.global_position - global_position).normalized()
 	#print ("Sliding")
 	# Set linear velocity to move toward the player
-	apply_impulse(direction_to_player * float_speed) 
-	
-	
+	apply_impulse(direction_to_player * float_speed)
+
+
 func push_and_pull():
 	if Global.EnemyinRange == true:
 		if Input.is_action_just_pressed("Ability"):
@@ -77,7 +81,7 @@ func push_and_pull():
 					launch_left()
 				if Global.medieval_age == true:
 					launch_right()
-				
+
 	else:
 		if not Global.launched:
 			animation_player.play("RESET")
@@ -88,25 +92,22 @@ func push_and_pull():
 		Global.launched = false
 		time_out = false
 
-		
 	elif Global.EnemyinRange == false && Global.launched == false:
 		animation_player.play("RESET")
-		
-		
-		
+
 	if Global.launched == true && time_out == true && ray_cast_down.is_colliding():
 		animation_player.play("RESET")
 		Global.launched = false
 		time_out = false
-	
-		
+
+
 func launch_right():
 	apply_impulse(Vector2(run_speed, jump_power) * Global.launch_power)
 
+
 func launch_left():
 	apply_impulse(Vector2(-run_speed, jump_power) * Global.launch_power)
-	
 
-	
+
 func _on_launch_timer_timeout() -> void:
 	time_out = true

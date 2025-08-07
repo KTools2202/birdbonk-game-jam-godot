@@ -32,7 +32,9 @@ func _ready():
 	# Initialize UI from settings
 	music_slider.value = SettingsManager.music_volume
 	sfx_slider.value = SettingsManager.sfx_volume
-	fullscreen_button.text = "Mode: %s" % ("Fullscreen" if SettingsManager.fullscreen else "Windowed")
+	fullscreen_button.text = (
+		"Mode: %s" % ("Fullscreen" if SettingsManager.fullscreen else "Windowed")
+	)
 
 	# Connect main menu signals
 	start_button.pressed.connect(_on_start_pressed)
@@ -40,12 +42,12 @@ func _ready():
 	quit_button.pressed.connect(_on_quit_pressed)
 	# NEW: Connect the credits button signal
 	credits_button.pressed.connect(_on_credits_pressed)
-	
+
 	# Connect panel signals
 	# Both back buttons will now use the same function to return to the menu
 	back_button.pressed.connect(_on_back_to_main_pressed)
 	credits_back_button.pressed.connect(_on_back_to_main_pressed)
-	
+
 	music_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_slider.value_changed.connect(_on_sfx_volume_changed)
 	fullscreen_button.pressed.connect(_on_fullscreen_toggled)
@@ -55,17 +57,21 @@ func _on_start_pressed():
 	print("Start Game")
 	LevelManager.go_to_next_level()
 
+
 func _on_settings_pressed():
 	main_buttons_container.visible = false
 	settings_panel.visible = true
+
 
 # NEW: Function to show the credits panel
 func _on_credits_pressed():
 	main_buttons_container.visible = false
 	credits_panel.visible = true
 
+
 func _on_quit_pressed():
 	get_tree().quit()
+
 
 # MODIFIED: A single function for all back buttons
 func _on_back_to_main_pressed():
@@ -74,12 +80,17 @@ func _on_back_to_main_pressed():
 	settings_panel.visible = false
 	credits_panel.visible = false
 
+
 func _on_music_volume_changed(value: float):
 	SettingsManager.set_music_volume(value)
+
 
 func _on_sfx_volume_changed(value: float):
 	SettingsManager.set_sfx_volume(value)
 
+
 func _on_fullscreen_toggled():
 	SettingsManager.toggle_fullscreen()
-	fullscreen_button.text = "Mode: %s" % ("Fullscreen" if SettingsManager.fullscreen else "Windowed")
+	fullscreen_button.text = (
+		"Mode: %s" % ("Fullscreen" if SettingsManager.fullscreen else "Windowed")
+	)

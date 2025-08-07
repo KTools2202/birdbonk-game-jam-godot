@@ -8,20 +8,20 @@ extends Node
 var normal_size := true
 var time_out := true
 
+
 func handle_input():
 	if Input.is_action_just_pressed("weapon_change"):
 		Global.weapon1 = !Global.weapon1
 		Global.weapon2 = !Global.weapon2
-	
+
 	if Input.is_action_pressed("Ability"):
-		if Global.stone_age or Global.medieval_age == true: 
+		if Global.stone_age or Global.medieval_age == true:
 			launch_power_bar.visible = true
 			launch_power_bar.value = Global.launch_power
 		else:
 			launch_power_bar.visible = false
 	else:
 		launch_power_bar.visible = false
-		
 
 	if Global.industrial_age and Input.is_action_just_pressed("Ability") and time_out:
 		if normal_size:
@@ -33,6 +33,7 @@ func handle_input():
 		timer.start()
 		normal_size = !normal_size
 		time_out = false
+
 
 func on_timer_timeout():
 	time_out = true

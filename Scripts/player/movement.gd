@@ -11,6 +11,7 @@ extends Node
 var jump_buffer_timer = 0.0
 var coyote_timer = 0.0
 
+
 func physics_move(player: CharacterBody2D, delta: float) -> void:
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
@@ -41,6 +42,8 @@ func physics_move(player: CharacterBody2D, delta: float) -> void:
 		else:
 			player.velocity.x = move_toward(player.velocity.x, 0, SPEED)
 	else:
-		player.velocity.x = move_toward(player.velocity.x, dir * MAX_BHOP_SPEED, AIR_CONTROL * delta)
+		player.velocity.x = move_toward(
+			player.velocity.x, dir * MAX_BHOP_SPEED, AIR_CONTROL * delta
+		)
 
 	player.move_and_slide()

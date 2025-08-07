@@ -5,6 +5,7 @@ var edited_control = null
 var meta_name = SceneManagerConstants.SINGLETON_META_NAME
 var group_name = SceneManagerConstants.SINGLETON_GROUP_NAME
 
+
 func _ready():
 	label = "Entity name"
 
@@ -19,6 +20,8 @@ func _physics_process(_delta):
 			line_edit.text = edited_control.get_meta(meta_name)
 	if edited_control:
 		pass
+
+
 #		XXX
 #		draw_red = (
 #			not edited_control.has_meta(meta_name)

@@ -17,10 +17,12 @@ var collider
 var time_out: bool = false
 var shaking: bool = false
 
+
 func _ready() -> void:
 	assert(parent_body != null, "parent_body must be assigned in inspector!")
 	launch_timer.timeout.connect(_on_launch_timer_timeout)
 	animation_player.play("RESET")
+
 
 func _physics_process(delta: float) -> void:
 	if Global.stone_age:
@@ -28,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	elif Global.medieval_age and Global.EnemyinRange:
 		if Input.is_action_pressed("Ability"):
 			float_toward_player(delta)
+
 
 func float_toward_player(delta: float) -> void:
 	var stop_distance: float = 20.0
@@ -48,8 +51,9 @@ func float_toward_player(delta: float) -> void:
 		parent_body.gravity_scale = 1.0
 		parent_body.linear_velocity = Vector2.ZERO
 
+
 func handle_stone_age():
-	if parent_body.is_in_zone: 
+	if parent_body.is_in_zone:
 		if Input.is_action_just_pressed("Ability"):
 			Global.launch_power = 0
 			animation_player.play("Enemy Shake")
@@ -76,11 +80,14 @@ func handle_stone_age():
 		Global.launched = false
 		time_out = false
 
+
 func scared_right():
 	parent_body.apply_impulse(Vector2(run_speed, jump_power) * Global.launch_power)
 
+
 func scared_left():
 	parent_body.apply_impulse(Vector2(-run_speed, jump_power) * Global.launch_power)
+
 
 func _on_launch_timer_timeout() -> void:
 	time_out = true

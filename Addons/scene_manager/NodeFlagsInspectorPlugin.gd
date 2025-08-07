@@ -1,7 +1,7 @@
 extends EditorInspectorPlugin
 
-var SingletonCheckProperty = load('res://addons/scene_manager/SingletonCheckProperty.gd')
-var SingletonNameProperty = load('res://addons/scene_manager/SingletonNameProperty.gd')
+var SingletonCheckProperty = load("res://addons/scene_manager/SingletonCheckProperty.gd")
+var SingletonNameProperty = load("res://addons/scene_manager/SingletonNameProperty.gd")
 
 
 func _can_handle(object: Object) -> bool:

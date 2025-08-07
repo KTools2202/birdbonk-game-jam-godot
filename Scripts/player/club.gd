@@ -8,8 +8,10 @@ const SWING_DURATION = 0.5
 var flipped = false
 var default_x_offset = -55
 
+
 func _ready() -> void:
 	pass
+
 
 func _process(delta: float) -> void:
 	if Global.weapon2 == true and Global.stone_age == true:

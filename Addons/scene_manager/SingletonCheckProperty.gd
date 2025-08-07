@@ -4,6 +4,7 @@ var checkbox := CheckBox.new()
 var edited_control = null
 var group_name = SceneManagerConstants.SINGLETON_GROUP_NAME
 
+
 func _ready():
 	edited_control = get_edited_object()
 
@@ -29,4 +30,4 @@ func _on_checkbox_checked(is_checked):
 		var index = new_groups.find(group_name)
 		new_groups.remove(index)
 		edited_control.remove_from_group(group_name)
-	emit_changed('groups', new_groups)
+	emit_changed("groups", new_groups)
