@@ -15,7 +15,7 @@ extends Node2D
 #		animation_player.play("Close")
 #		open = false
 
-	# Check for restart input (Tab key)
+# Check for restart input (Tab key)
 #	if Input.is_action_just_pressed("Restart"):
 #		print("Restart pressed!")
 #		_reset()

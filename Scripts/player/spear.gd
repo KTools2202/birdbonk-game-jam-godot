@@ -3,7 +3,6 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hit_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
-
 var is_holding = false
 var speed = 500  # Speed for aiming and flight
 var flying = false
@@ -13,7 +12,8 @@ var throw_dir = Vector2.ZERO
 var held_mouse_position = Vector2.ZERO
 var thrown_position = Vector2.ZERO
 
-const COLLISION_LAYER_MASK = 1 << 11  
+const COLLISION_LAYER_MASK = 1 << 11
+
 
 func _ready() -> void:
 	position = Vector2(0, defaultPos)
@@ -22,6 +22,7 @@ func _ready() -> void:
 	hit_sound.volume_db = 0  # full volume, adjust as needed
 	hit_sound.attenuation = 1.5
 	hit_sound.max_distance = 800
+
 
 func _physics_process(_delta: float) -> void:
 	# Show/hide spear based on global state
@@ -49,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 		thrown_position += throw_dir * speed * _delta
 		global_position = thrown_position
 		rotation = throw_dir.angle()
-	
+
 	# Only runs in weapon 1 is equipped
 	if Global.weapon1 == true:
 		if should_reset():
@@ -68,8 +69,10 @@ func _physics_process(_delta: float) -> void:
 		reset_spear()
 		queue_redraw()
 
+
 func get_global_y_lock() -> float:
 	return get_parent().global_position.y + yPos
+
 
 func reset_spear():
 	position = Vector2(0, defaultPos)
@@ -78,6 +81,7 @@ func reset_spear():
 	is_holding = false
 	thrown_position = global_position
 	queue_redraw()
+
 
 func should_reset() -> bool:
 	var space_state = get_world_2d().direct_space_state
@@ -93,6 +97,7 @@ func should_reset() -> bool:
 		print("Hit: ", result.collider)
 		return true
 	return false
+
 
 func _draw():
 	if is_holding and not flying:

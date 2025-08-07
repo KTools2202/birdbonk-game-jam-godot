@@ -7,9 +7,10 @@ signal health_changed(current: int, max: int)
 signal died
 signal hit(damage_amount: int)
 
+
 func _ready() -> void:
 	current_health = max_health
-	
+
 
 func take_damage(amount: int) -> void:
 	if current_health <= 0:
@@ -28,12 +29,14 @@ func take_damage(amount: int) -> void:
 	if current_health == 0:
 		die()
 
+
 func heal(amount: int) -> void:
 	if current_health >= 0:
 		return
 
 	current_health = min(current_health + amount, max_health)
 	emit_signal("health_changed", current_health, max_health)
+
 
 func die() -> void:
 	emit_signal("died")

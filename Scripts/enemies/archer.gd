@@ -11,6 +11,7 @@ extends RigidBody2D
 @onready var player = get_node(player_path)
 var is_in_zone = false
 
+
 func _ready():
 	shoot_timer.wait_time = 2.0
 	shoot_timer.start()
@@ -18,6 +19,7 @@ func _ready():
 
 	# Use full control of movement
 	custom_integrator = true
+
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if not player:
@@ -46,6 +48,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	state.linear_velocity = lv
 
+
 func _on_shoot_timer_timeout():
 	if not player or not is_instance_valid(player):
 		return
@@ -62,6 +65,7 @@ func _on_shoot_timer_timeout():
 func _on_area_2d_body_entered(body):
 	if body == self:
 		is_in_zone = true
+
 
 func _on_area_2d_body_exited(body):
 	if body == self:

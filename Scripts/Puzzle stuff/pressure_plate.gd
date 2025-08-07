@@ -16,13 +16,16 @@ extends Node2D
 var bridge_node: Node = null
 var body_count: int = 0  # Track how many valid bodies are on the plate
 
+
 func _ready() -> void:
 	if bridge != null:
 		bridge_node = get_node(bridge)
 
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Restart"):
 		_reset_plate()
+
 
 func _on_area_2d_body_entered(body) -> void:
 	if not body.is_in_group("player") and not body.is_in_group("enemy"):
@@ -45,6 +48,7 @@ func _on_area_2d_body_entered(body) -> void:
 		if Global.lvl == 1:
 			Global.HatchOpen1 = true
 
+
 func _on_area_2d_body_exited(body) -> void:
 	if lock_on_activate:
 		return
@@ -62,6 +66,7 @@ func _on_area_2d_body_exited(body) -> void:
 		if bridge_node != null and bridge_node.has_node("AnimationPlayer"):
 			var bridge_anim = bridge_node.get_node("AnimationPlayer")
 			bridge_anim.play_backwards(bridge_deactivate_anim)
+
 
 func _reset_plate() -> void:
 	if plate_down:

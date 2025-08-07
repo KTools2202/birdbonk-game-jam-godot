@@ -1,8 +1,6 @@
 extends Node2D
 
-
 @onready var animation_player_2: AnimationPlayer = $AnimationPlayer2
-
 
 
 # Called when the node enters the scene tree for the first time.
